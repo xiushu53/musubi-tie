@@ -7,11 +7,11 @@ interface Props {
 
 export default function VoronoiLayer({ data }: Props) {
   return (
-    <LayersControl.BaseLayer name="ボロノイ領域">
+    <LayersControl.Overlay name="ボロノイ領域">
       <GeoJSON
         data={data}
         style={{ color: 'purple', weight: 2, fillOpacity: 0.1 }}
       />
-    </LayersControl.BaseLayer>
+    </LayersControl.Overlay>
   );
 }

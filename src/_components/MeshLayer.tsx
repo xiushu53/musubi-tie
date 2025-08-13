@@ -41,7 +41,7 @@ const meshStyle = (feature?: Feature) => {
 
 export default function MeshLayer({ data }: Props) {
   return (
-    <LayersControl.BaseLayer checked name="アクセス距離 (250mメッシュ)">
+    <LayersControl.Overlay checked name="アクセス距離 (250mメッシュ)">
       <GeoJSON
         data={data}
         style={meshStyle}
@@ -53,6 +53,6 @@ export default function MeshLayer({ data }: Props) {
           }
         }}
       />
-    </LayersControl.BaseLayer>
+    </LayersControl.Overlay>
   );
 }
