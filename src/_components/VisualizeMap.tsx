@@ -1,10 +1,10 @@
-'use client'; // このコンポーネントがクライアントサイドで実行されることを示す
+'use client';
 
+import React, { useState, useEffect } from 'react';
 import {
   MapContainer,
   TileLayer,
   GeoJSON,
-  Rectangle,
   LayerGroup,
   LayersControl,
   CircleMarker,
@@ -13,94 +13,25 @@ import {
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Leafletのデフォルトアイコン問題を修正
-// ★★★ ここを修正: (as any) を追加してTypeScriptエラーを回避 ★★★
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+// --- 型定義 ---
+interface Facility {
+  id: number;
+  name: string;
+  address: string;
+  lat: number;
+  lon: number;
+}
+// GeoJSONの型は複雑なため、ここでは any を使用します
+type GeoJsonData = any;
 
+// Leafletのデフォルトアイコン問題を修正
+delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
     'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
-
-// --- データシミュレーション (プロトタイプ用) ---
-// 本来はAPIや外部ファイルから取得します
-const facilityData = [
-  {
-    id: 1,
-    lat: 35.708,
-    lon: 139.664,
-    name: '放課後等デイサービスA',
-    address: '中野区中野５丁目',
-  },
-  {
-    id: 2,
-    lat: 35.7,
-    lon: 139.69,
-    name: '放課後等デイサービスB',
-    address: '新宿区西新宿２丁目',
-  },
-];
-const meshData = [
-  {
-    bounds: [
-      [35.68, 139.55],
-      [35.6825, 139.5525],
-    ],
-    color: '#FF0000',
-    distance: 2500,
-  },
-  {
-    bounds: [
-      [35.69, 139.75],
-      [35.6925, 139.7525],
-    ],
-    color: '#0000FF',
-    distance: 150,
-  },
-];
-const voronoiData = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [139.6, 35.75],
-            [139.7, 35.75],
-            [139.7, 35.65],
-            [139.6, 35.65],
-            [139.6, 35.75],
-          ],
-        ],
-      },
-    },
-  ],
-};
-const municipalitiesData = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      properties: { ward_ja: '中野区' },
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [139.64, 35.73],
-            [139.69, 35.73],
-            [139.69, 35.68],
-            [139.64, 35.68],
-            [139.64, 35.73],
-          ],
-        ],
-      },
-    },
-  ],
-};
 
 // カラーバーコンポーネント
 const Colorbar = () => {
@@ -128,11 +59,86 @@ const Colorbar = () => {
 export default function VisualizeMap() {
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
 
+  // --- データの状態管理 ---
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [meshData, setMeshData] = useState<GeoJsonData>(null);
+  const [voronoiData, setVoronoiData] = useState<GeoJsonData>(null);
+  const [municipalitiesData, setMunicipalitiesData] =
+    useState<GeoJsonData>(null);
+  const [loading, setLoading] = useState(true);
+
+  // --- データ取得処理 ---
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [facRes, meshRes, vorRes, munRes] = await Promise.all([
+          fetch('/facilities.json'),
+          fetch('/mesh.geojson'),
+          fetch('/voronoi.geojson'),
+          fetch('/municipalities.geojson'),
+        ]);
+
+        setFacilities(await facRes.json());
+        setMeshData(await meshRes.json());
+        setVoronoiData(await vorRes.json());
+        setMunicipalitiesData(await munRes.json());
+      } catch (error) {
+        console.error('データの読み込みに失敗しました:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // --- メッシュタイルの色付け関数 ---
+  const getMeshColor = (distance: number) => {
+    const max = 2000;
+    const min = 0;
+    const d = Math.max(min, Math.min(distance, max));
+    const ratio = (d - min) / (max - min);
+
+    if (ratio < 0.5) {
+      // 青 -> 黄
+      const r = Math.floor(255 * (ratio * 2));
+      const g = Math.floor(255 * (ratio * 2));
+      const b = Math.floor(255 * (1 - ratio * 2));
+      return `rgb(${r},${g},${b})`;
+    } else {
+      // 黄 -> 赤
+      const r = 255;
+      const g = Math.floor(255 * (1 - (ratio - 0.5) * 2));
+      const b = 0;
+      return `rgb(${r},${g},${b})`;
+    }
+  };
+
+  const meshStyle = (feature?: any) => {
+    if (!feature) return {};
+    const color = getMeshColor(feature.properties.distance_m);
+    return {
+      fillColor: color,
+      color: color,
+      weight: 0,
+      fillOpacity: 0.6,
+    };
+  };
+
+  if (loading) {
+    return (
+      <p className="flex h-full items-center justify-center">
+        地図データを読み込んでいます...
+      </p>
+    );
+  }
+
   return (
     <div className="relative h-full w-full">
       <MapContainer
         center={position}
-        zoom={11}
+        zoom={10}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer
@@ -141,59 +147,60 @@ export default function VisualizeMap() {
         />
 
         <LayersControl position="topright">
-          <LayersControl.Overlay checked name="市区町村 境界線">
-            <GeoJSON
-              data={municipalitiesData as any}
-              style={{
-                color: 'black',
-                weight: 1,
-                dashArray: '5, 5',
-                fillOpacity: 0.0,
-              }}
-              onEachFeature={(feature, layer) => {
-                if (feature.properties && feature.properties.ward_ja) {
-                  layer.bindPopup(feature.properties.ward_ja);
-                }
-              }}
-            />
-          </LayersControl.Overlay>
+          {municipalitiesData && (
+            <LayersControl.Overlay checked name="市区町村 境界線">
+              <GeoJSON
+                data={municipalitiesData}
+                style={{
+                  color: 'black',
+                  weight: 1,
+                  dashArray: '5, 5',
+                  fillOpacity: 0.0,
+                }}
+                onEachFeature={(feature, layer) => {
+                  if (feature.properties && feature.properties.ward_ja) {
+                    layer.bindPopup(feature.properties.ward_ja);
+                  }
+                }}
+              />
+            </LayersControl.Overlay>
+          )}
 
-          <LayersControl.BaseLayer checked name="アクセス距離 (250mメッシュ)">
-            <LayerGroup>
-              {meshData.map((tile, index) => (
-                <Rectangle
-                  key={index}
-                  bounds={tile.bounds as L.LatLngBoundsExpression}
-                  pathOptions={{
-                    color: tile.color,
-                    fillColor: tile.color,
-                    fillOpacity: 0.6,
-                    weight: 0,
-                  }}
-                >
-                  <Popup>最近傍施設までの距離: {tile.distance}m</Popup>
-                </Rectangle>
-              ))}
-            </LayerGroup>
-          </LayersControl.BaseLayer>
+          {meshData && (
+            <LayersControl.BaseLayer checked name="アクセス距離 (250mメッシュ)">
+              <GeoJSON
+                data={meshData}
+                style={meshStyle}
+                onEachFeature={(feature, layer) => {
+                  if (feature.properties && feature.properties.distance_m) {
+                    layer.bindPopup(
+                      `最近傍施設までの距離: ${Math.round(feature.properties.distance_m)}m`
+                    );
+                  }
+                }}
+              />
+            </LayersControl.BaseLayer>
+          )}
 
-          <LayersControl.BaseLayer name="ボロノイ領域">
-            <GeoJSON
-              data={voronoiData as any}
-              style={{ color: 'purple', weight: 2, fillOpacity: 0.1 }}
-            />
-          </LayersControl.BaseLayer>
+          {voronoiData && (
+            <LayersControl.BaseLayer name="ボロノイ領域">
+              <GeoJSON
+                data={voronoiData}
+                style={{ color: 'purple', weight: 2, fillOpacity: 0.1 }}
+              />
+            </LayersControl.BaseLayer>
+          )}
 
           <LayersControl.Overlay checked name="施設マーカー">
             <LayerGroup>
-              {facilityData.map((facility) => (
+              {facilities.map((facility) => (
                 <CircleMarker
                   key={facility.id}
                   center={[facility.lat, facility.lon]}
-                  radius={5}
+                  radius={2}
                   pathOptions={{
                     color: 'white',
-                    weight: 1,
+                    weight: 0.5,
                     fillColor: '#3A3A3A',
                     fillOpacity: 1.0,
                   }}
