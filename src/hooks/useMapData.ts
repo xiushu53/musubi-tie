@@ -32,7 +32,7 @@ export function useMapData(facilityType: string) {
     };
 
     fetchData();
-  }, []);
+  }, [facilityType]);
 
   return { facilities, meshData, voronoiData, municipalitiesData, loading };
 }

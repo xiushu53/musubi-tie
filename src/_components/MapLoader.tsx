@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
-export default function MapLoader() {
+export default function MapLoader({ facilityType }: { facilityType: string }) {
   // useMemoを使って、VisualizeMapコンポーネントの動的インポートが再レンダリングのたびに再生成されるのを防ぎます。
   const VisualizeMap = useMemo(
     () =>
@@ -18,5 +18,5 @@ export default function MapLoader() {
     []
   );
 
-  return <VisualizeMap />;
+  return <VisualizeMap facilityType={facilityType} />;
 }

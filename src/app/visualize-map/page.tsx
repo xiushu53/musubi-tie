@@ -1,9 +1,7 @@
-import MapLoader from '@/_components/MapLoader';
+import FacilitySelectorClient from '@/_components/FacilitySelectorClient';
 
 export default function VisualizeMapPage() {
   return (
-    <div className="h-screen w-screen">
-      <MapLoader />
-    </div>
+    <FacilitySelectorClient />
   );
 }

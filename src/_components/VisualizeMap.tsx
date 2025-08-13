@@ -13,10 +13,10 @@ import FacilitiesLayer from './FacilitiesLayer';
 
 fixLeafletIcon();
 
-export default function VisualizeMap() {
+export default function VisualizeMap({ facilityType }: { facilityType: string }) {
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
-    useMapData("asds");
+    useMapData(facilityType);
 
   if (loading) {
     return (
