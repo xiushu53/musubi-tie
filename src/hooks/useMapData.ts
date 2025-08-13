@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Facility, GeoJsonData } from '@/types';
 
-export function useMapData() {
+export function useMapData(facilityType: string) {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [meshData, setMeshData] = useState<GeoJsonData>(null);
   const [voronoiData, setVoronoiData] = useState<GeoJsonData>(null);
@@ -14,9 +14,9 @@ export function useMapData() {
       try {
         setLoading(true);
         const [facRes, meshRes, vorRes, munRes] = await Promise.all([
-          fetch('/facilities.json'),
-          fetch('/mesh.geojson'),
-          fetch('/voronoi.geojson'),
+          fetch(`/${facilityType}/facilities.json`),
+          fetch(`/${facilityType}/mesh.geojson`),
+          fetch(`/${facilityType}/voronoi.geojson`),
           fetch('/municipalities.geojson'),
         ]);
 

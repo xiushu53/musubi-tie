@@ -16,7 +16,7 @@ fixLeafletIcon();
 export default function VisualizeMap() {
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
-    useMapData();
+    useMapData("asds");
 
   if (loading) {
     return (
