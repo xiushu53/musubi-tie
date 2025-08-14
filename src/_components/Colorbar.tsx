@@ -1,4 +1,8 @@
-const Colorbar = () => {
+interface Props {
+  maxDistance: number;
+}
+
+const Colorbar = ({ maxDistance }: Props) => {
   const gradient = "linear-gradient(to right, blue, yellow, red)";
   return (
     <div className="leaflet-bottom leaflet-right mb-4">
@@ -8,8 +12,8 @@ const Colorbar = () => {
         ></div>
         <div className="flex justify-between text-xs text-gray-700">
           <span>0m</span>
-          <span>1000m</span>
-          <span>&ge;2000m</span>
+          <span>{maxDistance / 2}m</span>
+          <span>&ge;{maxDistance}m</span>
         </div>
         <p className="mt-1 text-center text-xs font-semibold">
           最近傍施設までの距離

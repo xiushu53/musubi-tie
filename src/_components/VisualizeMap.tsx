@@ -17,8 +17,10 @@ fixLeafletIcon();
 
 export default function VisualizeMap({
   facilityType,
+  maxDistance,
 }: {
   facilityType: string;
+  maxDistance: number;
 }) {
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
@@ -58,12 +60,14 @@ export default function VisualizeMap({
           {municipalitiesData && (
             <MunicipalitiesLayer data={municipalitiesData} />
           )}
-          {meshData && <MeshLayer data={meshData} />}
-          {voronoiData && <VoronoiLayer data={voronoiData} />}
+          {meshData && <MeshLayer data={meshData} maxDistance={maxDistance} />}
+          {voronoiData && (
+            <VoronoiLayer data={voronoiData} maxDistance={maxDistance} />
+          )}
           {facilities.length > 0 && <FacilitiesLayer data={facilities} />}
         </LayersControl>
       </MapContainer>
-      <Colorbar />
+      <Colorbar maxDistance={maxDistance} />
     </div>
   );
 }

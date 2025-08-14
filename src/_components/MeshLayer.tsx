@@ -3,10 +3,11 @@ import type { GeoJsonData } from "@/types";
 
 interface Props {
   data: GeoJsonData;
+  maxDistance: number;
 }
 
-const getMeshColor = (distance: number) => {
-  const max = 2000;
+const getMeshColor = (distance: number, maxDistance: number) => {
+  const max = maxDistance;
   const min = 0;
   const d = Math.max(min, Math.min(distance, max));
   const ratio = (d - min) / (max - min);
@@ -28,9 +29,9 @@ const getMeshColor = (distance: number) => {
 
 import type { Feature } from "geojson";
 
-const meshStyle = (feature?: Feature) => {
-  if (!feature || !feature.properties) return {};
-  const color = getMeshColor(feature.properties.distance_m);
+const meshStyle = (feature?: Feature, maxDistance?: number) => {
+  if (!feature || !feature.properties || maxDistance === undefined) return {};
+  const color = getMeshColor(feature.properties.distance_m, maxDistance);
   return {
     fillColor: color,
     color: color,
@@ -39,12 +40,12 @@ const meshStyle = (feature?: Feature) => {
   };
 };
 
-export default function MeshLayer({ data }: Props) {
+export default function MeshLayer({ data, maxDistance }: Props) {
   return (
     <LayersControl.Overlay checked name="アクセス距離 (250mメッシュ)">
       <GeoJSON
         data={data}
-        style={meshStyle}
+        style={(feature) => meshStyle(feature, maxDistance)}
         onEachFeature={(feature, layer) => {
           if (feature.properties?.distance_m) {
             layer.bindPopup(

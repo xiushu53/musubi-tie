@@ -9,14 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/_components/ui/select";
+import { Slider } from "@/_components/ui/slider";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
 
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
+  const [maxDistance, setMaxDistance] = useState(2000);
 
   return (
     <div className="flex h-screen w-screen flex-col">
-      <div className="relative z-10 bg-gray-100 p-4">
+      <div className="relative z-10 grid gap-4 bg-gray-100 p-4">
         <div className="flex items-center">
           <label htmlFor="facility-select" className="mr-2">
             施設タイプを選択:
@@ -37,9 +39,27 @@ export default function FacilitySelectorClient() {
             </SelectContent>
           </Select>
         </div>
+        <div className="flex items-center">
+          <label htmlFor="distance-slider" className="mr-2 shrink-0">
+            最大距離:
+          </label>
+          <Slider
+            id="distance-slider"
+            min={1000}
+            max={5000}
+            step={100}
+            defaultValue={[maxDistance]}
+            onValueChange={(value) => setMaxDistance(value[0])}
+            className="w-64"
+          />
+          <span className="ml-4 w-24 text-right">{maxDistance}m</span>
+        </div>
       </div>
       <div className="flex-grow">
-        <MapLoader facilityType={selectedFacilityType} />
+        <MapLoader
+          facilityType={selectedFacilityType}
+          maxDistance={maxDistance}
+        />
       </div>
     </div>
   );
