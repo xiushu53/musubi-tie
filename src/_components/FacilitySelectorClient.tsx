@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/_components/ui/select";
+import { FACILITY_TYPES } from "@/_settings/visualize-map";
 
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
@@ -28,11 +29,11 @@ export default function FacilitySelectorClient() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="z-[400]">
-              <SelectItem value="asds">放課後等デイサービス</SelectItem>
-              <SelectItem value="sept-a">就労継続支援A</SelectItem>
-              <SelectItem value="sept-b">就労継続支援B</SelectItem>
-              <SelectItem value="pco">計画相談事業所</SelectItem>
-              <SelectItem value="ccd">障害児相談支援事業所</SelectItem>
+              {FACILITY_TYPES.map((type) => (
+                <SelectItem value={type.value} key={type.value}>
+                  {type.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
