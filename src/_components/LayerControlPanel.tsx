@@ -29,7 +29,7 @@ export default function LayerControlPanel({
   layerVisibility,
   onLayerToggle,
 }: LayerControlPanelProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = (layerName: keyof typeof layerVisibility) => {
     onLayerToggle((prev) => ({
