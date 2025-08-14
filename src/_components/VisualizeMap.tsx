@@ -47,6 +47,7 @@ export default function VisualizeMap({
         center={position}
         zoom={10}
         style={{ height: "100%", width: "100%" }}
+        whenReady={() => {}}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
