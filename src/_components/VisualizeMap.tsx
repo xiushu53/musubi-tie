@@ -3,6 +3,8 @@
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type L from "leaflet";
+import { useEffect, useState } from "react";
+import { Progress } from "@/_components/ui/progress";
 import { useMapData } from "@/hooks/useMapData";
 import { fixLeafletIcon } from "@/utils/leaflet";
 import Colorbar from "./Colorbar";
@@ -21,12 +23,21 @@ export default function VisualizeMap({
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
     useMapData(facilityType);
+  const [progress, setProgress] = useState(13);
+
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => setProgress(66), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   if (loading) {
     return (
-      <p className="flex h-full items-center justify-center">
-        地図データを読み込んでいます...
-      </p>
+      <div className="flex h-full w-full flex-col items-center justify-center">
+        <p className="mb-4">地図データを読み込んでいます...</p>
+        <Progress value={progress} className="w-[60%]" />
+      </div>
     );
   }
 
