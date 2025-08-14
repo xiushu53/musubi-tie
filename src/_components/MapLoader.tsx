@@ -10,10 +10,10 @@ export default function MapLoader({
   facilityType: string;
   maxDistance: number;
 }) {
-  // useMemoを使って、VisualizeMapコンポーネントの動的インポートが再レンダリングのたびに再生成されるのを防ぎます。
-  const VisualizeMap = useMemo(
+  // DeckGL版のVisualizeDeckGLMapコンポーネントを動的にインポート
+  const VisualizeDeckGLMap = useMemo(
     () =>
-      dynamic(() => import("@/_components/VisualizeMap"), {
+      dynamic(() => import("@/_components/VisualizeDeckGLMap"), {
         loading: () => (
           <p className="flex h-full items-center justify-center">
             地図を読み込んでいます...
@@ -24,5 +24,7 @@ export default function MapLoader({
     []
   );
 
-  return <VisualizeMap facilityType={facilityType} maxDistance={maxDistance} />;
+  return (
+    <VisualizeDeckGLMap facilityType={facilityType} maxDistance={maxDistance} />
+  );
 }
