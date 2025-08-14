@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MapLoader from "@/_components/MapLoader";
 import {
   Select,
@@ -16,6 +16,17 @@ import { convertDistanceUnit } from "@/utils/convertDistansUnit";
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
   const [maxDistance, setMaxDistance] = useState(COLORBAR_SETTINGS.default);
+  const [debouncedMaxDistance, setDebouncedMaxDistance] = useState(maxDistance);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedMaxDistance(maxDistance);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [maxDistance]);
 
   return (
     <div className="flex h-screen w-screen flex-col">
@@ -61,7 +72,7 @@ export default function FacilitySelectorClient() {
       <div className="flex-grow">
         <MapLoader
           facilityType={selectedFacilityType}
-          maxDistance={maxDistance}
+          maxDistance={debouncedMaxDistance}
         />
       </div>
     </div>
