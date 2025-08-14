@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Facility, GeoJsonData } from '@/types';
+import { useEffect, useState } from "react";
+import type { Facility, GeoJsonData } from "@/types";
 
 export function useMapData(facilityType: string) {
   const [facilities, setFacilities] = useState<Facility[]>([]);
@@ -17,7 +17,7 @@ export function useMapData(facilityType: string) {
           fetch(`/${facilityType}/facilities.json`),
           fetch(`/${facilityType}/mesh.geojson`),
           fetch(`/${facilityType}/voronoi.geojson`),
-          fetch('/municipalities.geojson'),
+          fetch("/municipalities.geojson"),
         ]);
 
         setFacilities(await facRes.json());
@@ -25,7 +25,7 @@ export function useMapData(facilityType: string) {
         setVoronoiData(await vorRes.json());
         setMunicipalitiesData(await munRes.json());
       } catch (error) {
-        console.error('データの読み込みに失敗しました:', error);
+        console.error("データの読み込みに失敗しました:", error);
       } finally {
         setLoading(false);
       }

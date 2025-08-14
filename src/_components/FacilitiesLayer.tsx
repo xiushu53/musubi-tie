@@ -1,5 +1,5 @@
-import { LayerGroup, LayersControl, CircleMarker, Popup } from 'react-leaflet';
-import { Facility } from '@/types';
+import { CircleMarker, LayerGroup, LayersControl, Popup } from "react-leaflet";
+import type { Facility } from "@/types";
 
 interface Props {
   data: Facility[];
@@ -15,9 +15,9 @@ export default function FacilitiesLayer({ data }: Props) {
             center={[facility.lat, facility.lon]}
             radius={2}
             pathOptions={{
-              color: 'white',
+              color: "white",
               weight: 0.5,
-              fillColor: '#3A3A3A',
+              fillColor: "#3A3A3A",
               fillOpacity: 1.0,
             }}
           >

@@ -1,4 +1,4 @@
-import { FeatureCollection } from 'geojson';
+import type { FeatureCollection } from "geojson";
 
 // GeoJSONの型は複雑なため、ここでは any を使用します
 export type GeoJsonData = FeatureCollection | null;

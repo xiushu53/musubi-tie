@@ -1,5 +1,5 @@
-import { GeoJSON, LayersControl } from 'react-leaflet';
-import { GeoJsonData } from '@/types';
+import { GeoJSON, LayersControl } from "react-leaflet";
+import type { GeoJsonData } from "@/types";
 
 interface Props {
   data: GeoJsonData;
@@ -26,7 +26,7 @@ const getMeshColor = (distance: number) => {
   }
 };
 
-import { Feature } from 'geojson';
+import type { Feature } from "geojson";
 
 const meshStyle = (feature?: Feature) => {
   if (!feature || !feature.properties) return {};
@@ -46,7 +46,7 @@ export default function MeshLayer({ data }: Props) {
         data={data}
         style={meshStyle}
         onEachFeature={(feature, layer) => {
-          if (feature.properties && feature.properties.distance_m) {
+          if (feature.properties?.distance_m) {
             layer.bindPopup(
               `最近傍施設までの距離: ${Math.round(feature.properties.distance_m)}m`
             );

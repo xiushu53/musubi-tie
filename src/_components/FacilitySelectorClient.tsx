@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import MapLoader from '@/_components/MapLoader';
+import { useState } from "react";
+import MapLoader from "@/_components/MapLoader";
 
 export default function FacilitySelectorClient() {
-  const [selectedFacilityType, setSelectedFacilityType] = useState('asds');
+  const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
 
   const handleFacilityChange = (
     event: React.ChangeEvent<HTMLSelectElement>

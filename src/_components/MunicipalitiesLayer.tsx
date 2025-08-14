@@ -1,5 +1,5 @@
-import { GeoJSON, LayersControl } from 'react-leaflet';
-import { GeoJsonData } from '@/types';
+import { GeoJSON, LayersControl } from "react-leaflet";
+import type { GeoJsonData } from "@/types";
 
 interface Props {
   data: GeoJsonData;
@@ -11,13 +11,13 @@ export default function MunicipalitiesLayer({ data }: Props) {
       <GeoJSON
         data={data}
         style={{
-          color: 'black',
+          color: "black",
           weight: 1,
-          dashArray: '5, 5',
+          dashArray: "5, 5",
           fillOpacity: 0.0,
         }}
         onEachFeature={(feature, layer) => {
-          if (feature.properties && feature.properties.ward_ja) {
+          if (feature.properties?.ward_ja) {
             layer.bindPopup(feature.properties.ward_ja);
           }
         }}

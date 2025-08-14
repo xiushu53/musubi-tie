@@ -1,19 +1,23 @@
-'use client';
+"use client";
 
-import { MapContainer, TileLayer, LayersControl } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import { useMapData } from '@/hooks/useMapData';
-import { fixLeafletIcon } from '@/utils/leaflet';
-import Colorbar from './Colorbar';
-import MunicipalitiesLayer from './MunicipalitiesLayer';
-import MeshLayer from './MeshLayer';
-import VoronoiLayer from './VoronoiLayer';
-import FacilitiesLayer from './FacilitiesLayer';
+import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import type L from "leaflet";
+import { useMapData } from "@/hooks/useMapData";
+import { fixLeafletIcon } from "@/utils/leaflet";
+import Colorbar from "./Colorbar";
+import FacilitiesLayer from "./FacilitiesLayer";
+import MeshLayer from "./MeshLayer";
+import MunicipalitiesLayer from "./MunicipalitiesLayer";
+import VoronoiLayer from "./VoronoiLayer";
 
 fixLeafletIcon();
 
-export default function VisualizeMap({ facilityType }: { facilityType: string }) {
+export default function VisualizeMap({
+  facilityType,
+}: {
+  facilityType: string;
+}) {
   const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
     useMapData(facilityType);
@@ -31,7 +35,7 @@ export default function VisualizeMap({ facilityType }: { facilityType: string })
       <MapContainer
         center={position}
         zoom={10}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
