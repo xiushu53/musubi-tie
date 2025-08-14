@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import type L from "leaflet";
 import { useEffect, useState } from "react";
 import { Progress } from "@/_components/ui/progress";
+import { MAP_SETTINGS } from "@/_settings/visualize-map";
 import { useMapData } from "@/hooks/useMapData";
 import { fixLeafletIcon } from "@/utils/leaflet";
 import Colorbar from "./Colorbar";
@@ -22,7 +23,7 @@ export default function VisualizeMap({
   facilityType: string;
   maxDistance: number;
 }) {
-  const position: L.LatLngExpression = [35.6895, 139.6917]; // 東京都庁
+  const position: L.LatLngExpression = MAP_SETTINGS.center;
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
     useMapData(facilityType);
   const [progress, setProgress] = useState(13);
@@ -47,7 +48,7 @@ export default function VisualizeMap({
     <div className="relative h-full w-full">
       <MapContainer
         center={position}
-        zoom={10}
+        zoom={MAP_SETTINGS.zoom}
         style={{ height: "100%", width: "100%" }}
         whenReady={() => {}}
       >

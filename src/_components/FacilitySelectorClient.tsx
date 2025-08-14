@@ -11,6 +11,7 @@ import {
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
 import { COLORBAR_SETTINGS, FACILITY_TYPES } from "@/_settings/visualize-map";
+import { convertDistanceUnit } from "@/utils/convertDistansUnit";
 
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
@@ -52,7 +53,9 @@ export default function FacilitySelectorClient() {
             onValueChange={(value) => setMaxDistance(value[0])}
             className="w-64"
           />
-          <span className="ml-4 w-24 text-right">{maxDistance}m</span>
+          <span className="ml-4 w-24 text-right">
+            {convertDistanceUnit(maxDistance)}
+          </span>
         </div>
       </div>
       <div className="flex-grow">

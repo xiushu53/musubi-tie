@@ -1,3 +1,5 @@
+import { convertDistanceUnit } from "@/utils/convertDistansUnit";
+
 interface Props {
   maxDistance: number;
 }
@@ -12,8 +14,8 @@ const Colorbar = ({ maxDistance }: Props) => {
         ></div>
         <div className="flex justify-between text-xs text-gray-700">
           <span>0m</span>
-          <span>{maxDistance / 2}m</span>
-          <span>&ge;{maxDistance}m</span>
+          <span>{convertDistanceUnit(maxDistance / 2)}</span>
+          <span>&ge;{convertDistanceUnit(maxDistance)}</span>
         </div>
         <p className="mt-1 text-center text-xs font-semibold">
           最近傍施設までの距離

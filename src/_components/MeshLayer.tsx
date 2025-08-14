@@ -28,6 +28,7 @@ const getMeshColor = (distance: number, maxDistance: number) => {
 };
 
 import type { Feature } from "geojson";
+import { MAP_SETTINGS } from "@/_settings/visualize-map";
 
 const meshStyle = (feature?: Feature, maxDistance?: number) => {
   if (!feature || !feature.properties || maxDistance === undefined) return {};
@@ -36,24 +37,26 @@ const meshStyle = (feature?: Feature, maxDistance?: number) => {
     fillColor: color,
     color: color,
     weight: 0,
-    fillOpacity: 0.6,
+    fillOpacity: MAP_SETTINGS.opacity,
   };
 };
 
 export default function MeshLayer({ data, maxDistance }: Props) {
   return (
     <LayersControl.Overlay checked name="アクセス距離 (250mメッシュ)">
-      <GeoJSON
-        data={data}
-        style={(feature) => meshStyle(feature, maxDistance)}
-        onEachFeature={(feature, layer) => {
-          if (feature.properties?.distance_m) {
-            layer.bindPopup(
-              `最近傍施設までの距離: ${Math.round(feature.properties.distance_m)}m`
-            );
-          }
-        }}
-      />
+      {data ? (
+        <GeoJSON
+          data={data}
+          style={(feature) => meshStyle(feature, maxDistance)}
+          onEachFeature={(feature, layer) => {
+            if (feature.properties?.distance_m) {
+              layer.bindPopup(
+                `最近傍施設までの距離: ${Math.round(feature.properties.distance_m)}m`
+              );
+            }
+          }}
+        />
+      ) : null}
     </LayersControl.Overlay>
   );
 }

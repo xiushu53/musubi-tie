@@ -1,3 +1,5 @@
+import type L from "leaflet";
+
 export const FACILITY_TYPES = [
   { value: "asds", label: "放課後等デイサービス" },
   { value: "sept-a", label: "就労継続支援A" },
@@ -8,7 +10,19 @@ export const FACILITY_TYPES = [
 
 export const COLORBAR_SETTINGS = {
   default: 2000,
-  min: 1000,
+  min: 500,
   max: 5000,
   step: 100,
+};
+
+export const MAP_SETTINGS: {
+  center: L.LatLngTuple;
+  zoom: number;
+  tileSize: number;
+  opacity?: number;
+} = {
+  center: [35.660154, 139.457],
+  zoom: 11,
+  tileSize: 256,
+  opacity: 0.4,
 };
