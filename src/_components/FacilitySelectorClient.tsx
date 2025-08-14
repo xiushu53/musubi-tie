@@ -39,10 +39,10 @@ export default function FacilitySelectorClient() {
             value={selectedFacilityType}
             onValueChange={(value) => setSelectedFacilityType(value)}
           >
-            <SelectTrigger className="w-[240px]" id="facility-select">
+            <SelectTrigger className="w-[200px]" id="facility-select">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="z-[400]">
+            <SelectContent className="z-[400] bg-white">
               {FACILITY_TYPES.map((type) => (
                 <SelectItem value={type.value} key={type.value}>
                   {type.label}
