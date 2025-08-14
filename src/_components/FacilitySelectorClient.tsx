@@ -10,11 +10,11 @@ import {
   SelectValue,
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
-import { FACILITY_TYPES } from "@/_settings/visualize-map";
+import { COLORBAR_SETTINGS, FACILITY_TYPES } from "@/_settings/visualize-map";
 
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
-  const [maxDistance, setMaxDistance] = useState(2000);
+  const [maxDistance, setMaxDistance] = useState(COLORBAR_SETTINGS.default);
 
   return (
     <div className="flex h-screen w-screen flex-col">
@@ -45,9 +45,9 @@ export default function FacilitySelectorClient() {
           </label>
           <Slider
             id="distance-slider"
-            min={1000}
-            max={5000}
-            step={100}
+            min={COLORBAR_SETTINGS.min}
+            max={COLORBAR_SETTINGS.max}
+            step={COLORBAR_SETTINGS.step}
             defaultValue={[maxDistance]}
             onValueChange={(value) => setMaxDistance(value[0])}
             className="w-64"
