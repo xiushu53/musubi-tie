@@ -95,10 +95,10 @@ export default function VisualizeDeckGLMap({
       getFillColor: (feature: Feature<Geometry, GeoJsonProperties>) => {
         const distance = feature.properties?.distance || 0;
         const color = getColor(distance, maxDistance);
-        return [color[0], color[1], color[2], 128]; // Semi-transparent
+        return [color[0], color[1], color[2], 32]; // Semi-transparent
       },
       getLineColor: [255, 255, 255, 255],
-      getLineWidth: 2,
+      getLineWidth: 64,
       pickable: true,
       updateTriggers: {
         getFillColor: [maxDistance], // Force update when maxDistance changes
@@ -116,7 +116,7 @@ export default function VisualizeDeckGLMap({
       filled: false,
       stroked: true,
       getLineColor: [80, 80, 80, 200],
-      getLineWidth: 2,
+      getLineWidth: 64,
       lineDashArray: [5, 5],
       pickable: true,
     });
