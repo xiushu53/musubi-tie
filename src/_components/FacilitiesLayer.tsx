@@ -13,7 +13,7 @@ export default function FacilitiesLayer({ data }: Props) {
           <CircleMarker
             key={facility.id}
             center={[facility.lat, facility.lon]}
-            radius={2}
+            radius={4}
             pathOptions={{
               color: "white",
               weight: 0.5,

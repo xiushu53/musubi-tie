@@ -33,10 +33,10 @@ export default function VoronoiLayer({ data, maxDistance }: Props) {
     return {
       fillColor:
         distance !== undefined ? getColor(distance, maxDistance) : "gray",
-      weight: 1,
+      weight: 2,
       opacity: 1,
       color: "white",
-      fillOpacity: 0.7,
+      fillOpacity: 0.5,
     };
   };
 

@@ -28,7 +28,7 @@ export default function FacilitySelectorClient() {
             value={selectedFacilityType}
             onValueChange={(value) => setSelectedFacilityType(value)}
           >
-            <SelectTrigger className="w-[280px]" id="facility-select">
+            <SelectTrigger className="w-[240px]" id="facility-select">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="z-[400]">
@@ -40,7 +40,7 @@ export default function FacilitySelectorClient() {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center max-w-[375px]">
           <label htmlFor="distance-slider" className="mr-2 shrink-0">
             最大距離:
           </label>
@@ -53,7 +53,7 @@ export default function FacilitySelectorClient() {
             onValueChange={(value) => setMaxDistance(value[0])}
             className="w-64"
           />
-          <span className="ml-4 w-24 text-right">
+          <span className="ml-4 w-24 text-left">
             {convertDistanceUnit(maxDistance)}
           </span>
         </div>
