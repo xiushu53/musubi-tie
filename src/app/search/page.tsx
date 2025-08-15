@@ -11,7 +11,7 @@ import {
   Search,
   Settings,
 } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { InfoCards } from "@/_components/InfoCards";
 import { LocationInput } from "@/_components/LocationInput";
 import MapLoader from "@/_components/MapLoader";
@@ -47,7 +47,8 @@ import {
   TabsTrigger,
 } from "@/_components/ui/tabs";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
-import { type SearchMethod, useGeohashSearch } from "@/hooks/useGeohashSearch";
+import { useFacilitySearch } from "@/hooks/useFacilitySearch";
+import { useLocation } from "@/hooks/useLocation";
 import type { Facility } from "@/types";
 import { formatDistance } from "@/utils/formatDistance";
 
@@ -62,14 +63,8 @@ export interface FacilityWithDistance extends Facility {
 }
 
 export default function SearchPage() {
-  // State管理
+  // UI State
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
-  const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
-  const [isGettingLocation, setIsGettingLocation] = useState(false);
-  const [locationError, setLocationError] = useState<string | null>(null);
-  const [address, setAddress] = useState<string>("");
-  const [isGeocoding, setIsGeocoding] = useState(false);
-  const [geocodingError, setGeocodingError] = useState<string | null>(null);
   const [searchRadius, setSearchRadius] = useState<number>(1000);
   const [nameFilter, setNameFilter] = useState<string>("");
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(
@@ -77,8 +72,6 @@ export default function SearchPage() {
   );
   const [activeTab, setActiveTab] = useState("search");
   const [searchMethod, setSearchMethod] = useState<string>("auto");
-
-  // レスポンシブ用カード開閉状態
   const [cardStates, setCardStates] = useState({
     searchConditions: true, // 検索条件は初期表示
     indexInfo: false, // インデックス情報は折りたたみ
@@ -86,7 +79,36 @@ export default function SearchPage() {
     searchResults: true, // 検索結果は初期表示
   });
 
-  // カード開閉のトグル関数
+  // Custom Hooks
+  const {
+    userLocation,
+    isGettingLocation,
+    locationError,
+    getCurrentLocation,
+    address,
+    setAddress,
+    isGeocoding,
+    geocodingError,
+    handleAddressSearch,
+  } = useLocation();
+
+  const {
+    searchResults,
+    searchMethods,
+    getIndexInfo,
+    geohashReady,
+    dataLoading,
+    dataError,
+    runPerformanceTest,
+  } = useFacilitySearch(
+    selectedFacilityType,
+    userLocation,
+    searchRadius,
+    nameFilter,
+    searchMethod
+  );
+
+  // UI Handlers
   const toggleCard = useCallback((cardName: keyof typeof cardStates) => {
     setCardStates((prev) => ({
       ...prev,
@@ -94,167 +116,10 @@ export default function SearchPage() {
     }));
   }, []);
 
-  // 静的Geohashデータを使用した検索Hook
-  const {
-    searchMethods,
-    getRecommendedMethod,
-    compareAllMethods,
-    getIndexInfo,
-    isReady: geohashReady,
-    loading: dataLoading,
-    error: dataError,
-  } = useGeohashSearch(selectedFacilityType); // 引数を施設タイプに変更
-
-  // 現在地取得
-  const getCurrentLocation = useCallback(() => {
-    setIsGettingLocation(true);
-    setLocationError(null);
-    setGeocodingError(null);
-
-    if (!navigator.geolocation) {
-      setLocationError("このブラウザでは位置情報がサポートされていません");
-      setIsGettingLocation(false);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-        });
-        setIsGettingLocation(false);
-      },
-      (error) => {
-        let errorMessage = "位置情報の取得に失敗しました";
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            errorMessage = "位置情報の使用が許可されていません";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            errorMessage = "位置情報が利用できません";
-            break;
-          case error.TIMEOUT:
-            errorMessage = "位置情報の取得がタイムアウトしました";
-            break;
-        }
-        setLocationError(errorMessage);
-        setIsGettingLocation(false);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 300000,
-      }
-    );
-  }, []);
-
-  // 住所から緯度経度を検索
-  const handleAddressSearch = useCallback(async () => {
-    if (!address) {
-      setGeocodingError("住所を入力してください");
-      return;
-    }
-    setIsGeocoding(true);
-    setGeocodingError(null);
-    setLocationError(null); // 既存のエラーもクリア
-
-    try {
-      const response = await fetch(
-        `https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(
-          address
-        )}`
-      );
-      if (!response.ok) {
-        throw new Error("ジオコーディングサーバーとの通信に失敗しました");
-      }
-      const data = await response.json();
-      if (data.length === 0 || !data[0].geometry?.coordinates) {
-        throw new Error("指定された住所の座標が見つかりませんでした。");
-      }
-      const [longitude, latitude] = data[0].geometry.coordinates;
-      setUserLocation({ latitude, longitude });
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "不明なエラーが発生しました";
-      setGeocodingError(message);
-      setUserLocation(null); // 失敗したら位置情報をクリア
-    } finally {
-      setIsGeocoding(false);
-    }
-  }, [address]);
-
-  // 施設検索（静的データ使用）
-  const searchResults = useMemo(() => {
-    if (!userLocation || !geohashReady)
-      return { results: [], method: "", searchTime: 0 };
-
-    const startTime = performance.now();
-    let results: FacilityWithDistance[] = [];
-    let selectedMethodInfo: SearchMethod | null = null;
-
-    try {
-      if (searchMethod === "auto") {
-        selectedMethodInfo = getRecommendedMethod(searchRadius);
-      } else {
-        selectedMethodInfo =
-          searchMethods.find((m) => m.name === searchMethod) ||
-          searchMethods[0] ||
-          null;
-      }
-
-      if (selectedMethodInfo) {
-        results = selectedMethodInfo.search(
-          userLocation.latitude,
-          userLocation.longitude,
-          searchRadius
-        );
-
-        // 名前フィルタ適用
-        if (nameFilter) {
-          results = results.filter((facility) =>
-            facility.name.toLowerCase().includes(nameFilter.toLowerCase())
-          );
-        }
-      }
-    } catch (error) {
-      console.error("検索エラー:", error);
-    }
-
-    const searchTime = performance.now() - startTime;
-
-    return {
-      results,
-      method: selectedMethodInfo?.description || "検索手法が見つかりません",
-      searchTime,
-    };
-  }, [
-    userLocation,
-    geohashReady,
-    searchRadius,
-    nameFilter,
-    searchMethod,
-    searchMethods,
-    getRecommendedMethod,
-  ]);
-
-  // 施設選択時の処理
   const handleFacilitySelect = useCallback((facility: Facility) => {
     setSelectedFacility(facility);
     setActiveTab("map");
   }, []);
-
-  // パフォーマンステスト
-  const runPerformanceTest = useCallback(() => {
-    if (!userLocation || !geohashReady) return;
-
-    compareAllMethods(
-      userLocation.latitude,
-      userLocation.longitude,
-      searchRadius
-    );
-  }, [userLocation, searchRadius, compareAllMethods, geohashReady]);
 
   const indexInfo = getIndexInfo();
 
