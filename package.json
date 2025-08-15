@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "pnpm generate-geohash && next build",
+    "generate-geohash": "node scripts/generateGeohashData.js",
     "start": "next start",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
