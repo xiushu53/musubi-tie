@@ -70,6 +70,9 @@ export default function SearchPage() {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [address, setAddress] = useState<string>("");
+  const [isGeocoding, setIsGeocoding] = useState(false);
+  const [geocodingError, setGeocodingError] = useState<string | null>(null);
   const [searchRadius, setSearchRadius] = useState<number>(1000);
   const [nameFilter, setNameFilter] = useState<string>("");
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(
@@ -109,6 +112,7 @@ export default function SearchPage() {
   const getCurrentLocation = useCallback(() => {
     setIsGettingLocation(true);
     setLocationError(null);
+    setGeocodingError(null);
 
     if (!navigator.geolocation) {
       setLocationError("このブラウザでは位置情報がサポートされていません");
@@ -148,6 +152,41 @@ export default function SearchPage() {
       }
     );
   }, []);
+
+  // 住所から緯度経度を検索
+  const handleAddressSearch = useCallback(async () => {
+    if (!address) {
+      setGeocodingError("住所を入力してください");
+      return;
+    }
+    setIsGeocoding(true);
+    setGeocodingError(null);
+    setLocationError(null); // 既存のエラーもクリア
+
+    try {
+      const response = await fetch(
+        `https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(
+          address
+        )}`
+      );
+      if (!response.ok) {
+        throw new Error("ジオコーディングサーバーとの通信に失敗しました");
+      }
+      const data = await response.json();
+      if (data.length === 0 || !data[0].geometry?.coordinates) {
+        throw new Error("指定された住所の座標が見つかりませんでした。");
+      }
+      const [longitude, latitude] = data[0].geometry.coordinates;
+      setUserLocation({ latitude, longitude });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "不明なエラーが発生しました";
+      setGeocodingError(message);
+      setUserLocation(null); // 失敗したら位置情報をクリア
+    } finally {
+      setIsGeocoding(false);
+    }
+  }, [address]);
 
   // 施設検索（静的データ使用）
   const searchResults = useMemo(() => {
@@ -359,43 +398,103 @@ export default function SearchPage() {
 
                         {/* 位置情報取得 */}
                         <div>
-                          <Label className="text-sm font-medium">現在地</Label>
-                          <Button
-                            onClick={getCurrentLocation}
-                            disabled={isGettingLocation}
+                          <Label className="text-sm font-medium">
+                            検索中心
+                          </Label>
+                          <Tabs
+                            defaultValue="currentLocation"
                             className="w-full mt-1"
-                            variant={userLocation ? "outline" : "default"}
-                            size="sm"
                           >
-                            {isGettingLocation ? (
-                              <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                <span className="text-sm">取得中...</span>
-                              </>
-                            ) : userLocation ? (
-                              <>
-                                <Navigation className="mr-2 h-4 w-4" />
-                                <span className="text-sm">現在地を更新</span>
-                              </>
-                            ) : (
-                              <>
-                                <MapPin className="mr-2 h-4 w-4" />
-                                <span className="text-sm">現在地を取得</span>
-                              </>
-                            )}
-                          </Button>
-
-                          {locationError && (
-                            <Alert variant="destructive" className="mt-2">
-                              <AlertDescription className="text-sm">
-                                {locationError}
-                              </AlertDescription>
-                            </Alert>
-                          )}
+                            <TabsList className="grid w-full grid-cols-2">
+                              <TabsTrigger value="currentLocation">
+                                <Navigation className="mr-1 h-3 w-3" />
+                                現在地
+                              </TabsTrigger>
+                              <TabsTrigger value="address">
+                                <Search className="mr-1 h-3 w-3" />
+                                住所入力
+                              </TabsTrigger>
+                            </TabsList>
+                            <TabsContent
+                              value="currentLocation"
+                              className="pt-2"
+                            >
+                              <Button
+                                onClick={getCurrentLocation}
+                                disabled={isGettingLocation}
+                                className="w-full"
+                                variant="outline"
+                                size="sm"
+                              >
+                                {isGettingLocation ? (
+                                  <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    <span className="text-sm">取得中...</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <MapPin className="mr-2 h-4 w-4" />
+                                    <span className="text-sm">
+                                      {userLocation
+                                        ? "現在地を再取得"
+                                        : "現在地を取得"}
+                                    </span>
+                                  </>
+                                )}
+                              </Button>
+                              {locationError && (
+                                <Alert
+                                  variant="destructive"
+                                  className="mt-2"
+                                >
+                                  <AlertDescription className="text-sm">
+                                    {locationError}
+                                  </AlertDescription>
+                                </Alert>
+                              )}
+                            </TabsContent>
+                            <TabsContent value="address" className="pt-2">
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <Input
+                                    placeholder="住所や場所名を入力..."
+                                    value={address}
+                                    onChange={(e) =>
+                                      setAddress(e.target.value)
+                                    }
+                                    disabled={isGeocoding}
+                                    className="text-sm"
+                                  />
+                                  <Button
+                                    onClick={handleAddressSearch}
+                                    disabled={isGeocoding || !address}
+                                    size="sm"
+                                    className="px-3"
+                                  >
+                                    {isGeocoding ? (
+                                      <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                      <Search className="h-4 w-4" />
+                                    )}
+                                  </Button>
+                                </div>
+                                {geocodingError && (
+                                  <Alert
+                                    variant="destructive"
+                                    className="mt-2"
+                                  >
+                                    <AlertDescription className="text-sm">
+                                      {geocodingError}
+                                    </AlertDescription>
+                                  </Alert>
+                                )}
+                              </div>
+                            </TabsContent>
+                          </Tabs>
 
                           {userLocation && (
                             <div className="text-xs text-gray-600 mt-2 space-y-1">
-                              <div>現在地を取得しました</div>
+                              <div>検索中心地:</div>
                               <div className="font-mono text-xs bg-gray-100 p-2 rounded">
                                 緯度: {userLocation.latitude.toFixed(6)}
                                 <br />
