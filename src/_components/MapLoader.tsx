@@ -49,16 +49,16 @@ export default function MapLoader({
     searchRadius,
   });
 
-  // 検索結果マップコンポーネント
+  // 検索結果マップコンポーネント（アクセシブル版）
   const SearchResultMap = useMemo(
     () =>
-      dynamic(() => import("@/_components/SearchResultMap"), {
+      dynamic(() => import("@/_components/AccessibleSearchResultMap"), {
         loading: () => (
           <div className="flex h-full items-center justify-center bg-gray-50">
             <div className="text-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
               <p className="text-sm text-gray-600">
-                検索結果地図を読み込み中...
+                アクセシブル検索地図を読み込み中...
               </p>
             </div>
           </div>
