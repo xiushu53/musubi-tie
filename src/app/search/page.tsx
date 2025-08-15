@@ -128,13 +128,15 @@ export default function SearchPage() {
       <div className="container mx-auto p-2 sm:p-4 max-w-7xl">
         <div className="mb-4 sm:mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-            高性能施設検索{" "}
-            <span className="text-xs sm:text-sm font-normal text-blue-600">
+            障害福祉施設検索
+            <span className="text-xs ml-2 sm:text-sm font-normal text-blue-600">
               ⚡ 静的Geohash版
             </span>
           </h1>
           <p className="text-sm sm:text-base text-gray-600">
-            事前計算されたGeohash空間インデックスによる超高速施設検索
+            近くの障害福祉施設を手軽に検索🔍
+            <br />
+            施設タイプや範囲を指定して見つけよう
           </p>
 
           {/* スマホ用クイックアクセスボタン */}
@@ -261,7 +263,7 @@ export default function SearchPage() {
                         {/* 位置情報取得 */}
                         <div>
                           <Label className="text-sm font-medium">
-                            検索中心
+                            検索地点
                           </Label>
                           <LocationInput
                             userLocation={userLocation}

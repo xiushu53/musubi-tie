@@ -115,7 +115,7 @@ export function LocationInput({
 
       {userLocation && (
         <div className="text-xs text-gray-600 mt-2 space-y-1">
-          <div>検索中心地:</div>
+          <div>検索地点:</div>
           <div className="font-mono text-xs bg-gray-100 p-2 rounded">
             緯度: {userLocation.latitude.toFixed(6)}
             <br />
