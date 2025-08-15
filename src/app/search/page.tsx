@@ -1,9 +1,11 @@
-// src/app/search/page.tsx の更新版
-// Geohash検索を統合
+// src/app/search/page.tsx
+// 静的Geohashデータを使用する高速検索ページ
 
 "use client";
 
 import {
+  Clock,
+  Database,
   Filter,
   List,
   Loader2,
@@ -43,15 +45,17 @@ import {
 } from "@/_components/ui/tabs";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
 import { type SearchMethod, useGeohashSearch } from "@/hooks/useGeohashSearch";
-import { useMapData } from "@/hooks/useMapData";
 import type { Facility } from "@/types";
 import { formatDistance } from "@/utils/formatDistance";
-import type { FacilityWithDistance } from "@/utils/geohashFacilitySearch";
 
 interface UserLocation {
   latitude: number;
   longitude: number;
   accuracy?: number;
+}
+
+interface FacilityWithDistance extends Facility {
+  distance: number;
 }
 
 export default function SearchPage() {
@@ -68,17 +72,16 @@ export default function SearchPage() {
   const [activeTab, setActiveTab] = useState("search");
   const [searchMethod, setSearchMethod] = useState<string>("auto");
 
-  // データ取得
-  const { facilities, loading } = useMapData(selectedFacilityType);
-
-  // Geohash検索Hook
+  // 静的Geohashデータを使用した検索Hook
   const {
     searchMethods,
     getRecommendedMethod,
     compareAllMethods,
     getIndexInfo,
     isReady: geohashReady,
-  } = useGeohashSearch(facilities);
+    loading: dataLoading,
+    error: dataError,
+  } = useGeohashSearch(selectedFacilityType);
 
   // 現在地取得
   const getCurrentLocation = useCallback(() => {
@@ -124,45 +127,53 @@ export default function SearchPage() {
     );
   }, []);
 
-  // 施設検索（複数手法対応）
+  // 施設検索（静的データ使用）
   const searchResults = useMemo(() => {
-    if (!userLocation || !facilities.length)
+    if (!userLocation || !geohashReady)
       return { results: [], method: "", searchTime: 0 };
 
     const startTime = performance.now();
-    let selectedMethod: SearchMethod;
     let results: FacilityWithDistance[] = [];
+    let selectedMethodInfo: SearchMethod | null = null;
 
-    if (searchMethod === "auto") {
-      selectedMethod = getRecommendedMethod(searchRadius);
-    } else {
-      selectedMethod =
-        searchMethods.find((m) => m.name === searchMethod) || searchMethods[0];
-    }
+    try {
+      if (searchMethod === "auto") {
+        selectedMethodInfo = getRecommendedMethod(searchRadius);
+      } else {
+        selectedMethodInfo =
+          searchMethods.find((m) => m.name === searchMethod) ||
+          searchMethods[0] ||
+          null;
+      }
 
-    results = selectedMethod.search(
-      userLocation.latitude,
-      userLocation.longitude,
-      searchRadius
-    );
+      if (selectedMethodInfo) {
+        results = selectedMethodInfo.search(
+          userLocation.latitude,
+          userLocation.longitude,
+          searchRadius
+        );
 
-    // 名前フィルタ適用
-    if (nameFilter) {
-      results = results.filter((facility) =>
-        facility.name.toLowerCase().includes(nameFilter.toLowerCase())
-      );
+        // 名前フィルタ適用
+        if (nameFilter) {
+          results = results.filter((facility) =>
+            facility.name.toLowerCase().includes(nameFilter.toLowerCase())
+          );
+        }
+      }
+    } catch (error) {
+      console.error("検索エラー:", error);
     }
 
     const searchTime = performance.now() - startTime;
 
     return {
       results,
-      method: selectedMethod.description,
+      method: selectedMethodInfo?.description || "検索手法が見つかりません",
       searchTime,
     };
   }, [
     userLocation,
-    facilities,
+    geohashReady,
     searchRadius,
     nameFilter,
     searchMethod,
@@ -178,14 +189,14 @@ export default function SearchPage() {
 
   // パフォーマンステスト
   const runPerformanceTest = useCallback(() => {
-    if (!userLocation) return;
+    if (!userLocation || !geohashReady) return;
 
     compareAllMethods(
       userLocation.latitude,
       userLocation.longitude,
       searchRadius
     );
-  }, [userLocation, searchRadius, compareAllMethods]);
+  }, [userLocation, searchRadius, compareAllMethods, geohashReady]);
 
   const indexInfo = getIndexInfo();
 
@@ -194,11 +205,30 @@ export default function SearchPage() {
       <div className="container mx-auto p-4">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            高性能施設検索
+            高性能施設検索{" "}
+            <span className="text-sm font-normal text-blue-600">
+              ⚡ 静的Geohash版
+            </span>
           </h1>
           <p className="text-gray-600">
-            Geohash空間インデックスによる効率的な施設検索
+            事前計算されたGeohash空間インデックスによる超高速施設検索
           </p>
+
+          {/* データ読み込み状況 */}
+          {dataLoading && (
+            <Alert className="mt-4">
+              <Database className="h-4 w-4" />
+              <AlertDescription>Geohashデータを読み込み中...</AlertDescription>
+            </Alert>
+          )}
+
+          {dataError && (
+            <Alert variant="destructive" className="mt-4">
+              <AlertDescription>
+                データ読み込みエラー: {dataError}
+              </AlertDescription>
+            </Alert>
+          )}
         </div>
 
         <Tabs
@@ -301,7 +331,7 @@ export default function SearchPage() {
                     </div>
 
                     {/* 検索設定 */}
-                    {userLocation && (
+                    {userLocation && geohashReady && (
                       <>
                         <div>
                           <Label className="text-sm font-medium">
@@ -352,7 +382,12 @@ export default function SearchPage() {
                                   value={method.name}
                                   key={method.name}
                                 >
-                                  {method.description}
+                                  <div className="flex items-center gap-2">
+                                    {method.name.includes("static") && (
+                                      <Database className="h-3 w-3" />
+                                    )}
+                                    {method.description}
+                                  </div>
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -373,26 +408,45 @@ export default function SearchPage() {
                   </CardContent>
                 </Card>
 
-                {/* Geohashインデックス情報 */}
+                {/* 静的Geohashインデックス情報 */}
                 {indexInfo && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-sm">
-                        Geohashインデックス
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <Database className="h-4 w-4" />
+                        静的Geohashインデックス
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="text-sm space-y-2">
                       <div className="flex justify-between">
-                        <span>構築時間:</span>
-                        <span>{indexInfo.buildTime.toFixed(2)}ms</span>
+                        <span>データソース:</span>
+                        <span className="text-blue-600">
+                          {indexInfo.dataSource}
+                        </span>
                       </div>
                       <div className="flex justify-between">
-                        <span>セル数:</span>
-                        <span>{indexInfo.totalCells.toLocaleString()}</span>
+                        <span>精度:</span>
+                        <span>{indexInfo.precision}</span>
                       </div>
+                      <div className="flex justify-between">
+                        <span>構築時間:</span>
+                        <span>{indexInfo.buildTime}ms</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Hashセル数:</span>
+                        <span>{indexInfo.totalCells?.toLocaleString()}</span>
+                      </div>
+                      {indexInfo.gridCells && (
+                        <div className="flex justify-between">
+                          <span>Gridセル数:</span>
+                          <span>{indexInfo.gridCells.toLocaleString()}</span>
+                        </div>
+                      )}
                       <div className="flex justify-between">
                         <span>平均施設/セル:</span>
-                        <span>{indexInfo.avgFacilitiesPerCell.toFixed(1)}</span>
+                        <span>
+                          {indexInfo.avgFacilitiesPerCell?.toFixed(1)}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>メモリ使用量:</span>
@@ -400,34 +454,53 @@ export default function SearchPage() {
                       </div>
                       <div className="flex justify-between">
                         <span>検索効率:</span>
-                        <span>{indexInfo.efficiency}</span>
+                        <span className="text-green-600">
+                          {indexInfo.efficiency}
+                        </span>
                       </div>
                     </CardContent>
                   </Card>
                 )}
 
                 {/* 検索情報 */}
-                {userLocation && (
+                {userLocation && geohashReady && (
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-sm">検索結果情報</CardTitle>
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        検索結果情報
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="text-sm space-y-2">
                       <div className="flex justify-between">
                         <span>検索手法:</span>
-                        <span className="text-xs">{searchResults.method}</span>
+                        <span className="text-xs font-mono">
+                          {searchResults.method}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>検索時間:</span>
-                        <span>{searchResults.searchTime.toFixed(2)}ms</span>
+                        <span className="font-bold text-green-600">
+                          {searchResults.searchTime.toFixed(3)}ms
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>検索結果:</span>
                         <span>{searchResults.results.length}件</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Geohash準備:</span>
-                        <span>{geohashReady ? "✅完了" : "🔄準備中"}</span>
+                        <span>システム状態:</span>
+                        <span>
+                          {dataLoading ? (
+                            <span className="text-yellow-600">
+                              🔄データ読み込み中
+                            </span>
+                          ) : geohashReady ? (
+                            <span className="text-green-600">✅準備完了</span>
+                          ) : (
+                            <span className="text-red-600">❌未準備</span>
+                          )}
+                        </span>
                       </div>
                     </CardContent>
                   </Card>
@@ -444,7 +517,7 @@ export default function SearchPage() {
                         検索結果
                         {searchResults.searchTime > 0 && (
                           <Badge variant="outline" className="ml-2">
-                            {searchResults.searchTime.toFixed(1)}ms
+                            ⚡ {searchResults.searchTime.toFixed(1)}ms
                           </Badge>
                         )}
                       </div>
@@ -456,14 +529,33 @@ export default function SearchPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {loading ? (
+                    {dataLoading ? (
                       <div className="text-center py-8">
                         <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-                        <p>データを読み込んでいます...</p>
+                        <p>静的Geohashデータを読み込んでいます...</p>
+                        <p className="text-sm text-gray-500 mt-2">
+                          事前計算済みインデックスで高速検索を準備中
+                        </p>
+                      </div>
+                    ) : dataError ? (
+                      <div className="text-center py-8">
+                        <Alert variant="destructive">
+                          <AlertDescription>
+                            データ読み込みエラー: {dataError}
+                          </AlertDescription>
+                        </Alert>
+                        <p className="text-sm text-gray-500 mt-2">
+                          `pnpm generate-geohash`
+                          を実行してデータを生成してください
+                        </p>
                       </div>
                     ) : !userLocation ? (
                       <div className="text-center py-8 text-gray-500">
                         まず現在地を取得してください
+                      </div>
+                    ) : !geohashReady ? (
+                      <div className="text-center py-8 text-gray-500">
+                        Geohashインデックスを準備中...
                       </div>
                     ) : searchResults.results.length === 0 ? (
                       <div className="text-center py-8 space-y-4">
