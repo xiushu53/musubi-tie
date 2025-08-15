@@ -98,17 +98,26 @@ pnpm dev
 
 ## ディレクトリ構造
 
+プロジェクトの主要なディレクトリとファイルの概要です。
+
 ```
 .
-├── public/              # 静的ファイル（地図データ、生成されたGeohashデータ）
-├── scripts/             # データ生成用スクリプト
+├── public/              # 地図データ、アイコンなどの静的リソース
+│   ├── data/            # generate-geohashスクリプトで生成された施設データ
+│   └── {施設タイプ}       # 施設位置データ、最近傍距離メッシュデータ、ボロノイ境界ポリゴン
+│   └── ...
+├── references/          # データ処理の参考Jupyter Notebook
+├── scripts/             # Geohashデータ生成などのNode.jsスクリプト
 └── src/
-    ├── app/             # Next.js App Router（各ページのコンポーネント）
     ├── _components/     # Reactコンポーネント
-    │   ├── ui/          # shadcn/uiによる汎用UIコンポーネント
-    │   └── ...          # アプリケーション固有のコンポーネント
-    ├── hooks/           # カスタムReactフック
-    ├── utils/           # 汎用ユーティリティ関数
-    ├── types/           # TypeScriptの型定義
-    └── _settings/       # アプリケーション全体の設定値
+    │   ├── map/         # 地図表示（deck.gl, MapLibre）関連コンポーネント
+    │   ├── search/      # 検索インターフェース関連コンポーネント
+    │   └── ui/          # shadcn/uiベースの汎用UIコンポーネント
+    ├── _hooks/          # アプリケーション固有のカスタムReactフック
+    ├── _settings/       # 可視化設定などの定数
+    ├── _utils/          # 距離計算やGeohash処理などのユーティリティ関数
+    ├── app/             # Next.js App Router（各ページのUIとルーティング）
+    ├── lib/             # shadcn/uiで利用するユーティリティ
+    ├── store/           # 状態管理（Zustandなど）のコード（現在は未使用）
+    └── types/           # TypeScriptの型定義
 ```
