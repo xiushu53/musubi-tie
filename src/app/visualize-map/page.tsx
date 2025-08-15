@@ -1,4 +1,4 @@
-import FacilitySelectorClient from "@/_components/FacilitySelectorClient";
+import FacilitySelectorClient from "@/_components/search/FacilitySelectorClient";
 
 export default function VisualizeMapPage() {
   return <FacilitySelectorClient />;

@@ -2,9 +2,9 @@
 
 import type { Layer } from "@deck.gl/core";
 import React, { useCallback, useMemo } from "react";
+import { useMapData } from "@/_hooks/useMapData";
+import { useMapLayers } from "@/_hooks/useMapLayers";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
-import { useMapData } from "@/hooks/useMapData";
-import { useMapLayers } from "@/hooks/useMapLayers";
 import BaseMap, { type ViewState } from "./BaseMap";
 import Colorbar from "./Colorbar";
 import LayerControlPanel from "./LayerControlPanel";

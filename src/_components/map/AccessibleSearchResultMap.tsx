@@ -11,10 +11,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/_components/ui/collapsible";
-import { useMapData } from "@/hooks/useMapData";
-import { useMapLayers } from "@/hooks/useMapLayers";
+import { useMapData } from "@/_hooks/useMapData";
+import { useMapLayers } from "@/_hooks/useMapLayers";
+import { formatDistance } from "@/_utils/formatDistance";
 import type { Facility } from "@/types";
-import { formatDistance } from "@/utils/formatDistance";
 import BaseMap, { type ViewState } from "./BaseMap";
 
 interface UserLocation {
