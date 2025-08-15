@@ -1,7 +1,7 @@
 "use client";
 
 import type { Layer } from "@deck.gl/core";
-import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
+import { GeoJsonLayer, IconLayer, ScatterplotLayer } from "@deck.gl/layers";
 import type { Feature, GeoJsonProperties, Geometry } from "geojson";
 import { useCallback } from "react";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
@@ -175,9 +175,70 @@ export function useMapLayers() {
   );
 
   /**
-   * 検索結果施設レイヤー
+   * 検索結果施設レイヤー（カスタムアイコン対応）
    */
   const createSearchFacilitiesLayer = useCallback(
+    (
+      facilities: FacilityWithDistance[],
+      selectedFacilityId?: number
+      // searchRadius: number = 1000
+    ): Layer | null => {
+      if (!facilities.length) return null;
+
+      // 家アイコンのSVG
+      const homeIconSvg = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+
+      // 選択時の家アイコン（赤）
+      const selectedHomeIconSvg = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="11" fill="#EF4444" stroke="#FFFFFF" stroke-width="2"/>
+          <path d="M8 12l2-2 2 2 4-4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 16h6v-4H9v4z" fill="#FFFFFF"/>
+          <path d="M12 8l-3 3v5h6v-5l-3-3z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+        </svg>
+      `;
+
+      const facilityIconDataUri = `data:image/svg+xml;base64,${btoa(homeIconSvg)}`;
+      const selectedIconDataUri = `data:image/svg+xml;base64,${btoa(selectedHomeIconSvg)}`;
+
+      // アイコンレイヤーと背景円レイヤーを組み合わせ
+      const facilityData = facilities.map((facility) => ({
+        ...facility,
+        isSelected: selectedFacilityId === facility.id,
+        iconType: selectedFacilityId === facility.id ? "selected" : "normal",
+      }));
+
+      return new IconLayer({
+        id: "search-facilities-layer",
+        data: facilityData,
+        getPosition: (d: any) => [d.lon, d.lat],
+        getIcon: (d: any) => ({
+          url: d.isSelected ? selectedIconDataUri : facilityIconDataUri,
+          width: d.isSelected ? 24 : 20,
+          height: d.isSelected ? 24 : 20,
+          anchorY: d.isSelected ? 12 : 10,
+          anchorX: d.isSelected ? 12 : 10,
+        }),
+        getSize: (d: any) => (d.isSelected ? 40 : 32),
+        pickable: true,
+        sizeUnits: "pixels",
+        updateTriggers: {
+          getIcon: [selectedFacilityId],
+          getSize: [selectedFacilityId],
+        },
+      });
+    },
+    []
+  );
+
+  /**
+   * 検索結果施設の背景円レイヤー（距離による色分け）
+   */
+  const createSearchFacilitiesBackgroundLayer = useCallback(
     (
       facilities: FacilityWithDistance[],
       selectedFacilityId?: number,
@@ -186,20 +247,24 @@ export function useMapLayers() {
       if (!facilities.length) return null;
 
       return new ScatterplotLayer<FacilityWithDistance>({
-        id: "search-facilities-layer",
+        id: "search-facilities-background-layer",
         data: facilities,
         getPosition: (d: FacilityWithDistance) => [d.lon, d.lat],
         getRadius: (d: FacilityWithDistance) =>
-          selectedFacilityId === d.id ? 120 : 80,
-        getFillColor: (d: FacilityWithDistance) =>
-          selectedFacilityId === d.id
-            ? [255, 107, 107, 255] // 選択時は赤
-            : getSearchResultColor(d.distance, searchRadius),
-        getLineColor: [255, 255, 255, 255],
-        getLineWidth: 3,
+          selectedFacilityId === d.id ? 180 : 120,
+        getFillColor: (
+          d: FacilityWithDistance
+        ): [number, number, number, number] => {
+          if (selectedFacilityId === d.id) {
+            return [239, 68, 68, 120]; // 選択時は赤の背景
+          } else {
+            const [r, g, b] = getSearchResultColor(d.distance, searchRadius);
+            return [r, g, b, 100]; // 距離色の薄い背景
+          }
+        },
         radiusUnits: "meters",
-        pickable: true,
-        stroked: true,
+        pickable: false,
+        stroked: false,
         filled: true,
         updateTriggers: {
           getRadius: [selectedFacilityId],
@@ -211,22 +276,34 @@ export function useMapLayers() {
   );
 
   /**
-   * 現在地マーカーレイヤー
+   * 現在地マーカーレイヤー（+アイコン）
    */
   const createUserLocationLayer = useCallback(
     (userLocation: UserLocation): Layer => {
-      return new ScatterplotLayer({
+      // +マークのSVGアイコンをBase64エンコード
+      const crossIconSvg = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#3B82F6" stroke="#FFFFFF" stroke-width="2"/>
+          <path d="M12 6v12M6 12h12" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      `;
+
+      const iconDataUri = `data:image/svg+xml;base64,${btoa(crossIconSvg)}`;
+
+      return new IconLayer({
         id: "user-location-layer",
-        data: [userLocation],
-        getPosition: (d: UserLocation) => [d.longitude, d.latitude],
-        getRadius: 150,
-        getFillColor: [59, 130, 246, 255], // 青色
-        getLineColor: [255, 255, 255, 255],
-        getLineWidth: 5,
-        radiusUnits: "meters",
+        data: [{ ...userLocation, icon: "cross" }],
+        getPosition: (d: any) => [d.longitude, d.latitude],
+        getIcon: () => ({
+          url: iconDataUri,
+          width: 24,
+          height: 24,
+          anchorY: 12,
+          anchorX: 12,
+        }),
+        getSize: 32,
         pickable: false,
-        stroked: true,
-        filled: true,
+        sizeUnits: "pixels",
       });
     },
     []
@@ -265,6 +342,7 @@ export function useMapLayers() {
 
     // 検索結果用レイヤー
     createSearchFacilitiesLayer,
+    createSearchFacilitiesBackgroundLayer, // 追加
     createUserLocationLayer,
     createSearchRadiusLayer,
 

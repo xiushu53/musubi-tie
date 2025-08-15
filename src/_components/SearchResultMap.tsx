@@ -42,6 +42,7 @@ export default function SearchResultMap({
   const {
     createMunicipalitiesLayer,
     createSearchFacilitiesLayer,
+    createSearchFacilitiesBackgroundLayer,
     createUserLocationLayer,
     createSearchRadiusLayer,
   } = useMapLayers();
@@ -55,14 +56,21 @@ export default function SearchResultMap({
       // 2. 検索範囲円
       createSearchRadiusLayer(userLocation, searchRadius),
 
-      // 3. 検索結果施設
+      // 3. 施設背景円（距離による色分け）
+      createSearchFacilitiesBackgroundLayer(
+        facilities,
+        selectedFacility?.id,
+        searchRadius
+      ),
+
+      // 4. 施設アイコン
       createSearchFacilitiesLayer(
         facilities,
         selectedFacility?.id,
         searchRadius
       ),
 
-      // 4. 現在地マーカー（最上位）
+      // 5. 現在地マーカー（最上位）
       createUserLocationLayer(userLocation),
     ];
 
@@ -75,6 +83,7 @@ export default function SearchResultMap({
     selectedFacility,
     createMunicipalitiesLayer,
     createSearchRadiusLayer,
+    createSearchFacilitiesBackgroundLayer,
     createSearchFacilitiesLayer,
     createUserLocationLayer,
   ]);
@@ -221,7 +230,9 @@ function SearchMapOverlay({
         <div className="text-sm font-medium mb-2">凡例</div>
         <div className="space-y-2 text-xs">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+            <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">+</span>
+            </div>
             <span>現在地</span>
           </div>
           <div className="flex items-center gap-2">
@@ -229,20 +240,28 @@ function SearchMapOverlay({
             <span>検索範囲</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div className="w-4 h-4 bg-green-400 rounded flex items-center justify-center">
+              <span className="text-white text-xs">🏠</span>
+            </div>
             <span>近い施設</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div className="w-4 h-4 bg-yellow-400 rounded flex items-center justify-center">
+              <span className="text-white text-xs">🏠</span>
+            </div>
             <span>中距離施設</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div className="w-4 h-4 bg-red-400 rounded flex items-center justify-center">
+              <span className="text-white text-xs">🏠</span>
+            </div>
             <span>遠い施設</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-red-300 rounded-full border-2 border-red-500"></div>
-            <span>選択中</span>
+            <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center border-2 border-white">
+              <span className="text-white text-xs font-bold">🏠</span>
+            </div>
+            <span>選択中施設</span>
           </div>
         </div>
       </div>
