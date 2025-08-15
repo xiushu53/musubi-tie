@@ -66,8 +66,8 @@ export default function SearchResultMap({
       // 4. 施設アイコン
       createSearchFacilitiesLayer(
         facilities,
-        selectedFacility?.id,
-        searchRadius
+        selectedFacility?.id
+        // searchRadius
       ),
 
       // 5. 現在地マーカー（最上位）
