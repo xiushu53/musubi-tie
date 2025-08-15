@@ -1,15 +1,11 @@
 "use client";
 
 import type { Layer } from "@deck.gl/core";
-import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
-import DeckGL from "@deck.gl/react";
-import type { Feature, GeoJsonProperties, Geometry } from "geojson";
-import type { StyleSpecification } from "maplibre-gl";
 import React, { useCallback, useMemo } from "react";
-import { Map as MapLibre } from "react-map-gl/maplibre";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
 import { useMapData } from "@/hooks/useMapData";
-import type { Facility } from "@/types";
+import { useMapLayers } from "@/hooks/useMapLayers";
+import BaseMap, { type ViewState } from "./BaseMap";
 import Colorbar from "./Colorbar";
 import LayerControlPanel from "./LayerControlPanel";
 
@@ -22,10 +18,19 @@ export default function VisualizeDeckGLMap({
   facilityType,
   maxDistance,
 }: VisualizeDeckGLMapProps) {
+  // データ取得
   const { facilities, meshData, voronoiData, municipalitiesData, loading } =
     useMapData(facilityType);
 
-  // Layer visibility state
+  // レイヤー作成Hook
+  const {
+    createMunicipalitiesLayer,
+    createMeshLayer,
+    createVoronoiLayer,
+    createVisualizationFacilitiesLayer,
+  } = useMapLayers();
+
+  // レイヤー表示状態
   const [layerVisibility, setLayerVisibility] = React.useState({
     municipalities: true,
     mesh: true,
@@ -33,222 +38,140 @@ export default function VisualizeDeckGLMap({
     facilities: true,
   });
 
-  // Color mapping function
-  const getColor = useCallback(
-    (
-      distance: number,
-      maxDistance: number
-    ): [number, number, number, number] => {
-      const max = maxDistance;
-      const min = 0;
-      const d = Math.max(min, Math.min(distance, max));
-      const ratio = (d - min) / (max - min);
+  // レイヤー構成（可視化用）
+  const layers = useMemo((): Layer[] => {
+    const allLayers: (Layer | null)[] = [
+      createMunicipalitiesLayer(
+        municipalitiesData,
+        layerVisibility.municipalities
+      ),
+      createMeshLayer(meshData, maxDistance, layerVisibility.mesh),
+      createVoronoiLayer(voronoiData, maxDistance, layerVisibility.voronoi),
+      createVisualizationFacilitiesLayer(
+        facilities,
+        layerVisibility.facilities
+      ),
+    ];
 
-      if (ratio < 0.5) {
-        // Blue to Yellow
-        const r = Math.floor(255 * (ratio * 2));
-        const g = Math.floor(255 * (ratio * 2));
-        const b = Math.floor(255 * (1 - ratio * 2));
-        return [r, g, b, Math.floor(255 * (MAP_SETTINGS?.opacity ?? 0))]; // Use opacity from settings
-      } else {
-        // Yellow to Red
-        const r = 255;
-        const g = Math.floor(255 * (1 - (ratio - 0.5) * 2));
-        const b = 0;
-        return [r, g, b, Math.floor(255 * (MAP_SETTINGS?.opacity ?? 0))]; // Use opacity from settings
-      }
-    },
+    return allLayers.filter(Boolean) as Layer[];
+  }, [
+    municipalitiesData,
+    meshData,
+    voronoiData,
+    facilities,
+    maxDistance,
+    layerVisibility,
+    createMunicipalitiesLayer,
+    createMeshLayer,
+    createVoronoiLayer,
+    createVisualizationFacilitiesLayer,
+  ]);
+
+  // ビューステート（東京中心）
+  const viewState = useMemo(
+    (): ViewState => ({
+      longitude: MAP_SETTINGS.center[1],
+      latitude: MAP_SETTINGS.center[0],
+      zoom: MAP_SETTINGS.zoom,
+      pitch: 0,
+      bearing: 0,
+    }),
     []
   );
 
-  // Mesh layer - key dependency on maxDistance to force re-render
-  const meshLayer = useMemo(() => {
-    if (!meshData || !layerVisibility.mesh) return null;
+  // ツールチップ（可視化用）
+  const getTooltip = useCallback((info: any) => {
+    if (!info.object) return null;
 
-    return new GeoJsonLayer({
-      id: "mesh-layer",
-      data: meshData,
-      filled: true,
-      stroked: false,
-      getFillColor: (feature: Feature<Geometry, GeoJsonProperties>) => {
-        const distance = feature.properties?.distance_m || 0;
-        return getColor(distance, maxDistance);
-      },
-      getLineColor: [255, 255, 255, 0],
-      getLineWidth: 0,
-      pickable: true,
-      updateTriggers: {
-        getFillColor: [maxDistance], // Force update when maxDistance changes
-      },
-    });
-  }, [meshData, maxDistance, getColor, layerVisibility.mesh]);
+    // メッシュツールチップ
+    if (info.object.properties?.distance_m !== undefined) {
+      return {
+        html: `
+          <div class="p-2">
+            <div class="text-sm font-medium">最近傍施設までの距離</div>
+            <div class="text-lg font-bold text-blue-600">
+              ${Math.round(info.object.properties.distance_m)}m
+            </div>
+          </div>
+        `,
+        style: {
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          color: "#333",
+          borderRadius: "6px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          border: "1px solid #e5e7eb",
+        },
+      };
+    }
 
-  // Voronoi layer - key dependency on maxDistance to force re-render
-  const voronoiLayer = useMemo(() => {
-    if (!voronoiData || !layerVisibility.voronoi) return null;
+    // 行政区ツールチップ
+    if (info.object.properties?.ward_ja) {
+      return {
+        html: `<div class="p-2 text-sm font-medium">${info.object.properties.ward_ja}</div>`,
+        style: {
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+          borderRadius: "4px",
+        },
+      };
+    }
 
-    return new GeoJsonLayer({
-      id: "voronoi-layer",
-      data: voronoiData,
-      filled: true,
-      stroked: true,
-      getFillColor: (feature: Feature<Geometry, GeoJsonProperties>) => {
-        const distance = feature.properties?.distance || 0;
-        const color = getColor(distance, maxDistance);
-        return [color[0], color[1], color[2], 32]; // Semi-transparent
-      },
-      getLineColor: [255, 255, 255, 255],
-      getLineWidth: 64,
-      pickable: true,
-      updateTriggers: {
-        getFillColor: [maxDistance], // Force update when maxDistance changes
-      },
-    });
-  }, [voronoiData, maxDistance, getColor, layerVisibility.voronoi]);
+    // 施設ツールチップ
+    if (info.object.name) {
+      return {
+        html: `
+          <div class="p-2">
+            <div class="font-bold text-sm">${info.object.name}</div>
+            <div class="text-xs text-gray-600">${info.object.address}</div>
+          </div>
+        `,
+        style: {
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          color: "#333",
+          borderRadius: "6px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          border: "1px solid #e5e7eb",
+        },
+      };
+    }
 
-  // Municipalities layer
-  const municipalitiesLayer = useMemo(() => {
-    if (!municipalitiesData || !layerVisibility.municipalities) return null;
+    return null;
+  }, []);
 
-    return new GeoJsonLayer({
-      id: "municipalities-layer",
-      data: municipalitiesData,
-      filled: false,
-      stroked: true,
-      getLineColor: [80, 80, 80, 200],
-      getLineWidth: 64,
-      lineDashArray: [5, 5],
-      pickable: true,
-    });
-  }, [municipalitiesData, layerVisibility.municipalities]);
-
-  // Facilities layer
-  const facilitiesLayer = useMemo(() => {
-    if (!facilities.length || !layerVisibility.facilities) return null;
-
-    return new ScatterplotLayer<Facility>({
-      id: "facilities-layer",
-      data: facilities,
-      getPosition: (d: Facility) => [d.lon, d.lat],
-      getRadius: 50, // メートル単位
-      getFillColor: [58, 58, 58, 255],
-      getLineColor: [255, 255, 255, 255],
-      getLineWidth: 10,
-      radiusUnits: "meters",
-      pickable: true,
-    });
-  }, [facilities, layerVisibility.facilities]);
-
-  const layers: Layer[] = useMemo(() => {
-    const allLayers = [
-      municipalitiesLayer,
-      meshLayer,
-      voronoiLayer,
-      facilitiesLayer,
-    ];
-    return allLayers.filter(Boolean) as Layer[];
-  }, [municipalitiesLayer, meshLayer, voronoiLayer, facilitiesLayer]);
-
+  // ローディング表示
   if (loading) {
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center">
-        <p className="mb-4">地図データを読み込んでいます...</p>
-        <div className="w-[60%] bg-gray-200 rounded-full h-2.5">
-          <div
-            className="bg-blue-600 h-2.5 rounded-full animate-pulse"
-            style={{ width: "66%" }}
-          ></div>
+      <div className="flex h-full w-full flex-col items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-sm text-gray-600 mb-2">
+            地図データを読み込んでいます...
+          </p>
+          <div className="w-64 bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-blue-600 h-2 rounded-full animate-pulse"
+              style={{ width: "66%" }}
+            ></div>
+          </div>
         </div>
       </div>
     );
   }
 
-  const mapStyle: StyleSpecification = {
-    version: 8,
-    sources: {
-      "carto-light": {
-        type: "raster" as const,
-        tiles: [
-          "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-          "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-          "https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-          "https://d.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-        ],
-        tileSize: 256,
-      },
-    },
-    layers: [
-      {
-        id: "carto-light-layer",
-        type: "raster" as const,
-        source: "carto-light",
-        minzoom: 0,
-        maxzoom: 22,
-      },
-    ],
-  };
-
   return (
-    <div className="relative h-full w-full">
-      <DeckGL
-        initialViewState={{
-          longitude: MAP_SETTINGS.center[1],
-          latitude: MAP_SETTINGS.center[0],
-          zoom: MAP_SETTINGS.zoom,
-          pitch: 0,
-          bearing: 0,
-        }}
-        controller={true}
-        layers={layers}
-        getTooltip={({ object }) => {
-          if (!object) return null;
-
-          // Mesh tooltip
-          if (object.properties?.distance_m !== undefined) {
-            return `最近傍施設までの距離: ${Math.round(object.properties.distance_m)}m`;
-          }
-
-          // Municipality tooltip
-          if (object.properties?.ward_ja) {
-            return object.properties.ward_ja;
-          }
-
-          // Facility tooltip
-          if (object.name) {
-            return {
-              html: `<strong>${object.name}</strong><br/>${object.address}`,
-              style: {
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                color: "white",
-                padding: "8px",
-                borderRadius: "4px",
-              },
-            };
-          }
-
-          return null;
-        }}
-      >
-        <MapLibre
-          mapStyle={mapStyle}
-          attributionControl={{
-            compact: true,
-            customAttribution: "© CARTO © OpenStreetMap contributors",
-          }}
-        />
-      </DeckGL>
-
+    <BaseMap
+      layers={layers}
+      initialViewState={viewState}
+      getTooltip={getTooltip}
+      showAttribution={true}
+    >
+      {/* 可視化地図専用のオーバーレイ */}
       <LayerControlPanel
         layerVisibility={layerVisibility}
         onLayerToggle={setLayerVisibility}
       />
 
       <Colorbar maxDistance={maxDistance} />
-
-      {/* Attribution */}
-      <div className="absolute bottom-2 right-2 text-xs text-gray-600 bg-white bg-opacity-80 px-2 py-1 rounded">
-        © CARTO © OpenStreetMap contributors
-      </div>
-    </div>
+    </BaseMap>
   );
 }

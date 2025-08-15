@@ -81,7 +81,7 @@ export default function SearchPage() {
     isReady: geohashReady,
     loading: dataLoading,
     error: dataError,
-  } = useGeohashSearch(selectedFacilityType);
+  } = useGeohashSearch(selectedFacilityType); // 引数を施設タイプに変更
 
   // 現在地取得
   const getCurrentLocation = useCallback(() => {
@@ -632,15 +632,40 @@ export default function SearchPage() {
           <TabsContent value="map" className="space-y-4">
             <div className="h-[600px] w-full border rounded-lg overflow-hidden">
               <MapLoader
+                mode="search"
+                searchResults={searchResults.results}
+                userLocation={userLocation ?? undefined}
+                selectedFacility={selectedFacility ?? undefined}
+                onFacilitySelect={handleFacilitySelect}
+                searchRadius={searchRadius}
                 facilityType={selectedFacilityType}
-                maxDistance={5000}
               />
             </div>
+
+            {/* 地図操作説明 */}
+            <Card>
+              <CardContent className="pt-4">
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center gap-4">
+                    <span>🖱️ 施設をクリックで詳細表示</span>
+                    <span>📍 青いマーカーが現在地</span>
+                    <span>🔵 青い円が検索範囲</span>
+                  </div>
+                  {searchResults.results.length > 0 && (
+                    <span className="text-green-600 font-medium">
+                      {searchResults.results.length}件の施設を表示中
+                    </span>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
 
             {selectedFacility && (
               <Card>
                 <CardHeader>
-                  <CardTitle>選択された施設</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    📍 選択された施設
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -648,13 +673,49 @@ export default function SearchPage() {
                       <h3 className="font-medium text-lg mb-2">
                         {selectedFacility.name}
                       </h3>
-                      <p className="text-gray-600 mb-4">
+                      <p className="text-gray-600 mb-2">
                         {selectedFacility.address}
                       </p>
+
+                      {/* 選択施設の距離情報 */}
+                      {searchResults.results.find(
+                        (f) => f.id === selectedFacility.id
+                      ) && (
+                        <div className="flex items-center gap-2 mt-2">
+                          <Badge variant="outline">
+                            距離:{" "}
+                            {formatDistance(
+                              searchResults.results.find(
+                                (f) => f.id === selectedFacility.id
+                              )?.distance || 0
+                            )}
+                          </Badge>
+                          <Badge variant="secondary">
+                            {
+                              FACILITY_TYPES.find(
+                                (t) => t.value === selectedFacilityType
+                              )?.label
+                            }
+                          </Badge>
+                        </div>
+                      )}
                     </div>
-                    <div className="text-right">
+                    <div className="text-right space-y-2">
+                      <Button
+                        onClick={() => {
+                          // 地図を選択施設中心に移動（オプション機能）
+                          console.log(
+                            `地図中心を${selectedFacility.name}に移動`
+                          );
+                        }}
+                        size="sm"
+                        variant="outline"
+                      >
+                        地図で中心表示
+                      </Button>
                       <Button
                         onClick={() => setSelectedFacility(null)}
+                        size="sm"
                         variant="outline"
                       >
                         選択を解除
