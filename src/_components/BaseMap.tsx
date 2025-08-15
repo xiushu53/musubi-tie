@@ -74,15 +74,7 @@ export default function BaseMap({
         onHover={onLayerHover}
         getTooltip={getTooltip}
       >
-        <MapLibre
-          mapStyle={mapStyle}
-          attributionControl={{
-            compact: true,
-            customAttribution: showAttribution
-              ? "© CARTO © OpenStreetMap contributors"
-              : "",
-          }}
-        />
+        <MapLibre mapStyle={mapStyle} attributionControl={false} />
       </DeckGL>
 
       {/* オーバーレイコンテンツ */}
@@ -90,7 +82,7 @@ export default function BaseMap({
 
       {/* デフォルト属性表示 */}
       {showAttribution && (
-        <div className="absolute bottom-2 left-2 text-xs text-gray-600 bg-white bg-opacity-80 px-2 py-1 rounded">
+        <div className="absolute bottom-0 right-0 text-xs text-gray-600 bg-white bg-opacity-80 px-2 py-1 rounded">
           © CARTO © OpenStreetMap contributors
         </div>
       )}
