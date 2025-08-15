@@ -2,9 +2,9 @@
 // 静的Geohashデータを使用する高速検索Hook
 
 import { useCallback, useMemo } from "react";
+import { calculateDistance } from "@/_utils/calculateDistance";
+import { encode, getNeighbors, getPrecisionInfo } from "@/_utils/geohash";
 import type { Facility } from "@/types";
-import { calculateDistance } from "@/utils/calculateDistance";
-import { encode, getNeighbors, getPrecisionInfo } from "@/utils/geohash";
 import { useStaticGeohashData } from "./useStaticGeohashData";
 
 export interface FacilityWithDistance extends Facility {

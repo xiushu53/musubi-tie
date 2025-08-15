@@ -12,12 +12,12 @@ import {
   Settings,
 } from "lucide-react";
 import { useCallback, useState } from "react";
-import { InfoCards } from "@/_components/InfoCards";
-import { LocationInput } from "@/_components/LocationInput";
-import MapLoader from "@/_components/MapLoader";
-import { SearchResultsList } from "@/_components/SearchResultsList";
-import { SearchSettings } from "@/_components/SearchSettings";
-import { StatusDisplay } from "@/_components/StatusDisplay";
+import MapLoader from "@/_components/map/MapLoader";
+import { InfoCards } from "@/_components/search/InfoCards";
+import { LocationInput } from "@/_components/search/LocationInput";
+import { SearchResultsList } from "@/_components/search/SearchResultsList";
+import { SearchSettings } from "@/_components/search/SearchSettings";
+import { StatusDisplay } from "@/_components/search/StatusDisplay";
 import { Alert, AlertDescription } from "@/_components/ui/alert";
 import { Badge } from "@/_components/ui/badge";
 import { Button } from "@/_components/ui/button";
@@ -46,11 +46,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/_components/ui/tabs";
+import { useFacilitySearch } from "@/_hooks/useFacilitySearch";
+import { useLocation } from "@/_hooks/useLocation";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
-import { useFacilitySearch } from "@/hooks/useFacilitySearch";
-import { useLocation } from "@/hooks/useLocation";
+import { formatDistance } from "@/_utils/formatDistance";
 import type { Facility } from "@/types";
-import { formatDistance } from "@/utils/formatDistance";
 
 export interface UserLocation {
   latitude: number;

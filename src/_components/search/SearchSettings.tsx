@@ -13,8 +13,8 @@ import {
   SelectValue,
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
+import { formatDistance } from "@/_utils/formatDistance";
 import type { SearchMethod } from "@/hooks/useGeohashSearch";
-import { formatDistance } from "@/utils/formatDistance";
 
 interface SearchSettingsProps {
   searchRadius: number;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MapLoader from "@/_components/MapLoader";
+import MapLoader from "@/_components/map/MapLoader";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
 import { COLORBAR_SETTINGS, FACILITY_TYPES } from "@/_settings/visualize-map";
-import { convertDistanceUnit } from "@/utils/convertDistansUnit";
+import { convertDistanceUnit } from "@/_utils/convertDistansUnit";
 
 export default function FacilitySelectorClient() {
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");

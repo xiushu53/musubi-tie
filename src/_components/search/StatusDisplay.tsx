@@ -3,8 +3,8 @@
 import { Database, Loader2, MapPin } from "lucide-react";
 import { Alert, AlertDescription } from "@/_components/ui/alert";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
+import { formatDistance } from "@/_utils/formatDistance";
 import type { UserLocation } from "@/app/search/page";
-import { formatDistance } from "@/utils/formatDistance";
 
 interface StatusDisplayProps {
   dataLoading: boolean;

@@ -4,9 +4,9 @@ import { Badge } from "@/_components/ui/badge";
 import { Button } from "@/_components/ui/button";
 import { Card } from "@/_components/ui/card";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
+import { formatDistance } from "@/_utils/formatDistance";
 import type { FacilityWithDistance } from "@/app/search/page";
 import type { Facility } from "@/types";
-import { formatDistance } from "@/utils/formatDistance";
 
 interface SearchResultsListProps {
   results: FacilityWithDistance[];

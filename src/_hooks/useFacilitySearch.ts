@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
+import { type SearchMethod, useGeohashSearch } from "@/_hooks/useGeohashSearch";
 import type { FacilityWithDistance, UserLocation } from "@/app/search/page";
-import { type SearchMethod, useGeohashSearch } from "@/hooks/useGeohashSearch";
 
 export function useFacilitySearch(
   selectedFacilityType: string,

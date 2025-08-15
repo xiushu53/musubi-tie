@@ -52,7 +52,7 @@ export default function MapLoader({
   // 検索結果マップコンポーネント（アクセシブル版）
   const SearchResultMap = useMemo(
     () =>
-      dynamic(() => import("@/_components/AccessibleSearchResultMap"), {
+      dynamic(() => import("@/_components/map/AccessibleSearchResultMap"), {
         loading: () => (
           <div className="flex h-full items-center justify-center bg-gray-50">
             <div className="text-center">
@@ -71,7 +71,7 @@ export default function MapLoader({
   // 従来の可視化マップコンポーネント
   const VisualizeDeckGLMap = useMemo(
     () =>
-      dynamic(() => import("@/_components/VisualizeDeckGLMap"), {
+      dynamic(() => import("@/_components/map/VisualizeDeckGLMap"), {
         loading: () => (
           <div className="flex h-full items-center justify-center bg-gray-50">
             <div className="text-center">
