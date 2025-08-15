@@ -1,0 +1,5407 @@
+{
+  "facilityType": "sept-a",
+  "generatedAt": "2025-08-15T03:05:02.925Z",
+  "facilities": [
+    {
+      "id": 0,
+      "name": "クオッカ",
+      "address": "千代田区九段北１－３－５",
+      "lat": 35.696183,
+      "lon": 139.751456,
+      "geohash": "xn77h4",
+      "neighbors": [
+        "xn77h5",
+        "xn77h6",
+        "xn77h6",
+        "xn77h5",
+        "xn77h7"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 1,
+      "name": "フロー・ネット",
+      "address": "中央区日本橋小伝馬町１－１　日本橋末広ビル２階",
+      "lat": 35.68977,
+      "lon": 139.777441,
+      "geohash": "xn77h9",
+      "neighbors": [
+        "xn77hd",
+        "xn77hc",
+        "xn77hc",
+        "xn77hd",
+        "xn77hf"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 2,
+      "name": "ナチュラルプランツ･サポート",
+      "address": "中央区日本橋大伝馬町１７－１　城野ビルⅡ３階",
+      "lat": 35.690526,
+      "lon": 139.782232,
+      "geohash": "xn77hc",
+      "neighbors": [
+        "xn77hf",
+        "xn77j1",
+        "xn77j1",
+        "xn77hf",
+        "xn77j4"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 3,
+      "name": "中央区立知的障害者生活支援施設レインボーハウス明石",
+      "address": "中央区明石町１－６",
+      "lat": 35.669292,
+      "lon": 139.776716,
+      "geohash": "xn76ut",
+      "neighbors": [
+        "xn76uw",
+        "xn76uv",
+        "xn76uv",
+        "xn76uw",
+        "xn76uy"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 4,
+      "name": "就労継続支援Ａ型事業所かがやき",
+      "address": "港区新橋３－１６－３　港区立生涯学習センター内",
+      "lat": 35.665622,
+      "lon": 139.757115,
+      "geohash": "xn76uk",
+      "neighbors": [
+        "xn76um",
+        "xn76us",
+        "xn76us",
+        "xn76um",
+        "xn76ut"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 5,
+      "name": "えがおワークス",
+      "address": "港区浜松町１－２１－４　崇城大学会館５階",
+      "lat": 35.657754,
+      "lon": 139.757454,
+      "geohash": "xn76u7",
+      "neighbors": [
+        "xn76uk",
+        "xn76ue",
+        "xn76ue",
+        "xn76uk",
+        "xn76us"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 6,
+      "name": "アトリエ・レダクラフト",
+      "address": "港区麻布十番４－４－１　ツイン一の橋ビル２１０８、２０３１",
+      "lat": 35.653767,
+      "lon": 139.737161,
+      "geohash": "xn76gf",
+      "neighbors": [
+        "xn76gg",
+        "xn76u4",
+        "xn76u4",
+        "xn76gg",
+        "xn76u5"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 7,
+      "name": "Future　Design　Lab　Omotesando",
+      "address": "港区南青山３－８－２７　芝崎４１０ビル３階",
+      "lat": 35.666435,
+      "lon": 139.715324,
+      "geohash": "xn76gk",
+      "neighbors": [
+        "xn76gm",
+        "xn76gs",
+        "xn76gs",
+        "xn76gm",
+        "xn76gt"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 8,
+      "name": "くじら",
+      "address": "新宿区四谷４－３２－１　吉岡ビル５階",
+      "lat": 35.68946,
+      "lon": 139.71487,
+      "geohash": "xn7753",
+      "neighbors": [
+        "xn7756",
+        "xn7759",
+        "xn7759",
+        "xn7756",
+        "xn775d"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 9,
+      "name": "あしか",
+      "address": "新宿区新宿１－２－８　国久ビル５階Ａ室",
+      "lat": 35.687963,
+      "lon": 139.712687,
+      "geohash": "xn7750",
+      "neighbors": [
+        "xn7751",
+        "xn7752",
+        "xn7752",
+        "xn7751",
+        "xn7753"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 10,
+      "name": "東京都育成会　クリーンサービス",
+      "address": "新宿区新宿５－１８－１６　ＳＨＩＮＪＵＫＵ５－１ビル２階",
+      "lat": 35.694434,
+      "lon": 139.70651,
+      "geohash": "xn7751",
+      "neighbors": [
+        "xn7754",
+        "xn7753",
+        "xn7753",
+        "xn7754",
+        "xn7756"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 11,
+      "name": "ストローク・サービス",
+      "address": "新宿区西落合２－２０－１６　ＰＯＥＭビル１階",
+      "lat": 35.720217,
+      "lon": 139.674509,
+      "geohash": "xn774q",
+      "neighbors": [
+        "xn774r",
+        "xn774w",
+        "xn774w",
+        "xn774r",
+        "xn774x"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 12,
+      "name": "ワークプレイスぶんぶん",
+      "address": "文京区小日向２－１６－１５",
+      "lat": 35.710581,
+      "lon": 139.734582,
+      "geohash": "xn775s",
+      "neighbors": [
+        "xn775t",
+        "xn775u",
+        "xn775u",
+        "xn775t",
+        "xn775v"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 13,
+      "name": "ベジティア",
+      "address": "文京区本郷１－１０－１４　加奈利屋館ビル１階",
+      "lat": 35.704154,
+      "lon": 139.757872,
+      "geohash": "xn77h7",
+      "neighbors": [
+        "xn77hk",
+        "xn77he",
+        "xn77he",
+        "xn77hk",
+        "xn77hs"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 14,
+      "name": "こうめ",
+      "address": "台東区雷門２－１９－１３",
+      "lat": 35.710463,
+      "lon": 139.797255,
+      "geohash": "xn77jh",
+      "neighbors": [
+        "xn77jj",
+        "xn77jk",
+        "xn77jk",
+        "xn77jj",
+        "xn77jm"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 15,
+      "name": "HOPE",
+      "address": "台東区三筋１－４－１６　康江ビル２階",
+      "lat": 35.703391,
+      "lon": 139.78654,
+      "geohash": "xn77hg",
+      "neighbors": [
+        "xn77hu",
+        "xn77j5",
+        "xn77j5",
+        "xn77hu",
+        "xn77jh"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 16,
+      "name": "ヒューマングロー錦糸町",
+      "address": "江東区毛利１－２１－２",
+      "lat": 35.692834,
+      "lon": 139.814902,
+      "geohash": "xn77j9",
+      "neighbors": [
+        "xn77jd",
+        "xn77jc",
+        "xn77jc",
+        "xn77jd",
+        "xn77jf"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 17,
+      "name": "エコミラ江東",
+      "address": "江東区潮見１－２９－７",
+      "lat": 35.655003,
+      "lon": 139.811894,
+      "geohash": "xn76v6",
+      "neighbors": [
+        "xn76v7",
+        "xn76vd",
+        "xn76vd",
+        "xn76v7",
+        "xn76ve"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 18,
+      "name": "ヒューマングロー亀戸",
+      "address": "江東区亀戸１－３１－７",
+      "lat": 35.694709,
+      "lon": 139.825678,
+      "geohash": "xn77jf",
+      "neighbors": [
+        "xn77jg",
+        "xn77n4",
+        "xn77n4",
+        "xn77jg",
+        "xn77n5"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 19,
+      "name": "阿梨ヶ舎",
+      "address": "江東区北砂５－２０　１３号棟１０６",
+      "lat": 35.684016,
+      "lon": 139.832927,
+      "geohash": "xn77jb",
+      "neighbors": [
+        "xn77jc",
+        "xn77n0",
+        "xn77n0",
+        "xn77jc",
+        "xn77n1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 20,
+      "name": "ライフアーク北砂",
+      "address": "江東区北砂２－１５－３１　山東ビル紫庭マンション２階",
+      "lat": 35.68275,
+      "lon": 139.826756,
+      "geohash": "xn76vz",
+      "neighbors": [
+        "xn77jb",
+        "xn76yp",
+        "xn76yp",
+        "xn77jb",
+        "xn77n0"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 21,
+      "name": "すまいる・さぽーと品川",
+      "address": "品川区東品川１－１７－２",
+      "lat": 35.621363,
+      "lon": 139.745034,
+      "geohash": "xn76eu",
+      "neighbors": [
+        "xn76ev",
+        "xn76sh",
+        "xn76sh",
+        "xn76ev",
+        "xn76sj"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 22,
+      "name": "福祉工場しながわ",
+      "address": "品川区東大井１－３－１０",
+      "lat": 35.605795,
+      "lon": 139.743968,
+      "geohash": "xn76ec",
+      "neighbors": [
+        "xn76ef",
+        "xn76s1",
+        "xn76s1",
+        "xn76ef",
+        "xn76s4"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 23,
+      "name": "めぐろ",
+      "address": "目黒区東山３－１６－３　ウェル東山ビル",
+      "lat": 35.649789,
+      "lon": 139.684702,
+      "geohash": "xn76f9",
+      "neighbors": [
+        "xn76fd",
+        "xn76fc",
+        "xn76fc",
+        "xn76fd",
+        "xn76ff"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 24,
+      "name": "カフェレストランわれもこう目黒店",
+      "address": "目黒区目黒２－４－３６　目黒区民センター１階",
+      "lat": 35.635452,
+      "lon": 139.707868,
+      "geohash": "xn76ep",
+      "neighbors": [
+        "xn76g0",
+        "xn76er",
+        "xn76er",
+        "xn76g0",
+        "xn76g2"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 25,
+      "name": "社会福祉法人東京コロニー　東京都大田福祉工場",
+      "address": "大田区大森西２－２２－２６",
+      "lat": 35.575279,
+      "lon": 139.728104,
+      "geohash": "xn767s",
+      "neighbors": [
+        "xn767t",
+        "xn767u",
+        "xn767u",
+        "xn767t",
+        "xn767v"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 26,
+      "name": "明日楽",
+      "address": "大田区西蒲田６－８－９",
+      "lat": 35.566144,
+      "lon": 139.710234,
+      "geohash": "xn7674",
+      "neighbors": [
+        "xn7675",
+        "xn7676",
+        "xn7676",
+        "xn7675",
+        "xn7677"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 27,
+      "name": "ひだまり",
+      "address": "大田区蒲田本町１－８－９",
+      "lat": 35.556226,
+      "lon": 139.716306,
+      "geohash": "xn7672",
+      "neighbors": [
+        "xn7673",
+        "xn7678",
+        "xn7678",
+        "xn7673",
+        "xn7679"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 28,
+      "name": "プレスト池上",
+      "address": "大田区池上３－３２－１７　第２６下川ビルＡ館３０１",
+      "lat": 35.573698,
+      "lon": 139.701673,
+      "geohash": "xn766g",
+      "neighbors": [
+        "xn766u",
+        "xn7675",
+        "xn7675",
+        "xn766u",
+        "xn767h"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 29,
+      "name": "しごとも",
+      "address": "世田谷区等々力６－１０－１９",
+      "lat": 35.611826,
+      "lon": 139.655903,
+      "geohash": "xn769f",
+      "neighbors": [
+        "xn769g",
+        "xn76d4",
+        "xn76d4",
+        "xn769g",
+        "xn76d5"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 30,
+      "name": "Ｓｃｏｐｏ",
+      "address": "世田谷区上用賀３－１４－１７　グラン・ペルフェクティオ１階",
+      "lat": 35.633998,
+      "lon": 139.631632,
+      "geohash": "xn769q",
+      "neighbors": [
+        "xn769r",
+        "xn769w",
+        "xn769w",
+        "xn769r",
+        "xn769x"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 31,
+      "name": "ローランズプラスⅡ",
+      "address": "渋谷区千駄ヶ谷３－５４－１５　ベルズ原宿ビル１階",
+      "lat": 35.674981,
+      "lon": 139.705913,
+      "geohash": "xn76gn",
+      "neighbors": [
+        "xn76gp",
+        "xn76gq",
+        "xn76gq",
+        "xn76gp",
+        "xn76gr"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 32,
+      "name": "ホープ就労支援センター渋谷",
+      "address": "渋谷区笹塚２－１６－１",
+      "lat": 35.674413,
+      "lon": 139.666234,
+      "geohash": "xn76fn",
+      "neighbors": [
+        "xn76fp",
+        "xn76fq",
+        "xn76fq",
+        "xn76fp",
+        "xn76fr"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 33,
+      "name": "コロニー中野",
+      "address": "中野区江原町２－６－７",
+      "lat": 35.72911,
+      "lon": 139.668348,
+      "geohash": "xn7760",
+      "neighbors": [
+        "xn7761",
+        "xn7762",
+        "xn7762",
+        "xn7761",
+        "xn7763"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 34,
+      "name": "ワクわーく",
+      "address": "中野区白鷺一丁目３０番６号　深澤ビル４階",
+      "lat": 35.721496,
+      "lon": 139.63737,
+      "geohash": "xn771w",
+      "neighbors": [
+        "xn771x",
+        "xn771y",
+        "xn771y",
+        "xn771x",
+        "xn771z"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 35,
+      "name": "パン工房　プクプク",
+      "address": "杉並区南荻窪４－１－１５　春日屋ビル",
+      "lat": 35.698929,
+      "lon": 139.617162,
+      "geohash": "xn7714",
+      "neighbors": [
+        "xn7715",
+        "xn7716",
+        "xn7716",
+        "xn7715",
+        "xn7717"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 36,
+      "name": "ローランズプラス",
+      "address": "豊島区駒込１－１９－１５　直江ビル１階、２階",
+      "lat": 35.735476,
+      "lon": 139.752024,
+      "geohash": "xn77k1",
+      "neighbors": [
+        "xn77k4",
+        "xn77k3",
+        "xn77k3",
+        "xn77k4",
+        "xn77k6"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 37,
+      "name": "豊芯会フードサービス事業部",
+      "address": "豊島区北大塚３－３４－７",
+      "lat": 35.735203,
+      "lon": 139.726684,
+      "geohash": "xn7779",
+      "neighbors": [
+        "xn777d",
+        "xn777c",
+        "xn777c",
+        "xn777d",
+        "xn777f"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 38,
+      "name": "自立支援センターまめの樹",
+      "address": "豊島区西池袋５－２６－１６　ＣＨＩＢＡビル５階",
+      "lat": 35.732677,
+      "lon": 139.699906,
+      "geohash": "xn776b",
+      "neighbors": [
+        "xn776c",
+        "xn7770",
+        "xn7770",
+        "xn776c",
+        "xn7771"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 39,
+      "name": "ダイニング　街なか",
+      "address": "北区上十条２－２８－６",
+      "lat": 35.759986,
+      "lon": 139.722098,
+      "geohash": "xn777m",
+      "neighbors": [
+        "xn777q",
+        "xn777t",
+        "xn777t",
+        "xn777q",
+        "xn777w"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 40,
+      "name": "わくわく配食サービス",
+      "address": "北区赤羽南２－６－６　スカイブリッジビル１階、地下１階",
+      "lat": 35.772245,
+      "lon": 139.722733,
+      "geohash": "xn77e2",
+      "neighbors": [
+        "xn77e3",
+        "xn77e8",
+        "xn77e8",
+        "xn77e3",
+        "xn77e9"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 41,
+      "name": "うきま幸朋苑ブレッド＆バター",
+      "address": "北区浮間５－１３－１",
+      "lat": 35.78474,
+      "lon": 139.692446,
+      "geohash": "xn77df",
+      "neighbors": [
+        "xn77dg",
+        "xn77e4",
+        "xn77e4",
+        "xn77dg",
+        "xn77e5"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 42,
+      "name": "カフェフレンド",
+      "address": "荒川区南千住７－２６－２",
+      "lat": 35.735633,
+      "lon": 139.799137,
+      "geohash": "xn77m1",
+      "neighbors": [
+        "xn77m4",
+        "xn77m3",
+        "xn77m3",
+        "xn77m4",
+        "xn77m6"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 43,
+      "name": "オフィスサプライ東京",
+      "address": "荒川区西尾久５－２０－１８",
+      "lat": 35.747905,
+      "lon": 139.758487,
+      "geohash": "xn77k7",
+      "neighbors": [
+        "xn77kk",
+        "xn77ke",
+        "xn77ke",
+        "xn77kk",
+        "xn77ks"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 44,
+      "name": "作業所スカイ",
+      "address": "荒川区西日暮里５－２－２０　サンリバー西日暮里１０２",
+      "lat": 35.733974,
+      "lon": 139.770951,
+      "geohash": "xn77k9",
+      "neighbors": [
+        "xn77kd",
+        "xn77kc",
+        "xn77kc",
+        "xn77kd",
+        "xn77kf"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 45,
+      "name": "ウィズミー",
+      "address": "板橋区板橋４－３８－４",
+      "lat": 35.751123,
+      "lon": 139.719565,
+      "geohash": "xn777k",
+      "neighbors": [
+        "xn777m",
+        "xn777s",
+        "xn777s",
+        "xn777m",
+        "xn777t"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 46,
+      "name": "ポプラＡプラス療育センター店",
+      "address": "板橋区小茂根１－１－１０",
+      "lat": 35.747517,
+      "lon": 139.682715,
+      "geohash": "xn776e",
+      "neighbors": [
+        "xn776s",
+        "xn776g",
+        "xn776g",
+        "xn776s",
+        "xn776u"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 47,
+      "name": "東京都板橋福祉工場　就労継続支援Ａ型事業所",
+      "address": "板橋区高島平９－４２－７",
+      "lat": 35.791577,
+      "lon": 139.66929,
+      "geohash": "xn77d7",
+      "neighbors": [
+        "xn77dk",
+        "xn77de",
+        "xn77de",
+        "xn77dk",
+        "xn77ds"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 48,
+      "name": "かすたねっと",
+      "address": "練馬区練馬２－１－９",
+      "lat": 35.741336,
+      "lon": 139.65604,
+      "geohash": "xn773f",
+      "neighbors": [
+        "xn773g",
+        "xn7764",
+        "xn7764",
+        "xn773g",
+        "xn7765"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 49,
+      "name": "銀杏",
+      "address": "練馬区練馬１－２６－６",
+      "lat": 35.739061,
+      "lon": 139.655212,
+      "geohash": "xn773f",
+      "neighbors": [
+        "xn773g",
+        "xn7764",
+        "xn7764",
+        "xn773g",
+        "xn7765"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 50,
+      "name": "すくらむ事業所",
+      "address": "練馬区豊玉北４－１１－７　ＢＳ第２ビル",
+      "lat": 35.735251,
+      "lon": 139.659309,
+      "geohash": "xn7761",
+      "neighbors": [
+        "xn7764",
+        "xn7763",
+        "xn7763",
+        "xn7764",
+        "xn7766"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 51,
+      "name": "ワークスタジオ　Ｗｅｌ",
+      "address": "練馬区貫井一丁目１３番１３号",
+      "lat": 35.739222,
+      "lon": 139.634828,
+      "geohash": "xn7736",
+      "neighbors": [
+        "xn7737",
+        "xn773d",
+        "xn773d",
+        "xn7737",
+        "xn773e"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 52,
+      "name": "赤オニの家",
+      "address": "練馬区西大泉３－１－３　コーポ豊島１階　店舗",
+      "lat": 35.754266,
+      "lon": 139.583804,
+      "geohash": "xn772k",
+      "neighbors": [
+        "xn772m",
+        "xn772s",
+        "xn772s",
+        "xn772m",
+        "xn772t"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 53,
+      "name": "あかねっこ弁当",
+      "address": "練馬区春日町３－１３－１",
+      "lat": 35.749054,
+      "lon": 139.641613,
+      "geohash": "xn773e",
+      "neighbors": [
+        "xn773s",
+        "xn773g",
+        "xn773g",
+        "xn773s",
+        "xn773u"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 54,
+      "name": "こぶし事業所",
+      "address": "練馬区北町７－２０－３６",
+      "lat": 35.763189,
+      "lon": 139.650492,
+      "geohash": "xn773y",
+      "neighbors": [
+        "xn773z",
+        "xn776n",
+        "xn776n",
+        "xn773z",
+        "xn776p"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 55,
+      "name": "綾瀬ひまわり園",
+      "address": "足立区綾瀬７－２－７",
+      "lat": 35.774837,
+      "lon": 139.824238,
+      "geohash": "xn77tb",
+      "neighbors": [
+        "xn77tc",
+        "xn77w0",
+        "xn77w0",
+        "xn77tc",
+        "xn77w1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 56,
+      "name": "ラトリエ　ソサイエティ",
+      "address": "足立区中央本町４－４－１２",
+      "lat": 35.775853,
+      "lon": 139.805965,
+      "geohash": "xn77t2",
+      "neighbors": [
+        "xn77t3",
+        "xn77t8",
+        "xn77t8",
+        "xn77t3",
+        "xn77t9"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 57,
+      "name": "のんの",
+      "address": "足立区保木間１－１－３　東潤ビル１階",
+      "lat": 35.789201,
+      "lon": 139.802992,
+      "geohash": "xn77t7",
+      "neighbors": [
+        "xn77tk",
+        "xn77te",
+        "xn77te",
+        "xn77tk",
+        "xn77ts"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 58,
+      "name": "クリスタルサービス足立",
+      "address": "足立区保木間一丁目１０番１８号　淵江プラザビル２階",
+      "lat": 35.78969,
+      "lon": 139.806056,
+      "geohash": "xn77t7",
+      "neighbors": [
+        "xn77tk",
+        "xn77te",
+        "xn77te",
+        "xn77tk",
+        "xn77ts"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 59,
+      "name": "竹の塚ひまわり園クリーンチーム",
+      "address": "足立区竹の塚７－１９－７",
+      "lat": 35.8007,
+      "lon": 139.795551,
+      "geohash": "xn77tj",
+      "neighbors": [
+        "xn77tn",
+        "xn77tm",
+        "xn77tm",
+        "xn77tn",
+        "xn77tq"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 60,
+      "name": "大滝チャレンジド",
+      "address": "足立区梅島３－２４－４",
+      "lat": 35.776877,
+      "lon": 139.793129,
+      "geohash": "xn77t0",
+      "neighbors": [
+        "xn77t1",
+        "xn77t2",
+        "xn77t2",
+        "xn77t1",
+        "xn77t3"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 61,
+      "name": "アイリス",
+      "address": "足立区梅島１－１６－６　ジュネス小野田１階",
+      "lat": 35.773328,
+      "lon": 139.799401,
+      "geohash": "xn77t0",
+      "neighbors": [
+        "xn77t1",
+        "xn77t2",
+        "xn77t2",
+        "xn77t1",
+        "xn77t3"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 62,
+      "name": "フリージア",
+      "address": "足立区梅島１－１９－１０　ホワイトテラス梅島",
+      "lat": 35.772786,
+      "lon": 139.800768,
+      "geohash": "xn77t0",
+      "neighbors": [
+        "xn77t1",
+        "xn77t2",
+        "xn77t2",
+        "xn77t1",
+        "xn77t3"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 63,
+      "name": "クリーニングフランセ",
+      "address": "足立区栗原３－２５－１２",
+      "lat": 35.78121,
+      "lon": 139.783736,
+      "geohash": "xn77sc",
+      "neighbors": [
+        "xn77sf",
+        "xn77t1",
+        "xn77t1",
+        "xn77sf",
+        "xn77t4"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 64,
+      "name": "谷在家福祉作業所",
+      "address": "足立区谷在家３－１３－１",
+      "lat": 35.788325,
+      "lon": 139.765734,
+      "geohash": "xn77s7",
+      "neighbors": [
+        "xn77sk",
+        "xn77se",
+        "xn77se",
+        "xn77sk",
+        "xn77ss"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 65,
+      "name": "きせん事業所",
+      "address": "葛飾区東金町１－３５－１０",
+      "lat": 35.772776,
+      "lon": 139.871632,
+      "geohash": "xn77wb",
+      "neighbors": [
+        "xn77wc",
+        "xn77x0",
+        "xn77x0",
+        "xn77wc",
+        "xn77x1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 66,
+      "name": "アップドラフト",
+      "address": "葛飾区東金町１－４２－１０　金町ビル３階",
+      "lat": 35.770421,
+      "lon": 139.871282,
+      "geohash": "xn77qz",
+      "neighbors": [
+        "xn77wb",
+        "xn77rp",
+        "xn77rp",
+        "xn77wb",
+        "xn77x0"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 67,
+      "name": "社会福祉法人東京コロニー　東京都葛飾福祉工場",
+      "address": "葛飾区金町２－８－２０",
+      "lat": 35.764547,
+      "lon": 139.869124,
+      "geohash": "xn77qy",
+      "neighbors": [
+        "xn77qz",
+        "xn77rn",
+        "xn77rn",
+        "xn77qz",
+        "xn77rp"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 68,
+      "name": "ファーストプランニング",
+      "address": "葛飾区柴又６－１２－１８　２階",
+      "lat": 35.756028,
+      "lon": 139.87711,
+      "geohash": "xn77qv",
+      "neighbors": [
+        "xn77qy",
+        "xn77rj",
+        "xn77rj",
+        "xn77qy",
+        "xn77rn"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 69,
+      "name": "ぽむの樹",
+      "address": "葛飾区青戸５－２－９　青戸ハイツ１０１、２０５",
+      "lat": 35.74769,
+      "lon": 139.853828,
+      "geohash": "xn77q7",
+      "neighbors": [
+        "xn77qk",
+        "xn77qe",
+        "xn77qe",
+        "xn77qk",
+        "xn77qs"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 70,
+      "name": "東京ソテリアエンプロイメント",
+      "address": "江戸川区松島２－９－２",
+      "lat": 35.708966,
+      "lon": 139.859091,
+      "geohash": "xn77ns",
+      "neighbors": [
+        "xn77nt",
+        "xn77nu",
+        "xn77nu",
+        "xn77nt",
+        "xn77nv"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 71,
+      "name": "ラピス",
+      "address": "江戸川区東小松川２－１０－５",
+      "lat": 35.69884,
+      "lon": 139.866818,
+      "geohash": "xn77nd",
+      "neighbors": [
+        "xn77ne",
+        "xn77nf",
+        "xn77nf",
+        "xn77ne",
+        "xn77ng"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 72,
+      "name": "イーストフライト",
+      "address": "江戸川区小松川３－２－１　テクノタウン３０６",
+      "lat": 35.696756,
+      "lon": 139.847592,
+      "geohash": "xn77n6",
+      "neighbors": [
+        "xn77n7",
+        "xn77nd",
+        "xn77nd",
+        "xn77n7",
+        "xn77ne"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 73,
+      "name": "ワークワーク東京",
+      "address": "江戸川区東葛西３－１７－４１",
+      "lat": 35.665968,
+      "lon": 139.885895,
+      "geohash": "xn76zh",
+      "neighbors": [
+        "xn76zj",
+        "xn76zk",
+        "xn76zk",
+        "xn76zj",
+        "xn76zm"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 74,
+      "name": "タオ江戸川",
+      "address": "江戸川区東葛西１－４５－１１",
+      "lat": 35.670486,
+      "lon": 139.882115,
+      "geohash": "xn76zj",
+      "neighbors": [
+        "xn76zn",
+        "xn76zm",
+        "xn76zm",
+        "xn76zn",
+        "xn76zq"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 75,
+      "name": "ぽぷら八王子",
+      "address": "八王子市戸吹町２１０４　株式会社エフピコ八王子ＰＷ工場内",
+      "lat": 35.711111,
+      "lon": 139.291511,
+      "geohash": "xn751t",
+      "neighbors": [
+        "xn751w",
+        "xn751v",
+        "xn751v",
+        "xn751w",
+        "xn751y"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 76,
+      "name": "ハートエース",
+      "address": "八王子市子安町１－１５－１　テクノビル２階",
+      "lat": 35.653785,
+      "lon": 139.342389,
+      "geohash": "xn74ff",
+      "neighbors": [
+        "xn74fg",
+        "xn74g4",
+        "xn74g4",
+        "xn74fg",
+        "xn74g5"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 77,
+      "name": "アース",
+      "address": "八王子市片倉町７０６－６",
+      "lat": 35.640301,
+      "lon": 139.340593,
+      "geohash": "xn74fb",
+      "neighbors": [
+        "xn74fc",
+        "xn74g0",
+        "xn74g0",
+        "xn74fc",
+        "xn74g1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 78,
+      "name": "リーフ",
+      "address": "八王子市千人町２－３－１６　プラザ西八王子２Ｆ",
+      "lat": 35.658256,
+      "lon": 139.313467,
+      "geohash": "xn74f5",
+      "neighbors": [
+        "xn74fh",
+        "xn74f7",
+        "xn74f7",
+        "xn74fh",
+        "xn74fk"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 79,
+      "name": "シエル",
+      "address": "八王子市初沢町１２３１－１７　高尾力栄ビル２０２",
+      "lat": 35.641549,
+      "lon": 139.285245,
+      "geohash": "xn74c8",
+      "neighbors": [
+        "xn74c9",
+        "xn74cb",
+        "xn74cb",
+        "xn74c9",
+        "xn74cc"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 80,
+      "name": "立川おりおん",
+      "address": "立川市曙町２－９－１　菊屋ビルディング５０２",
+      "lat": 35.701026,
+      "lon": 139.415601,
+      "geohash": "xn75h7",
+      "neighbors": [
+        "xn75hk",
+        "xn75he",
+        "xn75he",
+        "xn75hk",
+        "xn75hs"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 81,
+      "name": "はちす",
+      "address": "立川市一番町１－４１－１１",
+      "lat": 35.725048,
+      "lon": 139.38295,
+      "geohash": "xn755x",
+      "neighbors": [
+        "xn7578",
+        "xn755z",
+        "xn755z",
+        "xn7578",
+        "xn757b"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 82,
+      "name": "マジェルカ",
+      "address": "武蔵野市吉祥寺本町３－３－１１　中田ビル",
+      "lat": 35.704894,
+      "lon": 139.573529,
+      "geohash": "xn7705",
+      "neighbors": [
+        "xn770h",
+        "xn7707",
+        "xn7707",
+        "xn770h",
+        "xn770k"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 83,
+      "name": "ワークセンターけやき",
+      "address": "武蔵野市西久保２－２７－６",
+      "lat": 35.708604,
+      "lon": 139.554842,
+      "geohash": "xn75ps",
+      "neighbors": [
+        "xn75pt",
+        "xn75pu",
+        "xn75pu",
+        "xn75pt",
+        "xn75pv"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 84,
+      "name": "三鷹ひまわり第一共同作業所",
+      "address": "三鷹市下連雀４－８－２０",
+      "lat": 35.692895,
+      "lon": 139.562692,
+      "geohash": "xn75pc",
+      "neighbors": [
+        "xn75pf",
+        "xn7701",
+        "xn7701",
+        "xn75pf",
+        "xn7704"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 85,
+      "name": "ワークショップハーモニー",
+      "address": "三鷹市大沢１－１－４３",
+      "lat": 35.678579,
+      "lon": 139.541005,
+      "geohash": "xn74zr",
+      "neighbors": [
+        "xn75p2",
+        "xn74zx",
+        "xn74zx",
+        "xn75p2",
+        "xn75p8"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 86,
+      "name": "自立支援塾ぱん工房",
+      "address": "青梅市東青梅２－１８－５　セトル東青梅１０６・１０７",
+      "lat": 35.790259,
+      "lon": 139.27486,
+      "geohash": "xn7597",
+      "neighbors": [
+        "xn759k",
+        "xn759e",
+        "xn759e",
+        "xn759k",
+        "xn759s"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 87,
+      "name": "アルホープ",
+      "address": "青梅市東青梅５－３－４　アルトポンテ２階",
+      "lat": 35.785646,
+      "lon": 139.282326,
+      "geohash": "xn7596",
+      "neighbors": [
+        "xn7597",
+        "xn759d",
+        "xn759d",
+        "xn7597",
+        "xn759e"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 88,
+      "name": "西府いこいプラザ",
+      "address": "府中市西府町３－２９－１７",
+      "lat": 35.678877,
+      "lon": 139.456862,
+      "geohash": "xn74vr",
+      "neighbors": [
+        "xn75j2",
+        "xn74vx",
+        "xn74vx",
+        "xn75j2",
+        "xn75j8"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 89,
+      "name": "らぷらんど調布",
+      "address": "調布市小島町３－３３－１　１０２及び２０２",
+      "lat": 35.645981,
+      "lon": 139.53643,
+      "geohash": "xn74z1",
+      "neighbors": [
+        "xn74z4",
+        "xn74z3",
+        "xn74z3",
+        "xn74z4",
+        "xn74z6"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 90,
+      "name": "スワンカフェ＆ベーカリー町田１号店",
+      "address": "町田市中町３－７－１７",
+      "lat": 35.552136,
+      "lon": 139.448087,
+      "geohash": "xn74m0",
+      "neighbors": [
+        "xn74m1",
+        "xn74m2",
+        "xn74m2",
+        "xn74m1",
+        "xn74m3"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 91,
+      "name": "スワンカフェ＆ベーカリー町田２号店",
+      "address": "町田市木曽西２－１７－２１　ショッピングセンター３０５内",
+      "lat": 35.569489,
+      "lon": 139.415311,
+      "geohash": "xn74k7",
+      "neighbors": [
+        "xn74kk",
+        "xn74ke",
+        "xn74ke",
+        "xn74kk",
+        "xn74ks"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 92,
+      "name": "みくま",
+      "address": "小平市大沼町２－１－１２",
+      "lat": 35.738182,
+      "lon": 139.492193,
+      "geohash": "xn75q1",
+      "neighbors": [
+        "xn75q4",
+        "xn75q3",
+        "xn75q3",
+        "xn75q4",
+        "xn75q6"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 93,
+      "name": "ディーセント・ワーク平山台",
+      "address": "日野市平山２－１－１",
+      "lat": 35.640974,
+      "lon": 139.387136,
+      "geohash": "xn74gb",
+      "neighbors": [
+        "xn74gc",
+        "xn74u0",
+        "xn74u0",
+        "xn74gc",
+        "xn74u1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 94,
+      "name": "コロニー東村山",
+      "address": "東村山市秋津町２－２２－９",
+      "lat": 35.768765,
+      "lon": 139.487895,
+      "geohash": "xn75qp",
+      "neighbors": [
+        "xn75w0",
+        "xn75qr",
+        "xn75qr",
+        "xn75w0",
+        "xn75w2"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 95,
+      "name": "ともにー",
+      "address": "国立市泉１－１６－４",
+      "lat": 35.672633,
+      "lon": 139.437836,
+      "geohash": "xn74uy",
+      "neighbors": [
+        "xn74uz",
+        "xn74vn",
+        "xn74vn",
+        "xn74uz",
+        "xn74vp"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 96,
+      "name": "ステップアップともにー",
+      "address": "国立市泉１－１２－３",
+      "lat": 35.673072,
+      "lon": 139.439133,
+      "geohash": "xn74vn",
+      "neighbors": [
+        "xn74vp",
+        "xn74vq",
+        "xn74vq",
+        "xn74vp",
+        "xn74vr"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 97,
+      "name": "スマイルアーク",
+      "address": "清瀬市松山１－１２－１５",
+      "lat": 35.77191,
+      "lon": 139.517862,
+      "geohash": "xn75wb",
+      "neighbors": [
+        "xn75wc",
+        "xn75x0",
+        "xn75x0",
+        "xn75wc",
+        "xn75x1"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 98,
+      "name": "就労支援事業所　コイノニア",
+      "address": "東久留米市滝山５－１－１６　さはら文具ビル",
+      "lat": 35.746209,
+      "lon": 139.503261,
+      "geohash": "xn75q7",
+      "neighbors": [
+        "xn75qk",
+        "xn75qe",
+        "xn75qe",
+        "xn75qk",
+        "xn75qs"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 99,
+      "name": "きぼう工房東くるめ",
+      "address": "東久留米市下里２－１６－２１",
+      "lat": 35.752181,
+      "lon": 139.505733,
+      "geohash": "xn75qs",
+      "neighbors": [
+        "xn75qt",
+        "xn75qu",
+        "xn75qu",
+        "xn75qt",
+        "xn75qv"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 100,
+      "name": "草むらde夢（畑deきっちん）",
+      "address": "多摩市落合１－４６－１　ココリア多摩センター６階６０４",
+      "lat": 35.622376,
+      "lon": 139.424852,
+      "geohash": "xn74ss",
+      "neighbors": [
+        "xn74st",
+        "xn74su",
+        "xn74su",
+        "xn74st",
+        "xn74sv"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 101,
+      "name": "Ｅ’ｓ　Ｃａｆｅ",
+      "address": "多摩市落合１－４７　ニューシティ多摩センタービル８階",
+      "lat": 35.621786,
+      "lon": 139.423737,
+      "geohash": "xn74ss",
+      "neighbors": [
+        "xn74st",
+        "xn74su",
+        "xn74su",
+        "xn74st",
+        "xn74sv"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 102,
+      "name": "ベネッセソシアス稲城センター",
+      "address": "稲城市押立１０３３－１",
+      "lat": 35.647164,
+      "lon": 139.513337,
+      "geohash": "xn74y9",
+      "neighbors": [
+        "xn74yd",
+        "xn74yc",
+        "xn74yc",
+        "xn74yd",
+        "xn74yf"
+      ],
+      "precision": 6
+    },
+    {
+      "id": 103,
+      "name": "プロシード",
+      "address": "あきる野市下代継９４－６",
+      "lat": 35.727103,
+      "lon": 139.281845,
+      "geohash": "xn751r",
+      "neighbors": [
+        "xn7532",
+        "xn751x",
+        "xn751x",
+        "xn7532",
+        "xn7538"
+      ],
+      "precision": 6
+    }
+  ],
+  "facilityHashMap": {
+    "xn77h4": [
+      {
+        "id": 0,
+        "name": "クオッカ",
+        "address": "千代田区九段北１－３－５",
+        "lat": 35.696183,
+        "lon": 139.751456,
+        "geohash": "xn77h4",
+        "neighbors": [
+          "xn77h5",
+          "xn77h6",
+          "xn77h6",
+          "xn77h5",
+          "xn77h7"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77h9": [
+      {
+        "id": 1,
+        "name": "フロー・ネット",
+        "address": "中央区日本橋小伝馬町１－１　日本橋末広ビル２階",
+        "lat": 35.68977,
+        "lon": 139.777441,
+        "geohash": "xn77h9",
+        "neighbors": [
+          "xn77hd",
+          "xn77hc",
+          "xn77hc",
+          "xn77hd",
+          "xn77hf"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77hc": [
+      {
+        "id": 2,
+        "name": "ナチュラルプランツ･サポート",
+        "address": "中央区日本橋大伝馬町１７－１　城野ビルⅡ３階",
+        "lat": 35.690526,
+        "lon": 139.782232,
+        "geohash": "xn77hc",
+        "neighbors": [
+          "xn77hf",
+          "xn77j1",
+          "xn77j1",
+          "xn77hf",
+          "xn77j4"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76ut": [
+      {
+        "id": 3,
+        "name": "中央区立知的障害者生活支援施設レインボーハウス明石",
+        "address": "中央区明石町１－６",
+        "lat": 35.669292,
+        "lon": 139.776716,
+        "geohash": "xn76ut",
+        "neighbors": [
+          "xn76uw",
+          "xn76uv",
+          "xn76uv",
+          "xn76uw",
+          "xn76uy"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76uk": [
+      {
+        "id": 4,
+        "name": "就労継続支援Ａ型事業所かがやき",
+        "address": "港区新橋３－１６－３　港区立生涯学習センター内",
+        "lat": 35.665622,
+        "lon": 139.757115,
+        "geohash": "xn76uk",
+        "neighbors": [
+          "xn76um",
+          "xn76us",
+          "xn76us",
+          "xn76um",
+          "xn76ut"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76u7": [
+      {
+        "id": 5,
+        "name": "えがおワークス",
+        "address": "港区浜松町１－２１－４　崇城大学会館５階",
+        "lat": 35.657754,
+        "lon": 139.757454,
+        "geohash": "xn76u7",
+        "neighbors": [
+          "xn76uk",
+          "xn76ue",
+          "xn76ue",
+          "xn76uk",
+          "xn76us"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76gf": [
+      {
+        "id": 6,
+        "name": "アトリエ・レダクラフト",
+        "address": "港区麻布十番４－４－１　ツイン一の橋ビル２１０８、２０３１",
+        "lat": 35.653767,
+        "lon": 139.737161,
+        "geohash": "xn76gf",
+        "neighbors": [
+          "xn76gg",
+          "xn76u4",
+          "xn76u4",
+          "xn76gg",
+          "xn76u5"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76gk": [
+      {
+        "id": 7,
+        "name": "Future　Design　Lab　Omotesando",
+        "address": "港区南青山３－８－２７　芝崎４１０ビル３階",
+        "lat": 35.666435,
+        "lon": 139.715324,
+        "geohash": "xn76gk",
+        "neighbors": [
+          "xn76gm",
+          "xn76gs",
+          "xn76gs",
+          "xn76gm",
+          "xn76gt"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7753": [
+      {
+        "id": 8,
+        "name": "くじら",
+        "address": "新宿区四谷４－３２－１　吉岡ビル５階",
+        "lat": 35.68946,
+        "lon": 139.71487,
+        "geohash": "xn7753",
+        "neighbors": [
+          "xn7756",
+          "xn7759",
+          "xn7759",
+          "xn7756",
+          "xn775d"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7750": [
+      {
+        "id": 9,
+        "name": "あしか",
+        "address": "新宿区新宿１－２－８　国久ビル５階Ａ室",
+        "lat": 35.687963,
+        "lon": 139.712687,
+        "geohash": "xn7750",
+        "neighbors": [
+          "xn7751",
+          "xn7752",
+          "xn7752",
+          "xn7751",
+          "xn7753"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7751": [
+      {
+        "id": 10,
+        "name": "東京都育成会　クリーンサービス",
+        "address": "新宿区新宿５－１８－１６　ＳＨＩＮＪＵＫＵ５－１ビル２階",
+        "lat": 35.694434,
+        "lon": 139.70651,
+        "geohash": "xn7751",
+        "neighbors": [
+          "xn7754",
+          "xn7753",
+          "xn7753",
+          "xn7754",
+          "xn7756"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn774q": [
+      {
+        "id": 11,
+        "name": "ストローク・サービス",
+        "address": "新宿区西落合２－２０－１６　ＰＯＥＭビル１階",
+        "lat": 35.720217,
+        "lon": 139.674509,
+        "geohash": "xn774q",
+        "neighbors": [
+          "xn774r",
+          "xn774w",
+          "xn774w",
+          "xn774r",
+          "xn774x"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn775s": [
+      {
+        "id": 12,
+        "name": "ワークプレイスぶんぶん",
+        "address": "文京区小日向２－１６－１５",
+        "lat": 35.710581,
+        "lon": 139.734582,
+        "geohash": "xn775s",
+        "neighbors": [
+          "xn775t",
+          "xn775u",
+          "xn775u",
+          "xn775t",
+          "xn775v"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77h7": [
+      {
+        "id": 13,
+        "name": "ベジティア",
+        "address": "文京区本郷１－１０－１４　加奈利屋館ビル１階",
+        "lat": 35.704154,
+        "lon": 139.757872,
+        "geohash": "xn77h7",
+        "neighbors": [
+          "xn77hk",
+          "xn77he",
+          "xn77he",
+          "xn77hk",
+          "xn77hs"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77jh": [
+      {
+        "id": 14,
+        "name": "こうめ",
+        "address": "台東区雷門２－１９－１３",
+        "lat": 35.710463,
+        "lon": 139.797255,
+        "geohash": "xn77jh",
+        "neighbors": [
+          "xn77jj",
+          "xn77jk",
+          "xn77jk",
+          "xn77jj",
+          "xn77jm"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77hg": [
+      {
+        "id": 15,
+        "name": "HOPE",
+        "address": "台東区三筋１－４－１６　康江ビル２階",
+        "lat": 35.703391,
+        "lon": 139.78654,
+        "geohash": "xn77hg",
+        "neighbors": [
+          "xn77hu",
+          "xn77j5",
+          "xn77j5",
+          "xn77hu",
+          "xn77jh"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77j9": [
+      {
+        "id": 16,
+        "name": "ヒューマングロー錦糸町",
+        "address": "江東区毛利１－２１－２",
+        "lat": 35.692834,
+        "lon": 139.814902,
+        "geohash": "xn77j9",
+        "neighbors": [
+          "xn77jd",
+          "xn77jc",
+          "xn77jc",
+          "xn77jd",
+          "xn77jf"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76v6": [
+      {
+        "id": 17,
+        "name": "エコミラ江東",
+        "address": "江東区潮見１－２９－７",
+        "lat": 35.655003,
+        "lon": 139.811894,
+        "geohash": "xn76v6",
+        "neighbors": [
+          "xn76v7",
+          "xn76vd",
+          "xn76vd",
+          "xn76v7",
+          "xn76ve"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77jf": [
+      {
+        "id": 18,
+        "name": "ヒューマングロー亀戸",
+        "address": "江東区亀戸１－３１－７",
+        "lat": 35.694709,
+        "lon": 139.825678,
+        "geohash": "xn77jf",
+        "neighbors": [
+          "xn77jg",
+          "xn77n4",
+          "xn77n4",
+          "xn77jg",
+          "xn77n5"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77jb": [
+      {
+        "id": 19,
+        "name": "阿梨ヶ舎",
+        "address": "江東区北砂５－２０　１３号棟１０６",
+        "lat": 35.684016,
+        "lon": 139.832927,
+        "geohash": "xn77jb",
+        "neighbors": [
+          "xn77jc",
+          "xn77n0",
+          "xn77n0",
+          "xn77jc",
+          "xn77n1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76vz": [
+      {
+        "id": 20,
+        "name": "ライフアーク北砂",
+        "address": "江東区北砂２－１５－３１　山東ビル紫庭マンション２階",
+        "lat": 35.68275,
+        "lon": 139.826756,
+        "geohash": "xn76vz",
+        "neighbors": [
+          "xn77jb",
+          "xn76yp",
+          "xn76yp",
+          "xn77jb",
+          "xn77n0"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76eu": [
+      {
+        "id": 21,
+        "name": "すまいる・さぽーと品川",
+        "address": "品川区東品川１－１７－２",
+        "lat": 35.621363,
+        "lon": 139.745034,
+        "geohash": "xn76eu",
+        "neighbors": [
+          "xn76ev",
+          "xn76sh",
+          "xn76sh",
+          "xn76ev",
+          "xn76sj"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76ec": [
+      {
+        "id": 22,
+        "name": "福祉工場しながわ",
+        "address": "品川区東大井１－３－１０",
+        "lat": 35.605795,
+        "lon": 139.743968,
+        "geohash": "xn76ec",
+        "neighbors": [
+          "xn76ef",
+          "xn76s1",
+          "xn76s1",
+          "xn76ef",
+          "xn76s4"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76f9": [
+      {
+        "id": 23,
+        "name": "めぐろ",
+        "address": "目黒区東山３－１６－３　ウェル東山ビル",
+        "lat": 35.649789,
+        "lon": 139.684702,
+        "geohash": "xn76f9",
+        "neighbors": [
+          "xn76fd",
+          "xn76fc",
+          "xn76fc",
+          "xn76fd",
+          "xn76ff"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76ep": [
+      {
+        "id": 24,
+        "name": "カフェレストランわれもこう目黒店",
+        "address": "目黒区目黒２－４－３６　目黒区民センター１階",
+        "lat": 35.635452,
+        "lon": 139.707868,
+        "geohash": "xn76ep",
+        "neighbors": [
+          "xn76g0",
+          "xn76er",
+          "xn76er",
+          "xn76g0",
+          "xn76g2"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn767s": [
+      {
+        "id": 25,
+        "name": "社会福祉法人東京コロニー　東京都大田福祉工場",
+        "address": "大田区大森西２－２２－２６",
+        "lat": 35.575279,
+        "lon": 139.728104,
+        "geohash": "xn767s",
+        "neighbors": [
+          "xn767t",
+          "xn767u",
+          "xn767u",
+          "xn767t",
+          "xn767v"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7674": [
+      {
+        "id": 26,
+        "name": "明日楽",
+        "address": "大田区西蒲田６－８－９",
+        "lat": 35.566144,
+        "lon": 139.710234,
+        "geohash": "xn7674",
+        "neighbors": [
+          "xn7675",
+          "xn7676",
+          "xn7676",
+          "xn7675",
+          "xn7677"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7672": [
+      {
+        "id": 27,
+        "name": "ひだまり",
+        "address": "大田区蒲田本町１－８－９",
+        "lat": 35.556226,
+        "lon": 139.716306,
+        "geohash": "xn7672",
+        "neighbors": [
+          "xn7673",
+          "xn7678",
+          "xn7678",
+          "xn7673",
+          "xn7679"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn766g": [
+      {
+        "id": 28,
+        "name": "プレスト池上",
+        "address": "大田区池上３－３２－１７　第２６下川ビルＡ館３０１",
+        "lat": 35.573698,
+        "lon": 139.701673,
+        "geohash": "xn766g",
+        "neighbors": [
+          "xn766u",
+          "xn7675",
+          "xn7675",
+          "xn766u",
+          "xn767h"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn769f": [
+      {
+        "id": 29,
+        "name": "しごとも",
+        "address": "世田谷区等々力６－１０－１９",
+        "lat": 35.611826,
+        "lon": 139.655903,
+        "geohash": "xn769f",
+        "neighbors": [
+          "xn769g",
+          "xn76d4",
+          "xn76d4",
+          "xn769g",
+          "xn76d5"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn769q": [
+      {
+        "id": 30,
+        "name": "Ｓｃｏｐｏ",
+        "address": "世田谷区上用賀３－１４－１７　グラン・ペルフェクティオ１階",
+        "lat": 35.633998,
+        "lon": 139.631632,
+        "geohash": "xn769q",
+        "neighbors": [
+          "xn769r",
+          "xn769w",
+          "xn769w",
+          "xn769r",
+          "xn769x"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76gn": [
+      {
+        "id": 31,
+        "name": "ローランズプラスⅡ",
+        "address": "渋谷区千駄ヶ谷３－５４－１５　ベルズ原宿ビル１階",
+        "lat": 35.674981,
+        "lon": 139.705913,
+        "geohash": "xn76gn",
+        "neighbors": [
+          "xn76gp",
+          "xn76gq",
+          "xn76gq",
+          "xn76gp",
+          "xn76gr"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76fn": [
+      {
+        "id": 32,
+        "name": "ホープ就労支援センター渋谷",
+        "address": "渋谷区笹塚２－１６－１",
+        "lat": 35.674413,
+        "lon": 139.666234,
+        "geohash": "xn76fn",
+        "neighbors": [
+          "xn76fp",
+          "xn76fq",
+          "xn76fq",
+          "xn76fp",
+          "xn76fr"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7760": [
+      {
+        "id": 33,
+        "name": "コロニー中野",
+        "address": "中野区江原町２－６－７",
+        "lat": 35.72911,
+        "lon": 139.668348,
+        "geohash": "xn7760",
+        "neighbors": [
+          "xn7761",
+          "xn7762",
+          "xn7762",
+          "xn7761",
+          "xn7763"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn771w": [
+      {
+        "id": 34,
+        "name": "ワクわーく",
+        "address": "中野区白鷺一丁目３０番６号　深澤ビル４階",
+        "lat": 35.721496,
+        "lon": 139.63737,
+        "geohash": "xn771w",
+        "neighbors": [
+          "xn771x",
+          "xn771y",
+          "xn771y",
+          "xn771x",
+          "xn771z"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7714": [
+      {
+        "id": 35,
+        "name": "パン工房　プクプク",
+        "address": "杉並区南荻窪４－１－１５　春日屋ビル",
+        "lat": 35.698929,
+        "lon": 139.617162,
+        "geohash": "xn7714",
+        "neighbors": [
+          "xn7715",
+          "xn7716",
+          "xn7716",
+          "xn7715",
+          "xn7717"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77k1": [
+      {
+        "id": 36,
+        "name": "ローランズプラス",
+        "address": "豊島区駒込１－１９－１５　直江ビル１階、２階",
+        "lat": 35.735476,
+        "lon": 139.752024,
+        "geohash": "xn77k1",
+        "neighbors": [
+          "xn77k4",
+          "xn77k3",
+          "xn77k3",
+          "xn77k4",
+          "xn77k6"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7779": [
+      {
+        "id": 37,
+        "name": "豊芯会フードサービス事業部",
+        "address": "豊島区北大塚３－３４－７",
+        "lat": 35.735203,
+        "lon": 139.726684,
+        "geohash": "xn7779",
+        "neighbors": [
+          "xn777d",
+          "xn777c",
+          "xn777c",
+          "xn777d",
+          "xn777f"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn776b": [
+      {
+        "id": 38,
+        "name": "自立支援センターまめの樹",
+        "address": "豊島区西池袋５－２６－１６　ＣＨＩＢＡビル５階",
+        "lat": 35.732677,
+        "lon": 139.699906,
+        "geohash": "xn776b",
+        "neighbors": [
+          "xn776c",
+          "xn7770",
+          "xn7770",
+          "xn776c",
+          "xn7771"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn777m": [
+      {
+        "id": 39,
+        "name": "ダイニング　街なか",
+        "address": "北区上十条２－２８－６",
+        "lat": 35.759986,
+        "lon": 139.722098,
+        "geohash": "xn777m",
+        "neighbors": [
+          "xn777q",
+          "xn777t",
+          "xn777t",
+          "xn777q",
+          "xn777w"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77e2": [
+      {
+        "id": 40,
+        "name": "わくわく配食サービス",
+        "address": "北区赤羽南２－６－６　スカイブリッジビル１階、地下１階",
+        "lat": 35.772245,
+        "lon": 139.722733,
+        "geohash": "xn77e2",
+        "neighbors": [
+          "xn77e3",
+          "xn77e8",
+          "xn77e8",
+          "xn77e3",
+          "xn77e9"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77df": [
+      {
+        "id": 41,
+        "name": "うきま幸朋苑ブレッド＆バター",
+        "address": "北区浮間５－１３－１",
+        "lat": 35.78474,
+        "lon": 139.692446,
+        "geohash": "xn77df",
+        "neighbors": [
+          "xn77dg",
+          "xn77e4",
+          "xn77e4",
+          "xn77dg",
+          "xn77e5"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77m1": [
+      {
+        "id": 42,
+        "name": "カフェフレンド",
+        "address": "荒川区南千住７－２６－２",
+        "lat": 35.735633,
+        "lon": 139.799137,
+        "geohash": "xn77m1",
+        "neighbors": [
+          "xn77m4",
+          "xn77m3",
+          "xn77m3",
+          "xn77m4",
+          "xn77m6"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77k7": [
+      {
+        "id": 43,
+        "name": "オフィスサプライ東京",
+        "address": "荒川区西尾久５－２０－１８",
+        "lat": 35.747905,
+        "lon": 139.758487,
+        "geohash": "xn77k7",
+        "neighbors": [
+          "xn77kk",
+          "xn77ke",
+          "xn77ke",
+          "xn77kk",
+          "xn77ks"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77k9": [
+      {
+        "id": 44,
+        "name": "作業所スカイ",
+        "address": "荒川区西日暮里５－２－２０　サンリバー西日暮里１０２",
+        "lat": 35.733974,
+        "lon": 139.770951,
+        "geohash": "xn77k9",
+        "neighbors": [
+          "xn77kd",
+          "xn77kc",
+          "xn77kc",
+          "xn77kd",
+          "xn77kf"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn777k": [
+      {
+        "id": 45,
+        "name": "ウィズミー",
+        "address": "板橋区板橋４－３８－４",
+        "lat": 35.751123,
+        "lon": 139.719565,
+        "geohash": "xn777k",
+        "neighbors": [
+          "xn777m",
+          "xn777s",
+          "xn777s",
+          "xn777m",
+          "xn777t"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn776e": [
+      {
+        "id": 46,
+        "name": "ポプラＡプラス療育センター店",
+        "address": "板橋区小茂根１－１－１０",
+        "lat": 35.747517,
+        "lon": 139.682715,
+        "geohash": "xn776e",
+        "neighbors": [
+          "xn776s",
+          "xn776g",
+          "xn776g",
+          "xn776s",
+          "xn776u"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77d7": [
+      {
+        "id": 47,
+        "name": "東京都板橋福祉工場　就労継続支援Ａ型事業所",
+        "address": "板橋区高島平９－４２－７",
+        "lat": 35.791577,
+        "lon": 139.66929,
+        "geohash": "xn77d7",
+        "neighbors": [
+          "xn77dk",
+          "xn77de",
+          "xn77de",
+          "xn77dk",
+          "xn77ds"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn773f": [
+      {
+        "id": 48,
+        "name": "かすたねっと",
+        "address": "練馬区練馬２－１－９",
+        "lat": 35.741336,
+        "lon": 139.65604,
+        "geohash": "xn773f",
+        "neighbors": [
+          "xn773g",
+          "xn7764",
+          "xn7764",
+          "xn773g",
+          "xn7765"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 49,
+        "name": "銀杏",
+        "address": "練馬区練馬１－２６－６",
+        "lat": 35.739061,
+        "lon": 139.655212,
+        "geohash": "xn773f",
+        "neighbors": [
+          "xn773g",
+          "xn7764",
+          "xn7764",
+          "xn773g",
+          "xn7765"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7761": [
+      {
+        "id": 50,
+        "name": "すくらむ事業所",
+        "address": "練馬区豊玉北４－１１－７　ＢＳ第２ビル",
+        "lat": 35.735251,
+        "lon": 139.659309,
+        "geohash": "xn7761",
+        "neighbors": [
+          "xn7764",
+          "xn7763",
+          "xn7763",
+          "xn7764",
+          "xn7766"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7736": [
+      {
+        "id": 51,
+        "name": "ワークスタジオ　Ｗｅｌ",
+        "address": "練馬区貫井一丁目１３番１３号",
+        "lat": 35.739222,
+        "lon": 139.634828,
+        "geohash": "xn7736",
+        "neighbors": [
+          "xn7737",
+          "xn773d",
+          "xn773d",
+          "xn7737",
+          "xn773e"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn772k": [
+      {
+        "id": 52,
+        "name": "赤オニの家",
+        "address": "練馬区西大泉３－１－３　コーポ豊島１階　店舗",
+        "lat": 35.754266,
+        "lon": 139.583804,
+        "geohash": "xn772k",
+        "neighbors": [
+          "xn772m",
+          "xn772s",
+          "xn772s",
+          "xn772m",
+          "xn772t"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn773e": [
+      {
+        "id": 53,
+        "name": "あかねっこ弁当",
+        "address": "練馬区春日町３－１３－１",
+        "lat": 35.749054,
+        "lon": 139.641613,
+        "geohash": "xn773e",
+        "neighbors": [
+          "xn773s",
+          "xn773g",
+          "xn773g",
+          "xn773s",
+          "xn773u"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn773y": [
+      {
+        "id": 54,
+        "name": "こぶし事業所",
+        "address": "練馬区北町７－２０－３６",
+        "lat": 35.763189,
+        "lon": 139.650492,
+        "geohash": "xn773y",
+        "neighbors": [
+          "xn773z",
+          "xn776n",
+          "xn776n",
+          "xn773z",
+          "xn776p"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77tb": [
+      {
+        "id": 55,
+        "name": "綾瀬ひまわり園",
+        "address": "足立区綾瀬７－２－７",
+        "lat": 35.774837,
+        "lon": 139.824238,
+        "geohash": "xn77tb",
+        "neighbors": [
+          "xn77tc",
+          "xn77w0",
+          "xn77w0",
+          "xn77tc",
+          "xn77w1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77t2": [
+      {
+        "id": 56,
+        "name": "ラトリエ　ソサイエティ",
+        "address": "足立区中央本町４－４－１２",
+        "lat": 35.775853,
+        "lon": 139.805965,
+        "geohash": "xn77t2",
+        "neighbors": [
+          "xn77t3",
+          "xn77t8",
+          "xn77t8",
+          "xn77t3",
+          "xn77t9"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77t7": [
+      {
+        "id": 57,
+        "name": "のんの",
+        "address": "足立区保木間１－１－３　東潤ビル１階",
+        "lat": 35.789201,
+        "lon": 139.802992,
+        "geohash": "xn77t7",
+        "neighbors": [
+          "xn77tk",
+          "xn77te",
+          "xn77te",
+          "xn77tk",
+          "xn77ts"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 58,
+        "name": "クリスタルサービス足立",
+        "address": "足立区保木間一丁目１０番１８号　淵江プラザビル２階",
+        "lat": 35.78969,
+        "lon": 139.806056,
+        "geohash": "xn77t7",
+        "neighbors": [
+          "xn77tk",
+          "xn77te",
+          "xn77te",
+          "xn77tk",
+          "xn77ts"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77tj": [
+      {
+        "id": 59,
+        "name": "竹の塚ひまわり園クリーンチーム",
+        "address": "足立区竹の塚７－１９－７",
+        "lat": 35.8007,
+        "lon": 139.795551,
+        "geohash": "xn77tj",
+        "neighbors": [
+          "xn77tn",
+          "xn77tm",
+          "xn77tm",
+          "xn77tn",
+          "xn77tq"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77t0": [
+      {
+        "id": 60,
+        "name": "大滝チャレンジド",
+        "address": "足立区梅島３－２４－４",
+        "lat": 35.776877,
+        "lon": 139.793129,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 61,
+        "name": "アイリス",
+        "address": "足立区梅島１－１６－６　ジュネス小野田１階",
+        "lat": 35.773328,
+        "lon": 139.799401,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 62,
+        "name": "フリージア",
+        "address": "足立区梅島１－１９－１０　ホワイトテラス梅島",
+        "lat": 35.772786,
+        "lon": 139.800768,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77sc": [
+      {
+        "id": 63,
+        "name": "クリーニングフランセ",
+        "address": "足立区栗原３－２５－１２",
+        "lat": 35.78121,
+        "lon": 139.783736,
+        "geohash": "xn77sc",
+        "neighbors": [
+          "xn77sf",
+          "xn77t1",
+          "xn77t1",
+          "xn77sf",
+          "xn77t4"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77s7": [
+      {
+        "id": 64,
+        "name": "谷在家福祉作業所",
+        "address": "足立区谷在家３－１３－１",
+        "lat": 35.788325,
+        "lon": 139.765734,
+        "geohash": "xn77s7",
+        "neighbors": [
+          "xn77sk",
+          "xn77se",
+          "xn77se",
+          "xn77sk",
+          "xn77ss"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77wb": [
+      {
+        "id": 65,
+        "name": "きせん事業所",
+        "address": "葛飾区東金町１－３５－１０",
+        "lat": 35.772776,
+        "lon": 139.871632,
+        "geohash": "xn77wb",
+        "neighbors": [
+          "xn77wc",
+          "xn77x0",
+          "xn77x0",
+          "xn77wc",
+          "xn77x1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77qz": [
+      {
+        "id": 66,
+        "name": "アップドラフト",
+        "address": "葛飾区東金町１－４２－１０　金町ビル３階",
+        "lat": 35.770421,
+        "lon": 139.871282,
+        "geohash": "xn77qz",
+        "neighbors": [
+          "xn77wb",
+          "xn77rp",
+          "xn77rp",
+          "xn77wb",
+          "xn77x0"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77qy": [
+      {
+        "id": 67,
+        "name": "社会福祉法人東京コロニー　東京都葛飾福祉工場",
+        "address": "葛飾区金町２－８－２０",
+        "lat": 35.764547,
+        "lon": 139.869124,
+        "geohash": "xn77qy",
+        "neighbors": [
+          "xn77qz",
+          "xn77rn",
+          "xn77rn",
+          "xn77qz",
+          "xn77rp"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77qv": [
+      {
+        "id": 68,
+        "name": "ファーストプランニング",
+        "address": "葛飾区柴又６－１２－１８　２階",
+        "lat": 35.756028,
+        "lon": 139.87711,
+        "geohash": "xn77qv",
+        "neighbors": [
+          "xn77qy",
+          "xn77rj",
+          "xn77rj",
+          "xn77qy",
+          "xn77rn"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77q7": [
+      {
+        "id": 69,
+        "name": "ぽむの樹",
+        "address": "葛飾区青戸５－２－９　青戸ハイツ１０１、２０５",
+        "lat": 35.74769,
+        "lon": 139.853828,
+        "geohash": "xn77q7",
+        "neighbors": [
+          "xn77qk",
+          "xn77qe",
+          "xn77qe",
+          "xn77qk",
+          "xn77qs"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77ns": [
+      {
+        "id": 70,
+        "name": "東京ソテリアエンプロイメント",
+        "address": "江戸川区松島２－９－２",
+        "lat": 35.708966,
+        "lon": 139.859091,
+        "geohash": "xn77ns",
+        "neighbors": [
+          "xn77nt",
+          "xn77nu",
+          "xn77nu",
+          "xn77nt",
+          "xn77nv"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77nd": [
+      {
+        "id": 71,
+        "name": "ラピス",
+        "address": "江戸川区東小松川２－１０－５",
+        "lat": 35.69884,
+        "lon": 139.866818,
+        "geohash": "xn77nd",
+        "neighbors": [
+          "xn77ne",
+          "xn77nf",
+          "xn77nf",
+          "xn77ne",
+          "xn77ng"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn77n6": [
+      {
+        "id": 72,
+        "name": "イーストフライト",
+        "address": "江戸川区小松川３－２－１　テクノタウン３０６",
+        "lat": 35.696756,
+        "lon": 139.847592,
+        "geohash": "xn77n6",
+        "neighbors": [
+          "xn77n7",
+          "xn77nd",
+          "xn77nd",
+          "xn77n7",
+          "xn77ne"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76zh": [
+      {
+        "id": 73,
+        "name": "ワークワーク東京",
+        "address": "江戸川区東葛西３－１７－４１",
+        "lat": 35.665968,
+        "lon": 139.885895,
+        "geohash": "xn76zh",
+        "neighbors": [
+          "xn76zj",
+          "xn76zk",
+          "xn76zk",
+          "xn76zj",
+          "xn76zm"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn76zj": [
+      {
+        "id": 74,
+        "name": "タオ江戸川",
+        "address": "江戸川区東葛西１－４５－１１",
+        "lat": 35.670486,
+        "lon": 139.882115,
+        "geohash": "xn76zj",
+        "neighbors": [
+          "xn76zn",
+          "xn76zm",
+          "xn76zm",
+          "xn76zn",
+          "xn76zq"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn751t": [
+      {
+        "id": 75,
+        "name": "ぽぷら八王子",
+        "address": "八王子市戸吹町２１０４　株式会社エフピコ八王子ＰＷ工場内",
+        "lat": 35.711111,
+        "lon": 139.291511,
+        "geohash": "xn751t",
+        "neighbors": [
+          "xn751w",
+          "xn751v",
+          "xn751v",
+          "xn751w",
+          "xn751y"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74ff": [
+      {
+        "id": 76,
+        "name": "ハートエース",
+        "address": "八王子市子安町１－１５－１　テクノビル２階",
+        "lat": 35.653785,
+        "lon": 139.342389,
+        "geohash": "xn74ff",
+        "neighbors": [
+          "xn74fg",
+          "xn74g4",
+          "xn74g4",
+          "xn74fg",
+          "xn74g5"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74fb": [
+      {
+        "id": 77,
+        "name": "アース",
+        "address": "八王子市片倉町７０６－６",
+        "lat": 35.640301,
+        "lon": 139.340593,
+        "geohash": "xn74fb",
+        "neighbors": [
+          "xn74fc",
+          "xn74g0",
+          "xn74g0",
+          "xn74fc",
+          "xn74g1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74f5": [
+      {
+        "id": 78,
+        "name": "リーフ",
+        "address": "八王子市千人町２－３－１６　プラザ西八王子２Ｆ",
+        "lat": 35.658256,
+        "lon": 139.313467,
+        "geohash": "xn74f5",
+        "neighbors": [
+          "xn74fh",
+          "xn74f7",
+          "xn74f7",
+          "xn74fh",
+          "xn74fk"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74c8": [
+      {
+        "id": 79,
+        "name": "シエル",
+        "address": "八王子市初沢町１２３１－１７　高尾力栄ビル２０２",
+        "lat": 35.641549,
+        "lon": 139.285245,
+        "geohash": "xn74c8",
+        "neighbors": [
+          "xn74c9",
+          "xn74cb",
+          "xn74cb",
+          "xn74c9",
+          "xn74cc"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75h7": [
+      {
+        "id": 80,
+        "name": "立川おりおん",
+        "address": "立川市曙町２－９－１　菊屋ビルディング５０２",
+        "lat": 35.701026,
+        "lon": 139.415601,
+        "geohash": "xn75h7",
+        "neighbors": [
+          "xn75hk",
+          "xn75he",
+          "xn75he",
+          "xn75hk",
+          "xn75hs"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn755x": [
+      {
+        "id": 81,
+        "name": "はちす",
+        "address": "立川市一番町１－４１－１１",
+        "lat": 35.725048,
+        "lon": 139.38295,
+        "geohash": "xn755x",
+        "neighbors": [
+          "xn7578",
+          "xn755z",
+          "xn755z",
+          "xn7578",
+          "xn757b"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7705": [
+      {
+        "id": 82,
+        "name": "マジェルカ",
+        "address": "武蔵野市吉祥寺本町３－３－１１　中田ビル",
+        "lat": 35.704894,
+        "lon": 139.573529,
+        "geohash": "xn7705",
+        "neighbors": [
+          "xn770h",
+          "xn7707",
+          "xn7707",
+          "xn770h",
+          "xn770k"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75ps": [
+      {
+        "id": 83,
+        "name": "ワークセンターけやき",
+        "address": "武蔵野市西久保２－２７－６",
+        "lat": 35.708604,
+        "lon": 139.554842,
+        "geohash": "xn75ps",
+        "neighbors": [
+          "xn75pt",
+          "xn75pu",
+          "xn75pu",
+          "xn75pt",
+          "xn75pv"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75pc": [
+      {
+        "id": 84,
+        "name": "三鷹ひまわり第一共同作業所",
+        "address": "三鷹市下連雀４－８－２０",
+        "lat": 35.692895,
+        "lon": 139.562692,
+        "geohash": "xn75pc",
+        "neighbors": [
+          "xn75pf",
+          "xn7701",
+          "xn7701",
+          "xn75pf",
+          "xn7704"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74zr": [
+      {
+        "id": 85,
+        "name": "ワークショップハーモニー",
+        "address": "三鷹市大沢１－１－４３",
+        "lat": 35.678579,
+        "lon": 139.541005,
+        "geohash": "xn74zr",
+        "neighbors": [
+          "xn75p2",
+          "xn74zx",
+          "xn74zx",
+          "xn75p2",
+          "xn75p8"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7597": [
+      {
+        "id": 86,
+        "name": "自立支援塾ぱん工房",
+        "address": "青梅市東青梅２－１８－５　セトル東青梅１０６・１０７",
+        "lat": 35.790259,
+        "lon": 139.27486,
+        "geohash": "xn7597",
+        "neighbors": [
+          "xn759k",
+          "xn759e",
+          "xn759e",
+          "xn759k",
+          "xn759s"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn7596": [
+      {
+        "id": 87,
+        "name": "アルホープ",
+        "address": "青梅市東青梅５－３－４　アルトポンテ２階",
+        "lat": 35.785646,
+        "lon": 139.282326,
+        "geohash": "xn7596",
+        "neighbors": [
+          "xn7597",
+          "xn759d",
+          "xn759d",
+          "xn7597",
+          "xn759e"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74vr": [
+      {
+        "id": 88,
+        "name": "西府いこいプラザ",
+        "address": "府中市西府町３－２９－１７",
+        "lat": 35.678877,
+        "lon": 139.456862,
+        "geohash": "xn74vr",
+        "neighbors": [
+          "xn75j2",
+          "xn74vx",
+          "xn74vx",
+          "xn75j2",
+          "xn75j8"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74z1": [
+      {
+        "id": 89,
+        "name": "らぷらんど調布",
+        "address": "調布市小島町３－３３－１　１０２及び２０２",
+        "lat": 35.645981,
+        "lon": 139.53643,
+        "geohash": "xn74z1",
+        "neighbors": [
+          "xn74z4",
+          "xn74z3",
+          "xn74z3",
+          "xn74z4",
+          "xn74z6"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74m0": [
+      {
+        "id": 90,
+        "name": "スワンカフェ＆ベーカリー町田１号店",
+        "address": "町田市中町３－７－１７",
+        "lat": 35.552136,
+        "lon": 139.448087,
+        "geohash": "xn74m0",
+        "neighbors": [
+          "xn74m1",
+          "xn74m2",
+          "xn74m2",
+          "xn74m1",
+          "xn74m3"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74k7": [
+      {
+        "id": 91,
+        "name": "スワンカフェ＆ベーカリー町田２号店",
+        "address": "町田市木曽西２－１７－２１　ショッピングセンター３０５内",
+        "lat": 35.569489,
+        "lon": 139.415311,
+        "geohash": "xn74k7",
+        "neighbors": [
+          "xn74kk",
+          "xn74ke",
+          "xn74ke",
+          "xn74kk",
+          "xn74ks"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75q1": [
+      {
+        "id": 92,
+        "name": "みくま",
+        "address": "小平市大沼町２－１－１２",
+        "lat": 35.738182,
+        "lon": 139.492193,
+        "geohash": "xn75q1",
+        "neighbors": [
+          "xn75q4",
+          "xn75q3",
+          "xn75q3",
+          "xn75q4",
+          "xn75q6"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74gb": [
+      {
+        "id": 93,
+        "name": "ディーセント・ワーク平山台",
+        "address": "日野市平山２－１－１",
+        "lat": 35.640974,
+        "lon": 139.387136,
+        "geohash": "xn74gb",
+        "neighbors": [
+          "xn74gc",
+          "xn74u0",
+          "xn74u0",
+          "xn74gc",
+          "xn74u1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75qp": [
+      {
+        "id": 94,
+        "name": "コロニー東村山",
+        "address": "東村山市秋津町２－２２－９",
+        "lat": 35.768765,
+        "lon": 139.487895,
+        "geohash": "xn75qp",
+        "neighbors": [
+          "xn75w0",
+          "xn75qr",
+          "xn75qr",
+          "xn75w0",
+          "xn75w2"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74uy": [
+      {
+        "id": 95,
+        "name": "ともにー",
+        "address": "国立市泉１－１６－４",
+        "lat": 35.672633,
+        "lon": 139.437836,
+        "geohash": "xn74uy",
+        "neighbors": [
+          "xn74uz",
+          "xn74vn",
+          "xn74vn",
+          "xn74uz",
+          "xn74vp"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74vn": [
+      {
+        "id": 96,
+        "name": "ステップアップともにー",
+        "address": "国立市泉１－１２－３",
+        "lat": 35.673072,
+        "lon": 139.439133,
+        "geohash": "xn74vn",
+        "neighbors": [
+          "xn74vp",
+          "xn74vq",
+          "xn74vq",
+          "xn74vp",
+          "xn74vr"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75wb": [
+      {
+        "id": 97,
+        "name": "スマイルアーク",
+        "address": "清瀬市松山１－１２－１５",
+        "lat": 35.77191,
+        "lon": 139.517862,
+        "geohash": "xn75wb",
+        "neighbors": [
+          "xn75wc",
+          "xn75x0",
+          "xn75x0",
+          "xn75wc",
+          "xn75x1"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75q7": [
+      {
+        "id": 98,
+        "name": "就労支援事業所　コイノニア",
+        "address": "東久留米市滝山５－１－１６　さはら文具ビル",
+        "lat": 35.746209,
+        "lon": 139.503261,
+        "geohash": "xn75q7",
+        "neighbors": [
+          "xn75qk",
+          "xn75qe",
+          "xn75qe",
+          "xn75qk",
+          "xn75qs"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn75qs": [
+      {
+        "id": 99,
+        "name": "きぼう工房東くるめ",
+        "address": "東久留米市下里２－１６－２１",
+        "lat": 35.752181,
+        "lon": 139.505733,
+        "geohash": "xn75qs",
+        "neighbors": [
+          "xn75qt",
+          "xn75qu",
+          "xn75qu",
+          "xn75qt",
+          "xn75qv"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74ss": [
+      {
+        "id": 100,
+        "name": "草むらde夢（畑deきっちん）",
+        "address": "多摩市落合１－４６－１　ココリア多摩センター６階６０４",
+        "lat": 35.622376,
+        "lon": 139.424852,
+        "geohash": "xn74ss",
+        "neighbors": [
+          "xn74st",
+          "xn74su",
+          "xn74su",
+          "xn74st",
+          "xn74sv"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 101,
+        "name": "Ｅ’ｓ　Ｃａｆｅ",
+        "address": "多摩市落合１－４７　ニューシティ多摩センタービル８階",
+        "lat": 35.621786,
+        "lon": 139.423737,
+        "geohash": "xn74ss",
+        "neighbors": [
+          "xn74st",
+          "xn74su",
+          "xn74su",
+          "xn74st",
+          "xn74sv"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn74y9": [
+      {
+        "id": 102,
+        "name": "ベネッセソシアス稲城センター",
+        "address": "稲城市押立１０３３－１",
+        "lat": 35.647164,
+        "lon": 139.513337,
+        "geohash": "xn74y9",
+        "neighbors": [
+          "xn74yd",
+          "xn74yc",
+          "xn74yc",
+          "xn74yd",
+          "xn74yf"
+        ],
+        "precision": 6
+      }
+    ],
+    "xn751r": [
+      {
+        "id": 103,
+        "name": "プロシード",
+        "address": "あきる野市下代継９４－６",
+        "lat": 35.727103,
+        "lon": 139.281845,
+        "geohash": "xn751r",
+        "neighbors": [
+          "xn7532",
+          "xn751x",
+          "xn751x",
+          "xn7532",
+          "xn7538"
+        ],
+        "precision": 6
+      }
+    ]
+  },
+  "gridMap": {
+    "3569,13975": [
+      {
+        "id": 0,
+        "name": "クオッカ",
+        "address": "千代田区九段北１－３－５",
+        "lat": 35.696183,
+        "lon": 139.751456,
+        "geohash": "xn77h4",
+        "neighbors": [
+          "xn77h5",
+          "xn77h6",
+          "xn77h6",
+          "xn77h5",
+          "xn77h7"
+        ],
+        "precision": 6
+      }
+    ],
+    "3568,13977": [
+      {
+        "id": 1,
+        "name": "フロー・ネット",
+        "address": "中央区日本橋小伝馬町１－１　日本橋末広ビル２階",
+        "lat": 35.68977,
+        "lon": 139.777441,
+        "geohash": "xn77h9",
+        "neighbors": [
+          "xn77hd",
+          "xn77hc",
+          "xn77hc",
+          "xn77hd",
+          "xn77hf"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13978": [
+      {
+        "id": 2,
+        "name": "ナチュラルプランツ･サポート",
+        "address": "中央区日本橋大伝馬町１７－１　城野ビルⅡ３階",
+        "lat": 35.690526,
+        "lon": 139.782232,
+        "geohash": "xn77hc",
+        "neighbors": [
+          "xn77hf",
+          "xn77j1",
+          "xn77j1",
+          "xn77hf",
+          "xn77j4"
+        ],
+        "precision": 6
+      }
+    ],
+    "3566,13977": [
+      {
+        "id": 3,
+        "name": "中央区立知的障害者生活支援施設レインボーハウス明石",
+        "address": "中央区明石町１－６",
+        "lat": 35.669292,
+        "lon": 139.776716,
+        "geohash": "xn76ut",
+        "neighbors": [
+          "xn76uw",
+          "xn76uv",
+          "xn76uv",
+          "xn76uw",
+          "xn76uy"
+        ],
+        "precision": 6
+      }
+    ],
+    "3566,13975": [
+      {
+        "id": 4,
+        "name": "就労継続支援Ａ型事業所かがやき",
+        "address": "港区新橋３－１６－３　港区立生涯学習センター内",
+        "lat": 35.665622,
+        "lon": 139.757115,
+        "geohash": "xn76uk",
+        "neighbors": [
+          "xn76um",
+          "xn76us",
+          "xn76us",
+          "xn76um",
+          "xn76ut"
+        ],
+        "precision": 6
+      }
+    ],
+    "3565,13975": [
+      {
+        "id": 5,
+        "name": "えがおワークス",
+        "address": "港区浜松町１－２１－４　崇城大学会館５階",
+        "lat": 35.657754,
+        "lon": 139.757454,
+        "geohash": "xn76u7",
+        "neighbors": [
+          "xn76uk",
+          "xn76ue",
+          "xn76ue",
+          "xn76uk",
+          "xn76us"
+        ],
+        "precision": 6
+      }
+    ],
+    "3565,13973": [
+      {
+        "id": 6,
+        "name": "アトリエ・レダクラフト",
+        "address": "港区麻布十番４－４－１　ツイン一の橋ビル２１０８、２０３１",
+        "lat": 35.653767,
+        "lon": 139.737161,
+        "geohash": "xn76gf",
+        "neighbors": [
+          "xn76gg",
+          "xn76u4",
+          "xn76u4",
+          "xn76gg",
+          "xn76u5"
+        ],
+        "precision": 6
+      }
+    ],
+    "3566,13971": [
+      {
+        "id": 7,
+        "name": "Future　Design　Lab　Omotesando",
+        "address": "港区南青山３－８－２７　芝崎４１０ビル３階",
+        "lat": 35.666435,
+        "lon": 139.715324,
+        "geohash": "xn76gk",
+        "neighbors": [
+          "xn76gm",
+          "xn76gs",
+          "xn76gs",
+          "xn76gm",
+          "xn76gt"
+        ],
+        "precision": 6
+      }
+    ],
+    "3568,13971": [
+      {
+        "id": 8,
+        "name": "くじら",
+        "address": "新宿区四谷４－３２－１　吉岡ビル５階",
+        "lat": 35.68946,
+        "lon": 139.71487,
+        "geohash": "xn7753",
+        "neighbors": [
+          "xn7756",
+          "xn7759",
+          "xn7759",
+          "xn7756",
+          "xn775d"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 9,
+        "name": "あしか",
+        "address": "新宿区新宿１－２－８　国久ビル５階Ａ室",
+        "lat": 35.687963,
+        "lon": 139.712687,
+        "geohash": "xn7750",
+        "neighbors": [
+          "xn7751",
+          "xn7752",
+          "xn7752",
+          "xn7751",
+          "xn7753"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13970": [
+      {
+        "id": 10,
+        "name": "東京都育成会　クリーンサービス",
+        "address": "新宿区新宿５－１８－１６　ＳＨＩＮＪＵＫＵ５－１ビル２階",
+        "lat": 35.694434,
+        "lon": 139.70651,
+        "geohash": "xn7751",
+        "neighbors": [
+          "xn7754",
+          "xn7753",
+          "xn7753",
+          "xn7754",
+          "xn7756"
+        ],
+        "precision": 6
+      }
+    ],
+    "3572,13967": [
+      {
+        "id": 11,
+        "name": "ストローク・サービス",
+        "address": "新宿区西落合２－２０－１６　ＰＯＥＭビル１階",
+        "lat": 35.720217,
+        "lon": 139.674509,
+        "geohash": "xn774q",
+        "neighbors": [
+          "xn774r",
+          "xn774w",
+          "xn774w",
+          "xn774r",
+          "xn774x"
+        ],
+        "precision": 6
+      }
+    ],
+    "3571,13973": [
+      {
+        "id": 12,
+        "name": "ワークプレイスぶんぶん",
+        "address": "文京区小日向２－１６－１５",
+        "lat": 35.710581,
+        "lon": 139.734582,
+        "geohash": "xn775s",
+        "neighbors": [
+          "xn775t",
+          "xn775u",
+          "xn775u",
+          "xn775t",
+          "xn775v"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13975": [
+      {
+        "id": 13,
+        "name": "ベジティア",
+        "address": "文京区本郷１－１０－１４　加奈利屋館ビル１階",
+        "lat": 35.704154,
+        "lon": 139.757872,
+        "geohash": "xn77h7",
+        "neighbors": [
+          "xn77hk",
+          "xn77he",
+          "xn77he",
+          "xn77hk",
+          "xn77hs"
+        ],
+        "precision": 6
+      }
+    ],
+    "3571,13979": [
+      {
+        "id": 14,
+        "name": "こうめ",
+        "address": "台東区雷門２－１９－１３",
+        "lat": 35.710463,
+        "lon": 139.797255,
+        "geohash": "xn77jh",
+        "neighbors": [
+          "xn77jj",
+          "xn77jk",
+          "xn77jk",
+          "xn77jj",
+          "xn77jm"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13978": [
+      {
+        "id": 15,
+        "name": "HOPE",
+        "address": "台東区三筋１－４－１６　康江ビル２階",
+        "lat": 35.703391,
+        "lon": 139.78654,
+        "geohash": "xn77hg",
+        "neighbors": [
+          "xn77hu",
+          "xn77j5",
+          "xn77j5",
+          "xn77hu",
+          "xn77jh"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13981": [
+      {
+        "id": 16,
+        "name": "ヒューマングロー錦糸町",
+        "address": "江東区毛利１－２１－２",
+        "lat": 35.692834,
+        "lon": 139.814902,
+        "geohash": "xn77j9",
+        "neighbors": [
+          "xn77jd",
+          "xn77jc",
+          "xn77jc",
+          "xn77jd",
+          "xn77jf"
+        ],
+        "precision": 6
+      }
+    ],
+    "3565,13981": [
+      {
+        "id": 17,
+        "name": "エコミラ江東",
+        "address": "江東区潮見１－２９－７",
+        "lat": 35.655003,
+        "lon": 139.811894,
+        "geohash": "xn76v6",
+        "neighbors": [
+          "xn76v7",
+          "xn76vd",
+          "xn76vd",
+          "xn76v7",
+          "xn76ve"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13982": [
+      {
+        "id": 18,
+        "name": "ヒューマングロー亀戸",
+        "address": "江東区亀戸１－３１－７",
+        "lat": 35.694709,
+        "lon": 139.825678,
+        "geohash": "xn77jf",
+        "neighbors": [
+          "xn77jg",
+          "xn77n4",
+          "xn77n4",
+          "xn77jg",
+          "xn77n5"
+        ],
+        "precision": 6
+      }
+    ],
+    "3568,13983": [
+      {
+        "id": 19,
+        "name": "阿梨ヶ舎",
+        "address": "江東区北砂５－２０　１３号棟１０６",
+        "lat": 35.684016,
+        "lon": 139.832927,
+        "geohash": "xn77jb",
+        "neighbors": [
+          "xn77jc",
+          "xn77n0",
+          "xn77n0",
+          "xn77jc",
+          "xn77n1"
+        ],
+        "precision": 6
+      }
+    ],
+    "3568,13982": [
+      {
+        "id": 20,
+        "name": "ライフアーク北砂",
+        "address": "江東区北砂２－１５－３１　山東ビル紫庭マンション２階",
+        "lat": 35.68275,
+        "lon": 139.826756,
+        "geohash": "xn76vz",
+        "neighbors": [
+          "xn77jb",
+          "xn76yp",
+          "xn76yp",
+          "xn77jb",
+          "xn77n0"
+        ],
+        "precision": 6
+      }
+    ],
+    "3562,13974": [
+      {
+        "id": 21,
+        "name": "すまいる・さぽーと品川",
+        "address": "品川区東品川１－１７－２",
+        "lat": 35.621363,
+        "lon": 139.745034,
+        "geohash": "xn76eu",
+        "neighbors": [
+          "xn76ev",
+          "xn76sh",
+          "xn76sh",
+          "xn76ev",
+          "xn76sj"
+        ],
+        "precision": 6
+      }
+    ],
+    "3560,13974": [
+      {
+        "id": 22,
+        "name": "福祉工場しながわ",
+        "address": "品川区東大井１－３－１０",
+        "lat": 35.605795,
+        "lon": 139.743968,
+        "geohash": "xn76ec",
+        "neighbors": [
+          "xn76ef",
+          "xn76s1",
+          "xn76s1",
+          "xn76ef",
+          "xn76s4"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13968": [
+      {
+        "id": 23,
+        "name": "めぐろ",
+        "address": "目黒区東山３－１６－３　ウェル東山ビル",
+        "lat": 35.649789,
+        "lon": 139.684702,
+        "geohash": "xn76f9",
+        "neighbors": [
+          "xn76fd",
+          "xn76fc",
+          "xn76fc",
+          "xn76fd",
+          "xn76ff"
+        ],
+        "precision": 6
+      }
+    ],
+    "3563,13970": [
+      {
+        "id": 24,
+        "name": "カフェレストランわれもこう目黒店",
+        "address": "目黒区目黒２－４－３６　目黒区民センター１階",
+        "lat": 35.635452,
+        "lon": 139.707868,
+        "geohash": "xn76ep",
+        "neighbors": [
+          "xn76g0",
+          "xn76er",
+          "xn76er",
+          "xn76g0",
+          "xn76g2"
+        ],
+        "precision": 6
+      }
+    ],
+    "3557,13972": [
+      {
+        "id": 25,
+        "name": "社会福祉法人東京コロニー　東京都大田福祉工場",
+        "address": "大田区大森西２－２２－２６",
+        "lat": 35.575279,
+        "lon": 139.728104,
+        "geohash": "xn767s",
+        "neighbors": [
+          "xn767t",
+          "xn767u",
+          "xn767u",
+          "xn767t",
+          "xn767v"
+        ],
+        "precision": 6
+      }
+    ],
+    "3556,13971": [
+      {
+        "id": 26,
+        "name": "明日楽",
+        "address": "大田区西蒲田６－８－９",
+        "lat": 35.566144,
+        "lon": 139.710234,
+        "geohash": "xn7674",
+        "neighbors": [
+          "xn7675",
+          "xn7676",
+          "xn7676",
+          "xn7675",
+          "xn7677"
+        ],
+        "precision": 6
+      }
+    ],
+    "3555,13971": [
+      {
+        "id": 27,
+        "name": "ひだまり",
+        "address": "大田区蒲田本町１－８－９",
+        "lat": 35.556226,
+        "lon": 139.716306,
+        "geohash": "xn7672",
+        "neighbors": [
+          "xn7673",
+          "xn7678",
+          "xn7678",
+          "xn7673",
+          "xn7679"
+        ],
+        "precision": 6
+      }
+    ],
+    "3557,13970": [
+      {
+        "id": 28,
+        "name": "プレスト池上",
+        "address": "大田区池上３－３２－１７　第２６下川ビルＡ館３０１",
+        "lat": 35.573698,
+        "lon": 139.701673,
+        "geohash": "xn766g",
+        "neighbors": [
+          "xn766u",
+          "xn7675",
+          "xn7675",
+          "xn766u",
+          "xn767h"
+        ],
+        "precision": 6
+      }
+    ],
+    "3561,13965": [
+      {
+        "id": 29,
+        "name": "しごとも",
+        "address": "世田谷区等々力６－１０－１９",
+        "lat": 35.611826,
+        "lon": 139.655903,
+        "geohash": "xn769f",
+        "neighbors": [
+          "xn769g",
+          "xn76d4",
+          "xn76d4",
+          "xn769g",
+          "xn76d5"
+        ],
+        "precision": 6
+      }
+    ],
+    "3563,13963": [
+      {
+        "id": 30,
+        "name": "Ｓｃｏｐｏ",
+        "address": "世田谷区上用賀３－１４－１７　グラン・ペルフェクティオ１階",
+        "lat": 35.633998,
+        "lon": 139.631632,
+        "geohash": "xn769q",
+        "neighbors": [
+          "xn769r",
+          "xn769w",
+          "xn769w",
+          "xn769r",
+          "xn769x"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13970": [
+      {
+        "id": 31,
+        "name": "ローランズプラスⅡ",
+        "address": "渋谷区千駄ヶ谷３－５４－１５　ベルズ原宿ビル１階",
+        "lat": 35.674981,
+        "lon": 139.705913,
+        "geohash": "xn76gn",
+        "neighbors": [
+          "xn76gp",
+          "xn76gq",
+          "xn76gq",
+          "xn76gp",
+          "xn76gr"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13966": [
+      {
+        "id": 32,
+        "name": "ホープ就労支援センター渋谷",
+        "address": "渋谷区笹塚２－１６－１",
+        "lat": 35.674413,
+        "lon": 139.666234,
+        "geohash": "xn76fn",
+        "neighbors": [
+          "xn76fp",
+          "xn76fq",
+          "xn76fq",
+          "xn76fp",
+          "xn76fr"
+        ],
+        "precision": 6
+      }
+    ],
+    "3572,13966": [
+      {
+        "id": 33,
+        "name": "コロニー中野",
+        "address": "中野区江原町２－６－７",
+        "lat": 35.72911,
+        "lon": 139.668348,
+        "geohash": "xn7760",
+        "neighbors": [
+          "xn7761",
+          "xn7762",
+          "xn7762",
+          "xn7761",
+          "xn7763"
+        ],
+        "precision": 6
+      }
+    ],
+    "3572,13963": [
+      {
+        "id": 34,
+        "name": "ワクわーく",
+        "address": "中野区白鷺一丁目３０番６号　深澤ビル４階",
+        "lat": 35.721496,
+        "lon": 139.63737,
+        "geohash": "xn771w",
+        "neighbors": [
+          "xn771x",
+          "xn771y",
+          "xn771y",
+          "xn771x",
+          "xn771z"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13961": [
+      {
+        "id": 35,
+        "name": "パン工房　プクプク",
+        "address": "杉並区南荻窪４－１－１５　春日屋ビル",
+        "lat": 35.698929,
+        "lon": 139.617162,
+        "geohash": "xn7714",
+        "neighbors": [
+          "xn7715",
+          "xn7716",
+          "xn7716",
+          "xn7715",
+          "xn7717"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13975": [
+      {
+        "id": 36,
+        "name": "ローランズプラス",
+        "address": "豊島区駒込１－１９－１５　直江ビル１階、２階",
+        "lat": 35.735476,
+        "lon": 139.752024,
+        "geohash": "xn77k1",
+        "neighbors": [
+          "xn77k4",
+          "xn77k3",
+          "xn77k3",
+          "xn77k4",
+          "xn77k6"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13972": [
+      {
+        "id": 37,
+        "name": "豊芯会フードサービス事業部",
+        "address": "豊島区北大塚３－３４－７",
+        "lat": 35.735203,
+        "lon": 139.726684,
+        "geohash": "xn7779",
+        "neighbors": [
+          "xn777d",
+          "xn777c",
+          "xn777c",
+          "xn777d",
+          "xn777f"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13969": [
+      {
+        "id": 38,
+        "name": "自立支援センターまめの樹",
+        "address": "豊島区西池袋５－２６－１６　ＣＨＩＢＡビル５階",
+        "lat": 35.732677,
+        "lon": 139.699906,
+        "geohash": "xn776b",
+        "neighbors": [
+          "xn776c",
+          "xn7770",
+          "xn7770",
+          "xn776c",
+          "xn7771"
+        ],
+        "precision": 6
+      }
+    ],
+    "3575,13972": [
+      {
+        "id": 39,
+        "name": "ダイニング　街なか",
+        "address": "北区上十条２－２８－６",
+        "lat": 35.759986,
+        "lon": 139.722098,
+        "geohash": "xn777m",
+        "neighbors": [
+          "xn777q",
+          "xn777t",
+          "xn777t",
+          "xn777q",
+          "xn777w"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13972": [
+      {
+        "id": 40,
+        "name": "わくわく配食サービス",
+        "address": "北区赤羽南２－６－６　スカイブリッジビル１階、地下１階",
+        "lat": 35.772245,
+        "lon": 139.722733,
+        "geohash": "xn77e2",
+        "neighbors": [
+          "xn77e3",
+          "xn77e8",
+          "xn77e8",
+          "xn77e3",
+          "xn77e9"
+        ],
+        "precision": 6
+      }
+    ],
+    "3578,13969": [
+      {
+        "id": 41,
+        "name": "うきま幸朋苑ブレッド＆バター",
+        "address": "北区浮間５－１３－１",
+        "lat": 35.78474,
+        "lon": 139.692446,
+        "geohash": "xn77df",
+        "neighbors": [
+          "xn77dg",
+          "xn77e4",
+          "xn77e4",
+          "xn77dg",
+          "xn77e5"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13979": [
+      {
+        "id": 42,
+        "name": "カフェフレンド",
+        "address": "荒川区南千住７－２６－２",
+        "lat": 35.735633,
+        "lon": 139.799137,
+        "geohash": "xn77m1",
+        "neighbors": [
+          "xn77m4",
+          "xn77m3",
+          "xn77m3",
+          "xn77m4",
+          "xn77m6"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13975": [
+      {
+        "id": 43,
+        "name": "オフィスサプライ東京",
+        "address": "荒川区西尾久５－２０－１８",
+        "lat": 35.747905,
+        "lon": 139.758487,
+        "geohash": "xn77k7",
+        "neighbors": [
+          "xn77kk",
+          "xn77ke",
+          "xn77ke",
+          "xn77kk",
+          "xn77ks"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13977": [
+      {
+        "id": 44,
+        "name": "作業所スカイ",
+        "address": "荒川区西日暮里５－２－２０　サンリバー西日暮里１０２",
+        "lat": 35.733974,
+        "lon": 139.770951,
+        "geohash": "xn77k9",
+        "neighbors": [
+          "xn77kd",
+          "xn77kc",
+          "xn77kc",
+          "xn77kd",
+          "xn77kf"
+        ],
+        "precision": 6
+      }
+    ],
+    "3575,13971": [
+      {
+        "id": 45,
+        "name": "ウィズミー",
+        "address": "板橋区板橋４－３８－４",
+        "lat": 35.751123,
+        "lon": 139.719565,
+        "geohash": "xn777k",
+        "neighbors": [
+          "xn777m",
+          "xn777s",
+          "xn777s",
+          "xn777m",
+          "xn777t"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13968": [
+      {
+        "id": 46,
+        "name": "ポプラＡプラス療育センター店",
+        "address": "板橋区小茂根１－１－１０",
+        "lat": 35.747517,
+        "lon": 139.682715,
+        "geohash": "xn776e",
+        "neighbors": [
+          "xn776s",
+          "xn776g",
+          "xn776g",
+          "xn776s",
+          "xn776u"
+        ],
+        "precision": 6
+      }
+    ],
+    "3579,13966": [
+      {
+        "id": 47,
+        "name": "東京都板橋福祉工場　就労継続支援Ａ型事業所",
+        "address": "板橋区高島平９－４２－７",
+        "lat": 35.791577,
+        "lon": 139.66929,
+        "geohash": "xn77d7",
+        "neighbors": [
+          "xn77dk",
+          "xn77de",
+          "xn77de",
+          "xn77dk",
+          "xn77ds"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13965": [
+      {
+        "id": 48,
+        "name": "かすたねっと",
+        "address": "練馬区練馬２－１－９",
+        "lat": 35.741336,
+        "lon": 139.65604,
+        "geohash": "xn773f",
+        "neighbors": [
+          "xn773g",
+          "xn7764",
+          "xn7764",
+          "xn773g",
+          "xn7765"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13965": [
+      {
+        "id": 49,
+        "name": "銀杏",
+        "address": "練馬区練馬１－２６－６",
+        "lat": 35.739061,
+        "lon": 139.655212,
+        "geohash": "xn773f",
+        "neighbors": [
+          "xn773g",
+          "xn7764",
+          "xn7764",
+          "xn773g",
+          "xn7765"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 50,
+        "name": "すくらむ事業所",
+        "address": "練馬区豊玉北４－１１－７　ＢＳ第２ビル",
+        "lat": 35.735251,
+        "lon": 139.659309,
+        "geohash": "xn7761",
+        "neighbors": [
+          "xn7764",
+          "xn7763",
+          "xn7763",
+          "xn7764",
+          "xn7766"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13963": [
+      {
+        "id": 51,
+        "name": "ワークスタジオ　Ｗｅｌ",
+        "address": "練馬区貫井一丁目１３番１３号",
+        "lat": 35.739222,
+        "lon": 139.634828,
+        "geohash": "xn7736",
+        "neighbors": [
+          "xn7737",
+          "xn773d",
+          "xn773d",
+          "xn7737",
+          "xn773e"
+        ],
+        "precision": 6
+      }
+    ],
+    "3575,13958": [
+      {
+        "id": 52,
+        "name": "赤オニの家",
+        "address": "練馬区西大泉３－１－３　コーポ豊島１階　店舗",
+        "lat": 35.754266,
+        "lon": 139.583804,
+        "geohash": "xn772k",
+        "neighbors": [
+          "xn772m",
+          "xn772s",
+          "xn772s",
+          "xn772m",
+          "xn772t"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13964": [
+      {
+        "id": 53,
+        "name": "あかねっこ弁当",
+        "address": "練馬区春日町３－１３－１",
+        "lat": 35.749054,
+        "lon": 139.641613,
+        "geohash": "xn773e",
+        "neighbors": [
+          "xn773s",
+          "xn773g",
+          "xn773g",
+          "xn773s",
+          "xn773u"
+        ],
+        "precision": 6
+      }
+    ],
+    "3576,13965": [
+      {
+        "id": 54,
+        "name": "こぶし事業所",
+        "address": "練馬区北町７－２０－３６",
+        "lat": 35.763189,
+        "lon": 139.650492,
+        "geohash": "xn773y",
+        "neighbors": [
+          "xn773z",
+          "xn776n",
+          "xn776n",
+          "xn773z",
+          "xn776p"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13982": [
+      {
+        "id": 55,
+        "name": "綾瀬ひまわり園",
+        "address": "足立区綾瀬７－２－７",
+        "lat": 35.774837,
+        "lon": 139.824238,
+        "geohash": "xn77tb",
+        "neighbors": [
+          "xn77tc",
+          "xn77w0",
+          "xn77w0",
+          "xn77tc",
+          "xn77w1"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13980": [
+      {
+        "id": 56,
+        "name": "ラトリエ　ソサイエティ",
+        "address": "足立区中央本町４－４－１２",
+        "lat": 35.775853,
+        "lon": 139.805965,
+        "geohash": "xn77t2",
+        "neighbors": [
+          "xn77t3",
+          "xn77t8",
+          "xn77t8",
+          "xn77t3",
+          "xn77t9"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 62,
+        "name": "フリージア",
+        "address": "足立区梅島１－１９－１０　ホワイトテラス梅島",
+        "lat": 35.772786,
+        "lon": 139.800768,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      }
+    ],
+    "3578,13980": [
+      {
+        "id": 57,
+        "name": "のんの",
+        "address": "足立区保木間１－１－３　東潤ビル１階",
+        "lat": 35.789201,
+        "lon": 139.802992,
+        "geohash": "xn77t7",
+        "neighbors": [
+          "xn77tk",
+          "xn77te",
+          "xn77te",
+          "xn77tk",
+          "xn77ts"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 58,
+        "name": "クリスタルサービス足立",
+        "address": "足立区保木間一丁目１０番１８号　淵江プラザビル２階",
+        "lat": 35.78969,
+        "lon": 139.806056,
+        "geohash": "xn77t7",
+        "neighbors": [
+          "xn77tk",
+          "xn77te",
+          "xn77te",
+          "xn77tk",
+          "xn77ts"
+        ],
+        "precision": 6
+      }
+    ],
+    "3580,13979": [
+      {
+        "id": 59,
+        "name": "竹の塚ひまわり園クリーンチーム",
+        "address": "足立区竹の塚７－１９－７",
+        "lat": 35.8007,
+        "lon": 139.795551,
+        "geohash": "xn77tj",
+        "neighbors": [
+          "xn77tn",
+          "xn77tm",
+          "xn77tm",
+          "xn77tn",
+          "xn77tq"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13979": [
+      {
+        "id": 60,
+        "name": "大滝チャレンジド",
+        "address": "足立区梅島３－２４－４",
+        "lat": 35.776877,
+        "lon": 139.793129,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 61,
+        "name": "アイリス",
+        "address": "足立区梅島１－１６－６　ジュネス小野田１階",
+        "lat": 35.773328,
+        "lon": 139.799401,
+        "geohash": "xn77t0",
+        "neighbors": [
+          "xn77t1",
+          "xn77t2",
+          "xn77t2",
+          "xn77t1",
+          "xn77t3"
+        ],
+        "precision": 6
+      }
+    ],
+    "3578,13978": [
+      {
+        "id": 63,
+        "name": "クリーニングフランセ",
+        "address": "足立区栗原３－２５－１２",
+        "lat": 35.78121,
+        "lon": 139.783736,
+        "geohash": "xn77sc",
+        "neighbors": [
+          "xn77sf",
+          "xn77t1",
+          "xn77t1",
+          "xn77sf",
+          "xn77t4"
+        ],
+        "precision": 6
+      }
+    ],
+    "3578,13976": [
+      {
+        "id": 64,
+        "name": "谷在家福祉作業所",
+        "address": "足立区谷在家３－１３－１",
+        "lat": 35.788325,
+        "lon": 139.765734,
+        "geohash": "xn77s7",
+        "neighbors": [
+          "xn77sk",
+          "xn77se",
+          "xn77se",
+          "xn77sk",
+          "xn77ss"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13987": [
+      {
+        "id": 65,
+        "name": "きせん事業所",
+        "address": "葛飾区東金町１－３５－１０",
+        "lat": 35.772776,
+        "lon": 139.871632,
+        "geohash": "xn77wb",
+        "neighbors": [
+          "xn77wc",
+          "xn77x0",
+          "xn77x0",
+          "xn77wc",
+          "xn77x1"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 66,
+        "name": "アップドラフト",
+        "address": "葛飾区東金町１－４２－１０　金町ビル３階",
+        "lat": 35.770421,
+        "lon": 139.871282,
+        "geohash": "xn77qz",
+        "neighbors": [
+          "xn77wb",
+          "xn77rp",
+          "xn77rp",
+          "xn77wb",
+          "xn77x0"
+        ],
+        "precision": 6
+      }
+    ],
+    "3576,13986": [
+      {
+        "id": 67,
+        "name": "社会福祉法人東京コロニー　東京都葛飾福祉工場",
+        "address": "葛飾区金町２－８－２０",
+        "lat": 35.764547,
+        "lon": 139.869124,
+        "geohash": "xn77qy",
+        "neighbors": [
+          "xn77qz",
+          "xn77rn",
+          "xn77rn",
+          "xn77qz",
+          "xn77rp"
+        ],
+        "precision": 6
+      }
+    ],
+    "3575,13987": [
+      {
+        "id": 68,
+        "name": "ファーストプランニング",
+        "address": "葛飾区柴又６－１２－１８　２階",
+        "lat": 35.756028,
+        "lon": 139.87711,
+        "geohash": "xn77qv",
+        "neighbors": [
+          "xn77qy",
+          "xn77rj",
+          "xn77rj",
+          "xn77qy",
+          "xn77rn"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13985": [
+      {
+        "id": 69,
+        "name": "ぽむの樹",
+        "address": "葛飾区青戸５－２－９　青戸ハイツ１０１、２０５",
+        "lat": 35.74769,
+        "lon": 139.853828,
+        "geohash": "xn77q7",
+        "neighbors": [
+          "xn77qk",
+          "xn77qe",
+          "xn77qe",
+          "xn77qk",
+          "xn77qs"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13985": [
+      {
+        "id": 70,
+        "name": "東京ソテリアエンプロイメント",
+        "address": "江戸川区松島２－９－２",
+        "lat": 35.708966,
+        "lon": 139.859091,
+        "geohash": "xn77ns",
+        "neighbors": [
+          "xn77nt",
+          "xn77nu",
+          "xn77nu",
+          "xn77nt",
+          "xn77nv"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13986": [
+      {
+        "id": 71,
+        "name": "ラピス",
+        "address": "江戸川区東小松川２－１０－５",
+        "lat": 35.69884,
+        "lon": 139.866818,
+        "geohash": "xn77nd",
+        "neighbors": [
+          "xn77ne",
+          "xn77nf",
+          "xn77nf",
+          "xn77ne",
+          "xn77ng"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13984": [
+      {
+        "id": 72,
+        "name": "イーストフライト",
+        "address": "江戸川区小松川３－２－１　テクノタウン３０６",
+        "lat": 35.696756,
+        "lon": 139.847592,
+        "geohash": "xn77n6",
+        "neighbors": [
+          "xn77n7",
+          "xn77nd",
+          "xn77nd",
+          "xn77n7",
+          "xn77ne"
+        ],
+        "precision": 6
+      }
+    ],
+    "3566,13988": [
+      {
+        "id": 73,
+        "name": "ワークワーク東京",
+        "address": "江戸川区東葛西３－１７－４１",
+        "lat": 35.665968,
+        "lon": 139.885895,
+        "geohash": "xn76zh",
+        "neighbors": [
+          "xn76zj",
+          "xn76zk",
+          "xn76zk",
+          "xn76zj",
+          "xn76zm"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13988": [
+      {
+        "id": 74,
+        "name": "タオ江戸川",
+        "address": "江戸川区東葛西１－４５－１１",
+        "lat": 35.670486,
+        "lon": 139.882115,
+        "geohash": "xn76zj",
+        "neighbors": [
+          "xn76zn",
+          "xn76zm",
+          "xn76zm",
+          "xn76zn",
+          "xn76zq"
+        ],
+        "precision": 6
+      }
+    ],
+    "3571,13929": [
+      {
+        "id": 75,
+        "name": "ぽぷら八王子",
+        "address": "八王子市戸吹町２１０４　株式会社エフピコ八王子ＰＷ工場内",
+        "lat": 35.711111,
+        "lon": 139.291511,
+        "geohash": "xn751t",
+        "neighbors": [
+          "xn751w",
+          "xn751v",
+          "xn751v",
+          "xn751w",
+          "xn751y"
+        ],
+        "precision": 6
+      }
+    ],
+    "3565,13934": [
+      {
+        "id": 76,
+        "name": "ハートエース",
+        "address": "八王子市子安町１－１５－１　テクノビル２階",
+        "lat": 35.653785,
+        "lon": 139.342389,
+        "geohash": "xn74ff",
+        "neighbors": [
+          "xn74fg",
+          "xn74g4",
+          "xn74g4",
+          "xn74fg",
+          "xn74g5"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13934": [
+      {
+        "id": 77,
+        "name": "アース",
+        "address": "八王子市片倉町７０６－６",
+        "lat": 35.640301,
+        "lon": 139.340593,
+        "geohash": "xn74fb",
+        "neighbors": [
+          "xn74fc",
+          "xn74g0",
+          "xn74g0",
+          "xn74fc",
+          "xn74g1"
+        ],
+        "precision": 6
+      }
+    ],
+    "3565,13931": [
+      {
+        "id": 78,
+        "name": "リーフ",
+        "address": "八王子市千人町２－３－１６　プラザ西八王子２Ｆ",
+        "lat": 35.658256,
+        "lon": 139.313467,
+        "geohash": "xn74f5",
+        "neighbors": [
+          "xn74fh",
+          "xn74f7",
+          "xn74f7",
+          "xn74fh",
+          "xn74fk"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13928": [
+      {
+        "id": 79,
+        "name": "シエル",
+        "address": "八王子市初沢町１２３１－１７　高尾力栄ビル２０２",
+        "lat": 35.641549,
+        "lon": 139.285245,
+        "geohash": "xn74c8",
+        "neighbors": [
+          "xn74c9",
+          "xn74cb",
+          "xn74cb",
+          "xn74c9",
+          "xn74cc"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13941": [
+      {
+        "id": 80,
+        "name": "立川おりおん",
+        "address": "立川市曙町２－９－１　菊屋ビルディング５０２",
+        "lat": 35.701026,
+        "lon": 139.415601,
+        "geohash": "xn75h7",
+        "neighbors": [
+          "xn75hk",
+          "xn75he",
+          "xn75he",
+          "xn75hk",
+          "xn75hs"
+        ],
+        "precision": 6
+      }
+    ],
+    "3572,13938": [
+      {
+        "id": 81,
+        "name": "はちす",
+        "address": "立川市一番町１－４１－１１",
+        "lat": 35.725048,
+        "lon": 139.38295,
+        "geohash": "xn755x",
+        "neighbors": [
+          "xn7578",
+          "xn755z",
+          "xn755z",
+          "xn7578",
+          "xn757b"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13957": [
+      {
+        "id": 82,
+        "name": "マジェルカ",
+        "address": "武蔵野市吉祥寺本町３－３－１１　中田ビル",
+        "lat": 35.704894,
+        "lon": 139.573529,
+        "geohash": "xn7705",
+        "neighbors": [
+          "xn770h",
+          "xn7707",
+          "xn7707",
+          "xn770h",
+          "xn770k"
+        ],
+        "precision": 6
+      }
+    ],
+    "3570,13955": [
+      {
+        "id": 83,
+        "name": "ワークセンターけやき",
+        "address": "武蔵野市西久保２－２７－６",
+        "lat": 35.708604,
+        "lon": 139.554842,
+        "geohash": "xn75ps",
+        "neighbors": [
+          "xn75pt",
+          "xn75pu",
+          "xn75pu",
+          "xn75pt",
+          "xn75pv"
+        ],
+        "precision": 6
+      }
+    ],
+    "3569,13956": [
+      {
+        "id": 84,
+        "name": "三鷹ひまわり第一共同作業所",
+        "address": "三鷹市下連雀４－８－２０",
+        "lat": 35.692895,
+        "lon": 139.562692,
+        "geohash": "xn75pc",
+        "neighbors": [
+          "xn75pf",
+          "xn7701",
+          "xn7701",
+          "xn75pf",
+          "xn7704"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13954": [
+      {
+        "id": 85,
+        "name": "ワークショップハーモニー",
+        "address": "三鷹市大沢１－１－４３",
+        "lat": 35.678579,
+        "lon": 139.541005,
+        "geohash": "xn74zr",
+        "neighbors": [
+          "xn75p2",
+          "xn74zx",
+          "xn74zx",
+          "xn75p2",
+          "xn75p8"
+        ],
+        "precision": 6
+      }
+    ],
+    "3579,13927": [
+      {
+        "id": 86,
+        "name": "自立支援塾ぱん工房",
+        "address": "青梅市東青梅２－１８－５　セトル東青梅１０６・１０７",
+        "lat": 35.790259,
+        "lon": 139.27486,
+        "geohash": "xn7597",
+        "neighbors": [
+          "xn759k",
+          "xn759e",
+          "xn759e",
+          "xn759k",
+          "xn759s"
+        ],
+        "precision": 6
+      }
+    ],
+    "3578,13928": [
+      {
+        "id": 87,
+        "name": "アルホープ",
+        "address": "青梅市東青梅５－３－４　アルトポンテ２階",
+        "lat": 35.785646,
+        "lon": 139.282326,
+        "geohash": "xn7596",
+        "neighbors": [
+          "xn7597",
+          "xn759d",
+          "xn759d",
+          "xn7597",
+          "xn759e"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13945": [
+      {
+        "id": 88,
+        "name": "西府いこいプラザ",
+        "address": "府中市西府町３－２９－１７",
+        "lat": 35.678877,
+        "lon": 139.456862,
+        "geohash": "xn74vr",
+        "neighbors": [
+          "xn75j2",
+          "xn74vx",
+          "xn74vx",
+          "xn75j2",
+          "xn75j8"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13953": [
+      {
+        "id": 89,
+        "name": "らぷらんど調布",
+        "address": "調布市小島町３－３３－１　１０２及び２０２",
+        "lat": 35.645981,
+        "lon": 139.53643,
+        "geohash": "xn74z1",
+        "neighbors": [
+          "xn74z4",
+          "xn74z3",
+          "xn74z3",
+          "xn74z4",
+          "xn74z6"
+        ],
+        "precision": 6
+      }
+    ],
+    "3555,13944": [
+      {
+        "id": 90,
+        "name": "スワンカフェ＆ベーカリー町田１号店",
+        "address": "町田市中町３－７－１７",
+        "lat": 35.552136,
+        "lon": 139.448087,
+        "geohash": "xn74m0",
+        "neighbors": [
+          "xn74m1",
+          "xn74m2",
+          "xn74m2",
+          "xn74m1",
+          "xn74m3"
+        ],
+        "precision": 6
+      }
+    ],
+    "3556,13941": [
+      {
+        "id": 91,
+        "name": "スワンカフェ＆ベーカリー町田２号店",
+        "address": "町田市木曽西２－１７－２１　ショッピングセンター３０５内",
+        "lat": 35.569489,
+        "lon": 139.415311,
+        "geohash": "xn74k7",
+        "neighbors": [
+          "xn74kk",
+          "xn74ke",
+          "xn74ke",
+          "xn74kk",
+          "xn74ks"
+        ],
+        "precision": 6
+      }
+    ],
+    "3573,13949": [
+      {
+        "id": 92,
+        "name": "みくま",
+        "address": "小平市大沼町２－１－１２",
+        "lat": 35.738182,
+        "lon": 139.492193,
+        "geohash": "xn75q1",
+        "neighbors": [
+          "xn75q4",
+          "xn75q3",
+          "xn75q3",
+          "xn75q4",
+          "xn75q6"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13938": [
+      {
+        "id": 93,
+        "name": "ディーセント・ワーク平山台",
+        "address": "日野市平山２－１－１",
+        "lat": 35.640974,
+        "lon": 139.387136,
+        "geohash": "xn74gb",
+        "neighbors": [
+          "xn74gc",
+          "xn74u0",
+          "xn74u0",
+          "xn74gc",
+          "xn74u1"
+        ],
+        "precision": 6
+      }
+    ],
+    "3576,13948": [
+      {
+        "id": 94,
+        "name": "コロニー東村山",
+        "address": "東村山市秋津町２－２２－９",
+        "lat": 35.768765,
+        "lon": 139.487895,
+        "geohash": "xn75qp",
+        "neighbors": [
+          "xn75w0",
+          "xn75qr",
+          "xn75qr",
+          "xn75w0",
+          "xn75w2"
+        ],
+        "precision": 6
+      }
+    ],
+    "3567,13943": [
+      {
+        "id": 95,
+        "name": "ともにー",
+        "address": "国立市泉１－１６－４",
+        "lat": 35.672633,
+        "lon": 139.437836,
+        "geohash": "xn74uy",
+        "neighbors": [
+          "xn74uz",
+          "xn74vn",
+          "xn74vn",
+          "xn74uz",
+          "xn74vp"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 96,
+        "name": "ステップアップともにー",
+        "address": "国立市泉１－１２－３",
+        "lat": 35.673072,
+        "lon": 139.439133,
+        "geohash": "xn74vn",
+        "neighbors": [
+          "xn74vp",
+          "xn74vq",
+          "xn74vq",
+          "xn74vp",
+          "xn74vr"
+        ],
+        "precision": 6
+      }
+    ],
+    "3577,13951": [
+      {
+        "id": 97,
+        "name": "スマイルアーク",
+        "address": "清瀬市松山１－１２－１５",
+        "lat": 35.77191,
+        "lon": 139.517862,
+        "geohash": "xn75wb",
+        "neighbors": [
+          "xn75wc",
+          "xn75x0",
+          "xn75x0",
+          "xn75wc",
+          "xn75x1"
+        ],
+        "precision": 6
+      }
+    ],
+    "3574,13950": [
+      {
+        "id": 98,
+        "name": "就労支援事業所　コイノニア",
+        "address": "東久留米市滝山５－１－１６　さはら文具ビル",
+        "lat": 35.746209,
+        "lon": 139.503261,
+        "geohash": "xn75q7",
+        "neighbors": [
+          "xn75qk",
+          "xn75qe",
+          "xn75qe",
+          "xn75qk",
+          "xn75qs"
+        ],
+        "precision": 6
+      }
+    ],
+    "3575,13950": [
+      {
+        "id": 99,
+        "name": "きぼう工房東くるめ",
+        "address": "東久留米市下里２－１６－２１",
+        "lat": 35.752181,
+        "lon": 139.505733,
+        "geohash": "xn75qs",
+        "neighbors": [
+          "xn75qt",
+          "xn75qu",
+          "xn75qu",
+          "xn75qt",
+          "xn75qv"
+        ],
+        "precision": 6
+      }
+    ],
+    "3562,13942": [
+      {
+        "id": 100,
+        "name": "草むらde夢（畑deきっちん）",
+        "address": "多摩市落合１－４６－１　ココリア多摩センター６階６０４",
+        "lat": 35.622376,
+        "lon": 139.424852,
+        "geohash": "xn74ss",
+        "neighbors": [
+          "xn74st",
+          "xn74su",
+          "xn74su",
+          "xn74st",
+          "xn74sv"
+        ],
+        "precision": 6
+      },
+      {
+        "id": 101,
+        "name": "Ｅ’ｓ　Ｃａｆｅ",
+        "address": "多摩市落合１－４７　ニューシティ多摩センタービル８階",
+        "lat": 35.621786,
+        "lon": 139.423737,
+        "geohash": "xn74ss",
+        "neighbors": [
+          "xn74st",
+          "xn74su",
+          "xn74su",
+          "xn74st",
+          "xn74sv"
+        ],
+        "precision": 6
+      }
+    ],
+    "3564,13951": [
+      {
+        "id": 102,
+        "name": "ベネッセソシアス稲城センター",
+        "address": "稲城市押立１０３３－１",
+        "lat": 35.647164,
+        "lon": 139.513337,
+        "geohash": "xn74y9",
+        "neighbors": [
+          "xn74yd",
+          "xn74yc",
+          "xn74yc",
+          "xn74yd",
+          "xn74yf"
+        ],
+        "precision": 6
+      }
+    ],
+    "3572,13928": [
+      {
+        "id": 103,
+        "name": "プロシード",
+        "address": "あきる野市下代継９４－６",
+        "lat": 35.727103,
+        "lon": 139.281845,
+        "geohash": "xn751r",
+        "neighbors": [
+          "xn7532",
+          "xn751x",
+          "xn751x",
+          "xn7532",
+          "xn7538"
+        ],
+        "precision": 6
+      }
+    ]
+  },
+  "stats": {
+    "totalFacilities": 104,
+    "hashCells": 99,
+    "gridCells": 96,
+    "avgHashFacilitiesPerCell": 1.0505050505050506,
+    "avgGridFacilitiesPerCell": 1.0833333333333333,
+    "maxHashFacilitiesPerCell": 3,
+    "maxGridFacilitiesPerCell": 2,
+    "buildTime": 0,
+    "precision": 6,
+    "memoryEstimate": {
+      "hash": "3.1KB",
+      "grid": "3.0KB"
+    }
+  }
+}
