@@ -52,3 +52,8 @@ next-env.d.ts
 # IDE config
 .vscode/
 .idea/
+/src/generated/prisma
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
