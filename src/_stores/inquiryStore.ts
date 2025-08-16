@@ -172,9 +172,16 @@ export const useInquiryStore = create<InquiryState>()(
           selectedFacilities: Array.from(state.selectedFacilities.entries()),
         }),
         onRehydrateStorage: () => (state) => {
-          // 復元時にMapオブジェクトを再構築
+          // 復元時にMapオブジェクトとDateオブジェクトを再構築
           if (state) {
             state.selectedFacilities = new Map(state.selectedFacilities as any);
+
+            // selectedAtをDateオブジェクトに復元
+            state.selectedFacilities.forEach((selectedInfo) => {
+              if (typeof selectedInfo.selectedAt === "string") {
+                selectedInfo.selectedAt = new Date(selectedInfo.selectedAt);
+              }
+            });
           }
         },
       }

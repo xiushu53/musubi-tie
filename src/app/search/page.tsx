@@ -11,6 +11,7 @@ import {
   Search,
   Settings,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import InquiryStoreDebugger from "@/_components/debug/InquiryStoreDebugger";
 import MapLoader from "@/_components/map/MapLoader";
@@ -69,6 +70,7 @@ export interface FacilityWithDistance extends Facility {
 }
 
 export default function SearchPage() {
+  const router = useRouter();
   // UI State
   const [selectedFacilityType, setSelectedFacilityType] = useState("asds");
   const [searchRadius, setSearchRadius] = useState<number>(1000);
@@ -164,7 +166,7 @@ export default function SearchPage() {
     inquiryActions.setInquiryMode(true);
     // TODO: 問い合わせページへの遷移実装
     console.log(`${selectedCount}件の施設への問い合わせを開始`);
-    // router.push('/inquiry/compose');
+    router.push("/inquiry/compose");
   }, [selectedCount, inquiryActions]);
 
   const indexInfo = getIndexInfo();
