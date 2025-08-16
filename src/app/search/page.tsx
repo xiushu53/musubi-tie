@@ -401,7 +401,8 @@ export default function SearchPage() {
                         {/* 選択状況の表示 - 検索結果カード内に移動 */}
                         {isClient && selectedCount > 0 && (
                           <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                            <div className="flex items-center justify-between">
+                            {/* モバイル：縦並び、デスクトップ：横並び */}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                               <div className="flex items-center gap-2">
                                 <Badge
                                   variant="default"
@@ -410,7 +411,7 @@ export default function SearchPage() {
                                   {selectedCount}件選択中
                                 </Badge>
                                 <span className="text-sm text-blue-800">
-                                  問い合わせ可能です
+                                  問い合わせ可能
                                 </span>
                               </div>
                               <div className="flex gap-2">
@@ -420,13 +421,14 @@ export default function SearchPage() {
                                   onClick={() =>
                                     inquiryActions.clearAllSelections()
                                   }
+                                  className="flex-1 sm:flex-none"
                                 >
                                   全解除
                                 </Button>
                                 <Button
                                   size="sm"
                                   onClick={handleStartInquiry}
-                                  className="bg-blue-600 hover:bg-blue-700"
+                                  className="bg-blue-600 hover:bg-blue-700 flex-1 sm:flex-none"
                                 >
                                   {selectedCount}件に問い合わせる
                                 </Button>

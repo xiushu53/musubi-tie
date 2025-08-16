@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { Badge } from "@/_components/ui/badge";
 import { Button } from "@/_components/ui/button";
 import { Card } from "@/_components/ui/card";
+import { Checkbox } from "@/_components/ui/checkbox";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
 import {
   useInquiryActions,
@@ -13,7 +14,6 @@ import {
 import { formatDistance } from "@/_utils/formatDistance";
 import type { FacilityWithDistance } from "@/app/search/page";
 import type { Facility } from "@/types";
-import { Checkbox } from "../ui/checkbox";
 
 interface SearchResultsListProps {
   results: FacilityWithDistance[];
@@ -159,17 +159,6 @@ export function SearchResultsList({
                             )?.label
                           }
                         </Badge>
-
-                        {/* 選択状態の表示 */}
-                        {isSelected && (
-                          <Badge
-                            variant="default"
-                            className="text-xs bg-blue-600"
-                          >
-                            <Check className="h-3 w-3 mr-1" />
-                            選択中
-                          </Badge>
-                        )}
                       </div>
 
                       {/* 選択時の詳細情報表示 */}
