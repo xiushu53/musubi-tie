@@ -11,7 +11,8 @@ import {
   Search,
   Settings,
 } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import InquiryStoreDebugger from "@/_components/debug/InquiryStoreDebugger";
 import MapLoader from "@/_components/map/MapLoader";
 import { InfoCards } from "@/_components/search/InfoCards";
 import { LocationInput } from "@/_components/search/LocationInput";
@@ -49,6 +50,11 @@ import {
 import { useFacilitySearch } from "@/_hooks/useFacilitySearch";
 import { useLocation } from "@/_hooks/useLocation";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
+import {
+  useInquiryActions,
+  // useInquiryMode,
+  useSelectedFacilities,
+} from "@/_stores/inquiryStore";
 import { formatDistance } from "@/_utils/formatDistance";
 import type { Facility } from "@/types";
 
@@ -108,6 +114,36 @@ export default function SearchPage() {
     searchMethod
   );
 
+  // Inquiry Store連携
+  const inquiryActions = useInquiryActions();
+  const selectedFacilities = useSelectedFacilities();
+  // const isInquiryMode = useInquiryMode();
+  const selectedCount = inquiryActions.getSelectedCount();
+
+  // ハイドレーション完了チェック
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // 検索条件変更時にストアを更新
+  useEffect(() => {
+    if (userLocation && geohashReady) {
+      inquiryActions.updateCurrentSearch(
+        userLocation,
+        selectedFacilityType,
+        searchRadius
+      );
+    }
+  }, [
+    userLocation,
+    selectedFacilityType,
+    searchRadius,
+    geohashReady,
+    inquiryActions,
+  ]);
+
   // UI Handlers
   const toggleCard = useCallback((cardName: keyof typeof cardStates) => {
     setCardStates((prev) => ({
@@ -120,6 +156,16 @@ export default function SearchPage() {
     setSelectedFacility(facility);
     setActiveTab("map");
   }, []);
+
+  // 問い合わせページへの遷移
+  const handleStartInquiry = useCallback(() => {
+    if (selectedCount === 0) return;
+
+    inquiryActions.setInquiryMode(true);
+    // TODO: 問い合わせページへの遷移実装
+    console.log(`${selectedCount}件の施設への問い合わせを開始`);
+    // router.push('/inquiry/compose');
+  }, [selectedCount, inquiryActions]);
 
   const indexInfo = getIndexInfo();
 
@@ -333,6 +379,14 @@ export default function SearchPage() {
                                 {searchResults.results.length}件
                               </Badge>
                             )}
+                            {isClient && selectedCount > 0 && (
+                              <Badge
+                                variant="default"
+                                className="text-xs bg-blue-600"
+                              >
+                                {selectedCount}件選択
+                              </Badge>
+                            )}
                             {cardStates.searchResults ? (
                               <ChevronUp className="h-4 w-4" />
                             ) : (
@@ -344,6 +398,43 @@ export default function SearchPage() {
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <CardContent className="pt-0">
+                        {/* 選択状況の表示 - 検索結果カード内に移動 */}
+                        {isClient && selectedCount > 0 && (
+                          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Badge
+                                  variant="default"
+                                  className="bg-blue-600"
+                                >
+                                  {selectedCount}件選択中
+                                </Badge>
+                                <span className="text-sm text-blue-800">
+                                  問い合わせ可能です
+                                </span>
+                              </div>
+                              <div className="flex gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() =>
+                                    inquiryActions.clearAllSelections()
+                                  }
+                                >
+                                  全解除
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  onClick={handleStartInquiry}
+                                  className="bg-blue-600 hover:bg-blue-700"
+                                >
+                                  {selectedCount}件に問い合わせる
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
                         <StatusDisplay
                           dataLoading={dataLoading}
                           dataError={dataError}
@@ -437,10 +528,47 @@ export default function SearchPage() {
                               )?.label
                             }
                           </Badge>
+                          {/* 選択状態表示 */}
+                          {selectedFacilities.has(selectedFacility.id) && (
+                            <Badge variant="default" className="bg-blue-600">
+                              ✓ 問い合わせ選択済み
+                            </Badge>
+                          )}
                         </div>
                       )}
                     </div>
                     <div className="text-right space-y-2">
+                      {/* 問い合わせ選択ボタン */}
+                      <Button
+                        onClick={() => {
+                          const facilityWithDistance =
+                            searchResults.results.find(
+                              (f) => f.id === selectedFacility.id
+                            );
+                          if (facilityWithDistance) {
+                            inquiryActions.toggleFacilitySelection(
+                              selectedFacility,
+                              facilityWithDistance.distance
+                            );
+                          }
+                        }}
+                        size="sm"
+                        variant={
+                          selectedFacilities.has(selectedFacility.id)
+                            ? "default"
+                            : "outline"
+                        }
+                        className={
+                          selectedFacilities.has(selectedFacility.id)
+                            ? "bg-blue-600 hover:bg-blue-700"
+                            : ""
+                        }
+                      >
+                        {selectedFacilities.has(selectedFacility.id)
+                          ? "✓ 選択済み"
+                          : "問い合わせに追加"}
+                      </Button>
+
                       <Button
                         onClick={() => {
                           // 地図を選択施設中心に移動（オプション機能）
@@ -468,6 +596,20 @@ export default function SearchPage() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* フローティング問い合わせボタン（モバイル用） */}
+      {isClient && selectedCount > 0 && (
+        <div className="fixed bottom-4 right-4 z-50 sm:hidden">
+          <Button
+            onClick={handleStartInquiry}
+            size="lg"
+            className="rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg px-6"
+          >
+            <span className="font-medium">{selectedCount}件に問い合わせる</span>
+          </Button>
+        </div>
+      )}
+      <InquiryStoreDebugger />
     </div>
   );
 }

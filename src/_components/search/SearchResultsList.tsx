@@ -130,7 +130,7 @@ export function SearchResultsList({
                 <div className="mt-1">
                   <Checkbox
                     checked={isSelected}
-                    onCheckedChange={(checked, event) =>
+                    onCheckedChange={(_, event) =>
                       handleFacilityToggle(facility, event as React.MouseEvent)
                     }
                     className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
