@@ -55,10 +55,9 @@ export default function InquiryComposePage() {
     setIsClient(true);
   }, []);
 
-  // 選択施設を配列に変換
   const selectedFacilitiesArray = isClient
     ? Array.from(selectedFacilities.values()).sort(
-        (a, b) => a.selectedAt.getTime() - b.selectedAt.getTime()
+        (a, b) => a.distance - b.distance
       )
     : [];
 
