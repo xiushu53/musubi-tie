@@ -20,3 +20,11 @@ export interface UserLocation {
 export interface FacilityWithDistance extends Facility {
   distance: number;
 }
+
+export interface InquiryFormData {
+  userName: string;
+  email: string;
+  phone: string;
+  commonMessage: string;
+  facilityMessages: Record<number, string>; // facilityId -> 個別メッセージ
+}
