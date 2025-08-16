@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 施設マスター
+model Facility {
+  id           Int      @id
+  name         String
+  email        String   // 問い合わせ受信用メールアドレス
+  address      String
+  latitude     Float
+  longitude    Float
+  facilityType String   // "asds", "sept-a" など
+  prefecture   String   // 都道府県（分析用）
+  city         String   // 市区町村（分析用）
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  inquiryItems InquiryItem[]
+  
+  @@map("facilities")
+}
+
+// 問い合わせセッション（一斉問い合わせの単位）
+model Inquiry {
+  id              String        @id @default(cuid())
+  status          InquiryStatus @default(SENT)
+  totalFacilities Int           // 送信対象施設数
+  
+  // 検索起点情報（可視化分析必須）
+  searchLatitude  Float         // 検索地点の緯度
+  searchLongitude Float         // 検索地点の経度
+  searchRadius    Int           // 検索半径(m)
+  facilityType    String        // 対象施設タイプ
+  
+  // 地域分析用（検索地点ベース）
+  prefecture      String        // 問い合わせ元都道府県
+  city           String         // 問い合わせ元市区町村
+  
+  // 問い合わせ者情報（最小限）
+  userEmail      String         // 返信先（個人情報は保持しない）
+  
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  inquiryItems   InquiryItem[]
+  
+  @@map("inquiries")
+}
+
+// 問い合わせ項目（施設ごとのトランザクション記録）
+model InquiryItem {
+  id              String            @id @default(cuid())
+  inquiryId       String
+  facilityId      Int
+  status          InquiryItemStatus @default(SENT)
+  
+  // Resendトランザクション情報
+  resendMessageId String?           // Resend の Message ID
+  
+  // 地理・距離情報（分析用）
+  distanceMeters  Int               // 検索地点からの距離
+  
+  // ステータス追跡
+  sentAt         DateTime?          // 送信日時
+  deliveredAt    DateTime?          // 配信日時
+  openedAt       DateTime?          // 開封日時
+  firstReplyAt   DateTime?          // 初回返信日時
+  lastReplyAt    DateTime?          // 最終返信日時
+  replyCount     Int               @default(0) // 返信回数
+  
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  inquiry        Inquiry           @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  facility       Facility          @relation(fields: [facilityId], references: [id])
+  
+  @@unique([inquiryId, facilityId])
+  @@map("inquiry_items")
+}
+
+// ステータス定義
+enum InquiryStatus {
+  DRAFT      // 下書き
+  SENT       // 送信済み
+  COMPLETED  // 完了
+  CANCELLED  // キャンセル
+}
+
+enum InquiryItemStatus {
+  DRAFT      // 下書き
+  SENT       // 送信済み
+  DELIVERED  // 配信済み
+  OPENED     // 開封済み
+  REPLIED    // 返信あり
+  CLOSED     // 完了
+}
