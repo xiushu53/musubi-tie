@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import InquiryStoreDebugger from "@/_components/debug/InquiryStoreDebugger";
+// import InquiryStoreDebugger from "@/_components/debug/InquiryStoreDebugger";
 import MapLoader from "@/_components/map/MapLoader";
 import { InfoCards } from "@/_components/search/InfoCards";
 import { InquiryActionBar } from "@/_components/search/InquiryActionBar";
@@ -358,7 +358,7 @@ export default function SearchPage() {
           </Button>
         </div>
       )}
-      <InquiryStoreDebugger />
+      {/* <InquiryStoreDebugger /> */}
     </div>
   );
 }
