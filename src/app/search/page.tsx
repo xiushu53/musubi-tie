@@ -37,6 +37,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/_components/ui/tabs";
+import { useCardState } from "@/_hooks/useCardState";
 import { useFacilitySearch } from "@/_hooks/useFacilitySearch";
 import { useLocation } from "@/_hooks/useLocation";
 import {
@@ -56,7 +57,7 @@ export default function SearchPage() {
   );
   const [activeTab, setActiveTab] = useState("search");
   const [searchMethod, setSearchMethod] = useState<string>("auto");
-  const [cardStates, setCardStates] = useState({
+  const { cardStates, toggleCard } = useCardState({
     searchConditions: true, // 検索条件は初期表示
     indexInfo: false, // インデックス情報は折りたたみ
     searchInfo: false, // 検索情報は折りたたみ
@@ -122,13 +123,6 @@ export default function SearchPage() {
   ]);
 
   // UI Handlers
-  const toggleCard = useCallback((cardName: keyof typeof cardStates) => {
-    setCardStates((prev) => ({
-      ...prev,
-      [cardName]: !prev[cardName],
-    }));
-  }, []);
-
   const handleFacilitySelect = useCallback((facility: Facility) => {
     setSelectedFacility(facility);
     setActiveTab("map");
