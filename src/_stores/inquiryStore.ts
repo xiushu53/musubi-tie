@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import type { Facility } from "@/types";
+import { FACILITY_TYPES } from "@/_settings/visualize-map";
 
 // 最新の検索情報
 export interface CurrentSearch {
@@ -202,13 +203,6 @@ export const useInquiryMode = () =>
 
 // ヘルパー関数
 function getFacilityTypeLabel(facilityType: string): string {
-  const FACILITY_TYPES = [
-    { value: "asds", label: "放課後等デイサービス" },
-    { value: "sept-a", label: "就労継続支援A" },
-    { value: "sept-b", label: "就労継続支援B" },
-    { value: "spt", label: "就労移行支援" },
-    { value: "ccd", label: "障害児相談支援事業所" },
-  ];
 
   return (
     FACILITY_TYPES.find((type) => type.value === facilityType)?.label ||

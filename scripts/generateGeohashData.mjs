@@ -46,7 +46,7 @@ async function getFacilityTypes() {
       console.warn(`⚠️ 正規表現パースもエラー: ${parseError.message}`);
       console.log(`📋 最終フォールバック: ハードコード値を使用`);
       
-      return ['asds', 'sept-a', 'sept-b', 'spt', 'ccd'];
+      return ['asds', 'sept-a', 'sept-b', 'pco', 'ccd'];
     }
   }
 }
