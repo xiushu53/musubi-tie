@@ -10,3 +10,13 @@ export interface Facility {
   lat: number;
   lon: number;
 }
+
+export interface UserLocation {
+  latitude: number;
+  longitude: number;
+  accuracy?: number;
+}
+
+export interface FacilityWithDistance extends Facility {
+  distance: number;
+}

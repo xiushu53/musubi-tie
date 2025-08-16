@@ -12,8 +12,7 @@ import {
   useSelectedFacilities,
 } from "@/_stores/inquiryStore";
 import { formatDistance } from "@/_utils/formatDistance";
-import type { FacilityWithDistance } from "@/app/search/page";
-import type { Facility } from "@/types";
+import type { Facility, FacilityWithDistance } from "@/types";
 
 interface SearchResultsListProps {
   results: FacilityWithDistance[];
