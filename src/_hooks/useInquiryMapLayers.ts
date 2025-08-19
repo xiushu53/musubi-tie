@@ -9,6 +9,10 @@ import {
   TextLayer,
 } from "@deck.gl/layers";
 import { useCallback } from "react";
+import {
+  FACILITY_LAYER_SETTINGS,
+  STATS_LABEL_SETTINGS,
+} from "@/_settings/analytics";
 
 export interface FacilityAnalytics {
   facility: {
@@ -252,25 +256,18 @@ export function useInquiryMapLayers() {
     ): Layer | null => {
       if (!meshTiles.length || !visible) return null;
 
-      // 実データのみをフィルター
-      const originalDataPoints = meshTiles.filter(
-        (tile) => tile.isOriginalData
-      );
-
-      if (originalDataPoints.length === 0) return null;
-
       // 山頂マーカーのSVG
       const peakIconSvg = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="8" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2"/>
-        <circle cx="12" cy="12" r="3" fill="#FFFFFF"/>
-        <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">▲</text>
-      </svg>
-    `;
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2"/>
+          <circle cx="12" cy="12" r="3" fill="#FFFFFF"/>
+          <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">▲</text>
+        </svg>
+      `;
 
       return new IconLayer({
         id: "inquiry-origin-peak-markers",
-        data: originalDataPoints,
+        data: meshTiles,
         getPosition: (d: any) => [d.lon, d.lat],
         getIcon: () => ({
           url: `data:image/svg+xml;base64,${btoa(peakIconSvg)}`,
@@ -326,11 +323,13 @@ export function useInquiryMapLayers() {
         data,
         getPosition: (d: FacilityAnalytics) => [d.facility.lon, d.facility.lat],
         getRadius: (d: FacilityAnalytics) => {
-          // 問い合わせ件数に応じてサイズ調整
-          const baseRadius = 100;
+          const baseRadius =
+            FACILITY_LAYER_SETTINGS.HEATMAP_FACILITIES.BASE_RADIUS; // 設定から取得
+          const multiplier =
+            FACILITY_LAYER_SETTINGS.HEATMAP_FACILITIES.SIZE_MULTIPLIER; // 設定から取得
           const sizeMultiplier =
             Math.log(d.analytics.totalInquiries + 1) / Math.log(maxCount + 1);
-          return baseRadius + baseRadius * sizeMultiplier;
+          return baseRadius + baseRadius * sizeMultiplier * multiplier;
         },
         getFillColor: (d: FacilityAnalytics) => {
           switch (mode) {
@@ -354,8 +353,8 @@ export function useInquiryMapLayers() {
               return [100, 100, 100, 200];
           }
         },
-        getLineColor: [255, 255, 255, 255],
-        getLineWidth: 2,
+        getLineColor: FACILITY_LAYER_SETTINGS.HEATMAP_FACILITIES.LINE_COLOR, // 設定から取得
+        getLineWidth: FACILITY_LAYER_SETTINGS.HEATMAP_FACILITIES.LINE_WIDTH, // 設定から取得
         radiusUnits: "meters",
         pickable: true,
         stroked: true,
@@ -523,6 +522,45 @@ export function useInquiryMapLayers() {
     []
   );
   /**
+   * 全施設ベースレイヤー（小さなライトグレーの点）
+   */
+  const createAllFacilitiesBaseLayer = useCallback(
+    (
+      allFacilities: Array<{
+        id: number;
+        name: string;
+        lat: number;
+        lon: number;
+      }>,
+      inquiryFacilityIds: number[], // 問い合わせのある施設のIDリスト
+      visible: boolean = true
+    ): Layer | null => {
+      if (!allFacilities.length || !visible) return null;
+
+      // 問い合わせのない施設のみをフィルター（重複回避）
+      const baseFacilities = allFacilities.filter(
+        (facility) => !inquiryFacilityIds.includes(facility.id)
+      );
+
+      if (baseFacilities.length === 0) return null;
+
+      return new ScatterplotLayer({
+        id: "all-facilities-base-layer",
+        data: baseFacilities,
+        getPosition: (d: any) => [d.lon, d.lat],
+        getRadius: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.RADIUS, // 設定から取得
+        getFillColor: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.FILL_COLOR, // 設定から取得
+        getLineColor: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.LINE_COLOR, // 設定から取得
+        getLineWidth: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.LINE_WIDTH, // 設定から取得
+        radiusUnits: "meters",
+        pickable: true, // ホバー時に施設名を表示
+        stroked: true,
+        filled: true,
+      });
+    },
+    []
+  );
+  /**
    * 統計ラベルレイヤー
    */
   const createStatsLabelLayer = useCallback(
@@ -535,9 +573,13 @@ export function useInquiryMapLayers() {
 
       // 上位パフォーマーのみラベル表示
       const topFacilities = data
-        .filter((d) => d.analytics.totalInquiries >= 3)
+        .filter(
+          (d) =>
+            d.analytics.totalInquiries >=
+            STATS_LABEL_SETTINGS.MIN_INQUIRIES_FOR_LABEL
+        ) // 設定から取得
         .sort((a, b) => b.analytics.replyRate - a.analytics.replyRate)
-        .slice(0, 5);
+        .slice(0, STATS_LABEL_SETTINGS.MAX_LABELS_COUNT); // 設定から取得
 
       return new TextLayer({
         id: "stats-label-layer",
@@ -559,16 +601,16 @@ export function useInquiryMapLayers() {
               return "";
           }
         },
-        getColor: [255, 255, 255, 255],
-        getSize: 12,
+        getColor: STATS_LABEL_SETTINGS.FONT_COLOR, // 設定から取得
+        getSize: STATS_LABEL_SETTINGS.FONT_SIZE, // 設定から取得
         getAngle: 0,
         getTextAnchor: "middle",
         getAlignmentBaseline: "center",
         pickable: false,
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
         fontWeight: "bold",
-        outlineColor: [0, 0, 0, 128],
-        outlineWidth: 2,
+        outlineColor: STATS_LABEL_SETTINGS.OUTLINE_COLOR, // 設定から取得
+        outlineWidth: STATS_LABEL_SETTINGS.OUTLINE_WIDTH, // 設定から取得
         updateTriggers: {
           getText: [mode],
         },
@@ -638,17 +680,18 @@ export function useInquiryMapLayers() {
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
     createInquiryOriginMeshLayer,
+    createInquiryOriginKDELayer, // 新規追加
+    createOriginPeakMarkersLayer, // 新規追加
     createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
-    createInquiryOriginKDELayer,
-    createOriginPeakMarkersLayer,
+    createAllFacilitiesBaseLayer,
 
     // カラー計算ユーティリティ
     getReplyRateColor,
     getInquiryCountColor,
     getReplyTimeColor,
     getOriginDensityColor,
-    getKDEHeatmapColor,
+    getKDEHeatmapColor, // 新規追加
   };
 }

@@ -1,5 +1,6 @@
 // src/app/api/analytics/inquiry-origins/route.ts
 import { type NextRequest, NextResponse } from "next/server";
+import { TOKYO_AREA_BOUNDS } from "@/_settings/analytics";
 import { prisma } from "@/lib/prisma";
 
 interface MeshTile {
@@ -127,14 +128,14 @@ function generateAllMeshTiles(): Array<{
 
   // 緯度方向のループ
   for (
-    let lat = TOKYO_BOUNDS.minLat;
-    lat < TOKYO_BOUNDS.maxLat;
+    let lat = TOKYO_AREA_BOUNDS.MIN_LAT;
+    lat < TOKYO_AREA_BOUNDS.MAX_LAT;
     lat += latStep
   ) {
     // 経度方向のループ
     for (
-      let lon = TOKYO_BOUNDS.minLon;
-      lon < TOKYO_BOUNDS.maxLon;
+      let lon = TOKYO_AREA_BOUNDS.MIN_LON;
+      lon < TOKYO_AREA_BOUNDS.MAX_LON;
       lon += lonStep
     ) {
       const meshId = calculateMeshId(lat, lon, meshSize);

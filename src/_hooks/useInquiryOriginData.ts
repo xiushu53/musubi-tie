@@ -1,5 +1,7 @@
 // src/_hooks/useInquiryOriginData.ts
+
 import { useEffect, useState } from "react";
+import { KDE_CONFIG } from "@/_settings/analytics";
 
 interface MeshTile {
   id: string;
@@ -52,8 +54,8 @@ interface InquiryOriginData {
 export function useInquiryOriginData(
   facilityType: string,
   timeRange: number,
-  meshSize: number = 500,
-  useKDE: boolean = true // デフォルトでKDE有効
+  meshSize: number = KDE_CONFIG.MESH_SIZE,
+  useKDE: boolean = KDE_CONFIG.ENABLE_BY_DEFAULT // デフォルトでKDE有効
 ) {
   const [data, setData] = useState<InquiryOriginData | null>(null);
   const [loading, setLoading] = useState(true);

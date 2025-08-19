@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
+import { DEFAULT_TIME_RANGE } from "@/_settings/analytics";
 import { COLORBAR_SETTINGS, FACILITY_TYPES } from "@/_settings/visualize-map";
 import { convertDistanceUnit } from "@/_utils/convertDistansUnit";
 
@@ -30,7 +31,7 @@ export default function FacilitySelectorClient() {
   const [mapMode, setMapMode] = useState<MapMode>("visualization");
 
   // 問い合わせ分析設定
-  const [timeRange, setTimeRange] = useState(30); // 日数
+  const [timeRange, setTimeRange] = useState(DEFAULT_TIME_RANGE); // 日数
 
   // 距離設定のデバウンス処理
   useEffect(() => {

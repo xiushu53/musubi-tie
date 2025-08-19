@@ -40,6 +40,7 @@ interface InquiryControlPanelProps {
     origins: boolean;
     originMesh: boolean;
     originPoints: boolean;
+    allFacilities: boolean;
   };
   onLayerToggle: React.Dispatch<
     React.SetStateAction<{
@@ -50,6 +51,7 @@ interface InquiryControlPanelProps {
       origins: boolean;
       originMesh: boolean;
       originPoints: boolean;
+      allFacilities: boolean;
     }>
   >;
   summaryStats: {
@@ -120,30 +122,35 @@ export default function InquiryControlPanel({
       description: "市区町村の境界線と問い合わせ密度",
     },
     {
+      key: "allFacilities" as const, // ← この設定を追加
+      label: "全施設位置",
+      description: "すべての施設の基本位置（ライトグレー）",
+    },
+    {
       key: "heatmap" as const,
       label: "施設ヒートマップ",
       description: "選択した指標による施設の色分け表示",
     },
-    {
-      key: "icons" as const,
-      label: "施設アイコン",
-      description: "施設のパフォーマンスアイコン",
-    },
-    {
-      key: "labels" as const,
-      label: "数値ラベル",
-      description: "上位施設の数値表示",
-    },
+    // {
+    //   key: "icons" as const,
+    //   label: "施設アイコン",
+    //   description: "施設のパフォーマンスアイコン",
+    // },
+    // {
+    //   key: "labels" as const,
+    //   label: "数値ラベル",
+    //   description: "上位施設の数値表示",
+    // },
     {
       key: "originMesh" as const,
       label: "発信地点メッシュ",
-      description: "250mメッシュによる問い合わせ発信密度",
+      description: "500mメッシュによる問い合わせ発信密度",
     },
-    {
-      key: "originPoints" as const,
-      label: "発信地点マーカー",
-      description: "個別の問い合わせ発信地点",
-    },
+    // {
+    //   key: "originPoints" as const,
+    //   label: "発信地点マーカー",
+    //   description: "個別の問い合わせ発信地点",
+    // },
   ];
 
   const activeLayersCount =

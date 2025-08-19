@@ -3,6 +3,7 @@
 
 import type { Layer } from "@deck.gl/core";
 import { useCallback, useMemo, useState } from "react";
+import { useAllFacilities } from "@/_hooks/useAllFacilities";
 import {
   type FacilityAnalytics,
   useInquiryData,
@@ -13,6 +14,10 @@ import {
 } from "@/_hooks/useInquiryMapLayers";
 import { useInquiryOriginData } from "@/_hooks/useInquiryOriginData";
 import { useMapData } from "@/_hooks/useMapData";
+import {
+  DEFAULT_LAYER_VISIBILITY,
+  DEFAULT_VISUALIZATION_MODE,
+} from "@/_settings/analytics";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
 import BaseMap, { type ViewState } from "./BaseMap";
 import InquiryColorbar from "./InquiryColorbar";
@@ -52,8 +57,11 @@ export default function InquiryAnalyticsMap({
     true // KDE有効化
   );
 
-  const loading = mapLoading || analyticsLoading || originLoading;
+  const { facilities: allFacilities, loading: facilitiesLoading } =
+    useAllFacilities(facilityType); // この行を追加
 
+  const loading =
+    mapLoading || analyticsLoading || originLoading || facilitiesLoading; // facilitiesLoading を追加
   // レイヤー作成Hook
   const {
     createInquiryHeatmapLayer,
@@ -61,29 +69,43 @@ export default function InquiryAnalyticsMap({
     // createInquiryOriginMeshLayer,
     createInquiryOriginKDELayer, // 新規: KDE版 ← これを追加
     createOriginPeakMarkersLayer,
-    createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
+    createAllFacilitiesBaseLayer,
   } = useInquiryMapLayers();
 
   // 表示モードとレイヤー設定
-  const [visualizationMode, setVisualizationMode] =
-    useState<VisualizationMode>("replyRate");
-  const [layerVisibility, setLayerVisibility] = useState({
-    municipalities: true,
-    heatmap: true,
-    icons: false,
-    labels: true,
-    origins: false,
-    originMesh: false, // 新機能：発信地点メッシュ
-    originPoints: false, // 新機能：発信地点マーカー
-  });
+  const [visualizationMode, setVisualizationMode] = useState<VisualizationMode>(
+    DEFAULT_VISUALIZATION_MODE
+  );
+  const [layerVisibility, setLayerVisibility] = useState(
+    DEFAULT_LAYER_VISIBILITY
+  );
 
   // レイヤー構成
   const layers = useMemo((): Layer[] => {
+    // 全施設データがある場合は、問い合わせデータの有無に関わらず表示
     if (!analyticsData || !analyticsData.facilities.length) {
-      return [];
+      console.log("🔍 問い合わせデータなし - 全施設のみ表示");
+
+      // null チェックを追加
+      const allFacilitiesLayer = layerVisibility.allFacilities
+        ? createAllFacilitiesBaseLayer(allFacilities, [], true)
+        : null;
+
+      return allFacilitiesLayer ? [allFacilitiesLayer] : [];
     }
+
+    console.log("🔍 デバッグ情報:", {
+      analyticsData: analyticsData.facilities.length,
+      allFacilities: allFacilities.length,
+      layerVisibility: layerVisibility.allFacilities,
+    });
+
+    // 問い合わせのある施設のIDリスト
+    const inquiryFacilityIds = analyticsData.facilities.map(
+      (f) => f.facility.id
+    );
 
     const allLayers: (Layer | null)[] = [
       // 行政区域（問い合わせ密度対応）
@@ -93,12 +115,16 @@ export default function InquiryAnalyticsMap({
         layerVisibility.municipalities
       ),
 
-      // *** 発信地点メッシュレイヤー（KDE対応版に変更） ***
+      // *** 全施設ベースレイヤー（最背面に配置）***
+      layerVisibility.allFacilities
+        ? createAllFacilitiesBaseLayer(allFacilities, inquiryFacilityIds, true)
+        : null,
+
+      // 発信地点メッシュレイヤー（KDE対応版）
       originData && layerVisibility.originMesh
         ? createInquiryOriginKDELayer(
-            // ← 新しいKDE版レイヤーを使用
             originData.geoJson,
-            originData.summary.maxInterpolatedDensity, // ← maxInquiriesPerMesh から変更
+            originData.summary.maxInterpolatedDensity,
             true
           )
         : null,
@@ -124,30 +150,11 @@ export default function InquiryAnalyticsMap({
         layerVisibility.labels
       ),
 
-      // *** 発信地点山頂マーカー（新機能） ***
+      // 発信地点山頂マーカー
       originData && layerVisibility.originPoints
         ? createOriginPeakMarkersLayer(
-            // ← 新しい山頂マーカー
             originData.meshTiles.filter((tile) => tile.isOriginalData),
             true
-          )
-        : null,
-
-      // 従来の発信地点ポイント（後方互換のため残す）
-      originData && layerVisibility.originPoints
-        ? createInquiryOriginPointsLayer(
-            originData.meshTiles.flatMap((tile) =>
-              tile.recentInquiries.slice(0, 1).map((inquiryId) => ({
-                id: inquiryId,
-                searchLatitude: tile.lat,
-                searchLongitude: tile.lon,
-                totalFacilities: Math.round(
-                  tile.totalFacilities / Math.max(tile.inquiryCount, 1)
-                ),
-                createdAt: new Date().toISOString(),
-              }))
-            ),
-            false // 山頂マーカーと重複するため無効化
           )
         : null,
     ];
@@ -155,17 +162,18 @@ export default function InquiryAnalyticsMap({
     return allLayers.filter(Boolean) as Layer[];
   }, [
     analyticsData,
+    allFacilities,
     originData,
     municipalitiesData,
     visualizationMode,
     layerVisibility,
     createInquiryMunicipalitiesLayer,
-    createInquiryOriginKDELayer, // ← 新しい依存関数を追加
-    createOriginPeakMarkersLayer, // ← 新しい依存関数を追加
+    createAllFacilitiesBaseLayer,
+    createInquiryOriginKDELayer,
+    createOriginPeakMarkersLayer,
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
     createStatsLabelLayer,
-    createInquiryOriginPointsLayer,
   ]);
 
   // ビューステート
