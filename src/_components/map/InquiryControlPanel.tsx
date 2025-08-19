@@ -38,6 +38,8 @@ interface InquiryControlPanelProps {
     icons: boolean;
     labels: boolean;
     origins: boolean;
+    originMesh: boolean;
+    originPoints: boolean;
   };
   onLayerToggle: React.Dispatch<
     React.SetStateAction<{
@@ -46,6 +48,8 @@ interface InquiryControlPanelProps {
       icons: boolean;
       labels: boolean;
       origins: boolean;
+      originMesh: boolean;
+      originPoints: boolean;
     }>
   >;
   summaryStats: {
@@ -117,12 +121,12 @@ export default function InquiryControlPanel({
     },
     {
       key: "heatmap" as const,
-      label: "ヒートマップ",
-      description: "選択した指標による色分け表示",
+      label: "施設ヒートマップ",
+      description: "選択した指標による施設の色分け表示",
     },
     {
       key: "icons" as const,
-      label: "アイコン表示",
+      label: "施設アイコン",
       description: "施設のパフォーマンスアイコン",
     },
     {
@@ -131,9 +135,14 @@ export default function InquiryControlPanel({
       description: "上位施設の数値表示",
     },
     {
-      key: "origins" as const,
-      label: "検索起点",
-      description: "問い合わせの検索地点",
+      key: "originMesh" as const,
+      label: "発信地点メッシュ",
+      description: "250mメッシュによる問い合わせ発信密度",
+    },
+    {
+      key: "originPoints" as const,
+      label: "発信地点マーカー",
+      description: "個別の問い合わせ発信地点",
     },
   ];
 
@@ -295,12 +304,13 @@ export default function InquiryControlPanel({
                 </Collapsible>
               </div>
 
-              {/* 説明 */}
+              {/* 使い方説明 */}
               <div className="bg-blue-50 rounded-lg p-3">
                 <div className="text-xs text-blue-800">
-                  <div className="font-medium mb-1">💡 使い方</div>
+                  <div className="font-medium mb-1">💡 統合分析</div>
                   <ul className="space-y-1 text-blue-700">
                     <li>• 施設にマウスオーバーで詳細表示</li>
+                    <li>• 発信地点メッシュで需要エリア把握</li>
                     <li>• 可視化モードで異なる指標を表示</li>
                     <li>• レイヤーのON/OFFで表示を調整</li>
                   </ul>

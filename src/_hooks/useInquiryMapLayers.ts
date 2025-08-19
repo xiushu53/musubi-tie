@@ -40,7 +40,8 @@ export type VisualizationMode =
   | "replyRate"
   | "inquiryCount"
   | "replyTime"
-  | "distance";
+  | "distance"
+  | "originDensity";
 
 /**
  * 問い合わせデータ可視化用マップレイヤー
@@ -96,8 +97,36 @@ export function useInquiryMapLayers() {
   );
 
   /**
-   * 返信時間に基づく色計算
+   * 問い合わせ発信地点密度に基づく色計算
    */
+  const getOriginDensityColor = useCallback(
+    (
+      inquiryCount: number,
+      maxCount: number
+    ): [number, number, number, number] => {
+      if (inquiryCount === 0) return [240, 240, 240, 0]; // 透明
+
+      const ratio = Math.min(inquiryCount / maxCount, 1);
+
+      if (ratio < 0.2) {
+        // 薄い青
+        return [147, 197, 253, Math.floor(100 + 100 * ratio)];
+      } else if (ratio < 0.4) {
+        // 青
+        return [59, 130, 246, Math.floor(150 + 80 * ratio)];
+      } else if (ratio < 0.6) {
+        // 濃い青
+        return [37, 99, 235, Math.floor(180 + 60 * ratio)];
+      } else if (ratio < 0.8) {
+        // 紫
+        return [139, 92, 246, Math.floor(200 + 40 * ratio)];
+      } else {
+        // 濃い紫（ホットスポット）
+        return [124, 58, 237, Math.floor(220 + 35 * ratio)];
+      }
+    },
+    []
+  );
   const getReplyTimeColor = useCallback(
     (replyTimeHours: number | null): [number, number, number, number] => {
       if (replyTimeHours === null) return [200, 200, 200, 150]; // グレー（返信なし）
@@ -257,9 +286,40 @@ export function useInquiryMapLayers() {
   );
 
   /**
-   * 問い合わせ検索地点レイヤー（起点表示）
+   * 問い合わせ発信地点メッシュレイヤー
    */
-  const createInquiryOriginLayer = useCallback(
+  const createInquiryOriginMeshLayer = useCallback(
+    (
+      geoJsonData: any,
+      maxInquiryCount: number,
+      visible: boolean = true
+    ): Layer | null => {
+      if (!geoJsonData || !visible) return null;
+
+      return new GeoJsonLayer({
+        id: "inquiry-origin-mesh-layer",
+        data: geoJsonData,
+        filled: true,
+        stroked: true,
+        getFillColor: (feature: any) => {
+          const inquiryCount = feature.properties?.inquiryCount || 0;
+          return getOriginDensityColor(inquiryCount, maxInquiryCount);
+        },
+        getLineColor: [255, 255, 255, 100],
+        getLineWidth: 1,
+        pickable: true,
+        updateTriggers: {
+          getFillColor: [maxInquiryCount],
+        },
+      });
+    },
+    [getOriginDensityColor]
+  );
+
+  /**
+   * 問い合わせ発信地点マーカーレイヤー
+   */
+  const createInquiryOriginPointsLayer = useCallback(
     (
       inquiries: Array<{
         id: string;
@@ -274,31 +334,31 @@ export function useInquiryMapLayers() {
 
       // 検索地点のアイコン
       const originIconSvg = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="8" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="2"/>
-          <circle cx="12" cy="12" r="3" fill="#FFFFFF"/>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="6" fill="#8B5CF6" stroke="#FFFFFF" stroke-width="2"/>
+          <circle cx="12" cy="12" r="2" fill="#FFFFFF"/>
         </svg>
       `;
 
       return new IconLayer({
-        id: "inquiry-origin-layer",
+        id: "inquiry-origin-points-layer",
         data: inquiries,
         getPosition: (d: any) => [d.searchLongitude, d.searchLatitude],
         getIcon: () => ({
           url: `data:image/svg+xml;base64,${btoa(originIconSvg)}`,
-          width: 16,
-          height: 16,
-          anchorY: 8,
-          anchorX: 8,
+          width: 12,
+          height: 12,
+          anchorY: 6,
+          anchorX: 6,
         }),
-        getSize: (d: any) => Math.max(16, Math.min(32, 12 + d.totalFacilities)),
+        getSize: (d: any) =>
+          Math.max(16, Math.min(32, 12 + d.totalFacilities * 0.5)),
         pickable: true,
         sizeUnits: "pixels",
       });
     },
     []
   );
-
   /**
    * 統計ラベルレイヤー
    */
@@ -414,7 +474,8 @@ export function useInquiryMapLayers() {
   return {
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
-    createInquiryOriginLayer,
+    createInquiryOriginMeshLayer,
+    createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
 
@@ -422,5 +483,6 @@ export function useInquiryMapLayers() {
     getReplyRateColor,
     getInquiryCountColor,
     getReplyTimeColor,
+    getOriginDensityColor,
   };
 }

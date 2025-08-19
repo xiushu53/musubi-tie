@@ -63,9 +63,9 @@ export default function FacilitySelectorClient() {
     },
     {
       value: "inquiry-analytics" as const,
-      label: "問い合わせ分析",
+      label: "統合分析",
       icon: BarChart3,
-      description: "問い合わせの返信率や傾向を分析",
+      description: "施設の問い合わせ分析 + 発信地点メッシュ分析",
       color: "text-green-600",
     },
   ];
@@ -208,7 +208,7 @@ export default function FacilitySelectorClient() {
             mode="visualization"
           />
         ) : (
-          // 問い合わせ分析マップ
+          // 統合問い合わせ分析マップ（施設分析 + 発信地点分析）
           <InquiryAnalyticsMap
             facilityType={selectedFacilityType}
             timeRange={timeRange}

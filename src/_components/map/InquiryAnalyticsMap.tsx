@@ -2,12 +2,16 @@
 "use client";
 
 import type { Layer } from "@deck.gl/core";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   type FacilityAnalytics,
+  useInquiryData,
+} from "@/_hooks/useInquiryData";
+import {
   useInquiryMapLayers,
   type VisualizationMode,
 } from "@/_hooks/useInquiryMapLayers";
+import { useInquiryOriginData } from "@/_hooks/useInquiryOriginData";
 import { useMapData } from "@/_hooks/useMapData";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
 import BaseMap, { type ViewState } from "./BaseMap";
@@ -19,16 +23,16 @@ interface InquiryAnalyticsMapProps {
   timeRange: number; // days
 }
 
-interface InquiryAnalyticsData {
-  facilities: FacilityAnalytics[];
-  summary: {
-    totalFacilities: number;
-    totalInquiries: number;
-    totalReplies: number;
-    averageReplyRate: number;
-    topPerformers: FacilityAnalytics[];
-  };
-}
+// interface InquiryAnalyticsData {
+//   facilities: FacilityAnalytics[];
+//   summary: {
+//     totalFacilities: number;
+//     totalInquiries: number;
+//     totalReplies: number;
+//     averageReplyRate: number;
+//     topPerformers: FacilityAnalytics[];
+//   };
+// }
 
 export default function InquiryAnalyticsMap({
   facilityType,
@@ -36,16 +40,25 @@ export default function InquiryAnalyticsMap({
 }: InquiryAnalyticsMapProps) {
   // データ取得
   const { municipalitiesData, loading: mapLoading } = useMapData(facilityType);
-  const [analyticsData, setAnalyticsData] =
-    useState<InquiryAnalyticsData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    data: analyticsData,
+    loading: analyticsLoading,
+    error,
+  } = useInquiryData(facilityType, timeRange);
+  const { data: originData, loading: originLoading } = useInquiryOriginData(
+    facilityType,
+    timeRange,
+    250
+  );
+
+  const loading = mapLoading || analyticsLoading || originLoading;
 
   // レイヤー作成Hook
   const {
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
-    // createInquiryOriginLayer,
+    createInquiryOriginMeshLayer,
+    createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
   } = useInquiryMapLayers();
@@ -59,43 +72,9 @@ export default function InquiryAnalyticsMap({
     icons: false,
     labels: true,
     origins: false,
+    originMesh: false, // 新機能：発信地点メッシュ
+    originPoints: false, // 新機能：発信地点マーカー
   });
-
-  // 問い合わせデータ取得
-  useEffect(() => {
-    const fetchAnalyticsData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const response = await fetch(
-          `/api/analytics/inquiries?facilityType=${facilityType}&timeRange=${timeRange}&details=false`
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setAnalyticsData(data);
-
-        console.log(`📊 問い合わせ分析データ取得完了:`, {
-          facilities: data.facilities?.length || 0,
-          totalInquiries: data.summary?.totalInquiries || 0,
-          averageReplyRate: data.summary?.averageReplyRate || 0,
-        });
-      } catch (err) {
-        console.error("❌ 問い合わせデータ取得エラー:", err);
-        setError(
-          err instanceof Error ? err.message : "データ取得に失敗しました"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAnalyticsData();
-  }, [facilityType, timeRange]);
 
   // レイヤー構成
   const layers = useMemo((): Layer[] => {
@@ -110,6 +89,15 @@ export default function InquiryAnalyticsMap({
         analyticsData.facilities,
         layerVisibility.municipalities
       ),
+
+      // 発信地点メッシュレイヤー（背景として表示）
+      originData && layerVisibility.originMesh
+        ? createInquiryOriginMeshLayer(
+            originData.geoJson,
+            originData.summary.maxInquiriesPerMesh,
+            true
+          )
+        : null,
 
       // ヒートマップ（メイン可視化）
       createInquiryHeatmapLayer(
@@ -131,18 +119,39 @@ export default function InquiryAnalyticsMap({
         visualizationMode,
         layerVisibility.labels
       ),
+
+      // 発信地点マーカー
+      originData && layerVisibility.originPoints
+        ? createInquiryOriginPointsLayer(
+            originData.meshTiles.flatMap((tile) =>
+              tile.recentInquiries.slice(0, 1).map((inquiryId) => ({
+                id: inquiryId,
+                searchLatitude: tile.lat,
+                searchLongitude: tile.lon,
+                totalFacilities: Math.round(
+                  tile.totalFacilities / tile.inquiryCount
+                ),
+                createdAt: new Date().toISOString(),
+              }))
+            ),
+            true
+          )
+        : null,
     ];
 
     return allLayers.filter(Boolean) as Layer[];
   }, [
     analyticsData,
+    originData,
     municipalitiesData,
     visualizationMode,
     layerVisibility,
     createInquiryMunicipalitiesLayer,
+    createInquiryOriginMeshLayer,
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
     createStatsLabelLayer,
+    createInquiryOriginPointsLayer,
   ]);
 
   // ビューステート
@@ -161,6 +170,57 @@ export default function InquiryAnalyticsMap({
   const getTooltip = useCallback(
     (info: any) => {
       if (!info.object) return null;
+
+      // 発信地点メッシュのツールチップ
+      if (info.layer?.id === "inquiry-origin-mesh-layer") {
+        const props = info.object.properties;
+        const density = props.density?.toFixed(2) || 0;
+
+        return {
+          html: `
+          <div class="p-4 max-w-sm" role="tooltip">
+            <div class="font-bold text-base mb-2 text-purple-800">
+              📍 問い合わせ発信エリア
+            </div>
+            <div class="text-sm text-gray-600 mb-3">
+              250m × 250m メッシュ
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="bg-purple-50 p-2 rounded">
+                <div class="font-semibold text-purple-800">発信数</div>
+                <div class="text-lg font-bold text-purple-600">${props.inquiryCount}件</div>
+              </div>
+              <div class="bg-blue-50 p-2 rounded">
+                <div class="font-semibold text-blue-800">ユーザー</div>
+                <div class="text-lg font-bold text-blue-600">${props.uniqueUsers}人</div>
+              </div>
+              <div class="bg-green-50 p-2 rounded">
+                <div class="font-semibold text-green-800">平均対象</div>
+                <div class="text-lg font-bold text-green-600">${Math.round(props.totalFacilities / props.inquiryCount)}件</div>
+              </div>
+              <div class="bg-orange-50 p-2 rounded">
+                <div class="font-semibold text-orange-800">密度</div>
+                <div class="text-lg font-bold text-orange-600">${density}/km²</div>
+              </div>
+            </div>
+            
+            <div class="mt-3 text-xs text-gray-600">
+              平均検索半径: ${Math.round(props.averageRadius)}m
+            </div>
+          </div>
+        `,
+          style: {
+            backgroundColor: "rgba(255, 255, 255, 0.98)",
+            color: "#333",
+            borderRadius: "12px",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+            border: "1px solid #e5e7eb",
+            fontSize: "12px",
+            maxWidth: "320px",
+          },
+        };
+      }
 
       // 問い合わせデータのツールチップ
       if (
