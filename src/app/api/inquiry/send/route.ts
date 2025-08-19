@@ -22,24 +22,74 @@ interface InquiryRequest {
     longitude: number;
     radius: number;
     facilityType: string;
+    displayName?: string; // 追加
     prefecture?: string;
     city?: string;
   };
 }
 
-// 住所から都道府県・市区町村を抽出（簡易版）
-function extractLocationInfo(latitude: number, longitude: number) {
-  // 簡易的な地域判定（実際は逆ジオコーディングAPIを使用）
-  // 東京都内の大まかな判定
-  if (
-    latitude >= 35.5 &&
-    latitude <= 35.9 &&
-    longitude >= 139.3 &&
-    longitude <= 139.9
-  ) {
-    return { prefecture: "東京都", city: "渋谷区" }; // 仮設定
+// 座標から住所を逆ジオコーディング（プライバシー配慮版）
+async function getPrivacySafeLocation(
+  latitude: number,
+  longitude: number,
+  displayName?: string
+): Promise<string> {
+  try {
+    // displayNameがある場合はそれをベースに安全な地名を抽出
+    if (displayName) {
+      const locationPart = displayName.split("(")[0].trim();
+
+      // 駅名や地名から安全な表示を生成
+      if (locationPart.includes("駅")) {
+        // "渋谷駅周辺" → "渋谷駅周辺"（そのまま）
+        return locationPart;
+      }
+
+      if (
+        locationPart.includes("区") ||
+        locationPart.includes("市") ||
+        locationPart.includes("町")
+      ) {
+        return locationPart;
+      }
+    }
+
+    // 国土地理院の逆ジオコーディングAPI使用（プライバシー配慮）
+    const response = await fetch(
+      `https://msearch.gsi.go.jp/address-search/AddressSearch?q=${latitude},${longitude}&category=STRT`
+    );
+
+    if (response.ok) {
+      const results = await response.json();
+      if (results && results.length > 0) {
+        const address = results[0].properties?.title || "";
+
+        // 住所を安全なレベルまで丸める（番地以下を削除）
+        const safeAddress = address
+          .replace(/\d+番地.*$/, "") // 番地以下削除
+          .replace(/\d+-\d+.*$/, "") // ハイフン付き番号削除
+          .replace(/\d+丁目.*$/, "丁目") // 丁目以下を丸める
+          .trim();
+
+        return safeAddress || "検索地点周辺";
+      }
+    }
+
+    // フォールバック：大まかな地域表示
+    if (
+      latitude >= 35.5 &&
+      latitude <= 35.9 &&
+      longitude >= 139.3 &&
+      longitude <= 139.9
+    ) {
+      return "東京都内";
+    }
+
+    return "検索地点周辺";
+  } catch (error) {
+    console.warn("逆ジオコーディングエラー:", error);
+    return "検索地点周辺";
   }
-  return { prefecture: "不明", city: "不明" };
 }
 
 // 返信専用アドレス生成
@@ -56,7 +106,7 @@ function generateEmailHtml(
   commonMessage: string,
   facilityMessage: string | undefined,
   distance: number,
-  searchInfo: any,
+  privacySafeLocation: string, // プライバシー配慮版地名
   inquiryItemId: string
 ): string {
   return `
@@ -96,17 +146,16 @@ function generateEmailHtml(
           <ul style="list-style: none; padding: 0;">
             <li style="margin: 8px 0;"><strong>📧 メール:</strong> ${userEmail}</li>
             ${userPhone ? `<li style="margin: 8px 0;"><strong>📱 電話:</strong> ${userPhone}</li>` : ""}
-            <li style="margin: 8px 0;"><strong>📍 検索地点:</strong> ${searchInfo.prefecture}${searchInfo.city}</li>
-            <li style="margin: 8px 0;"><strong>📏 施設までの距離:</strong> ${distance}m</li>
+            <li style="margin: 8px 0;"><strong>📍 検索地点:</strong> ${privacySafeLocation}</li>
+            <li style="margin: 8px 0;"><strong>📏 施設までの距離:</strong> 約${(distance / 1000).toFixed(1)}km</li>
           </ul>
         </div>
         
         <div style="background-color: #ecfdf5; padding: 15px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="color: #065f46; margin-top: 0;">📍 検索条件詳細</h3>
+          <h3 style="color: #065f46; margin-top: 0;">📍 検索情報</h3>
           <ul style="list-style: none; padding: 0;">
-            <li style="margin: 8px 0;"><strong>検索範囲:</strong> ${searchInfo.radius}m</li>
-            <li style="margin: 8px 0;"><strong>施設タイプ:</strong> ${searchInfo.facilityType}</li>
-            <li style="margin: 8px 0;"><strong>検索座標:</strong> ${searchInfo.latitude.toFixed(6)}, ${searchInfo.longitude.toFixed(6)}</li>
+            <li style="margin: 8px 0;"><strong>検索地点:</strong> ${privacySafeLocation}</li>
+            <li style="margin: 8px 0;"><strong>施設までの距離:</strong> 約${(distance / 1000).toFixed(1)}km</li>
           </ul>
         </div>
         
@@ -150,11 +199,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 地域情報抽出
-    const locationInfo = extractLocationInfo(
+    // 地域情報抽出（プライバシー配慮版）
+    const privacySafeLocation = await getPrivacySafeLocation(
       data.searchInfo.latitude,
-      data.searchInfo.longitude
+      data.searchInfo.longitude,
+      data.searchInfo.displayName
     );
+
+    // DB保存用の地域情報（詳細データ）
+    const locationInfo = {
+      prefecture: data.searchInfo.prefecture || "東京都", // 座標から推定（DB用）
+      city: data.searchInfo.city || "都内", // 座標から推定（DB用）
+    };
 
     // トランザクション開始
     const result = await prisma.$transaction(async (prisma) => {
@@ -212,11 +268,7 @@ export async function POST(request: NextRequest) {
           facilityData.commonMessage,
           facilityData.facilityMessage,
           facilityData.distance,
-          {
-            ...data.searchInfo,
-            prefecture: locationInfo.prefecture,
-            city: locationInfo.city,
-          },
+          privacySafeLocation, // プライバシー配慮版の地名
           inquiryItem.id
         );
 
