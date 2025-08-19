@@ -45,14 +45,14 @@ export function useStaticGeohashData(facilityType: string) {
 
     try {
       // Prismaで施設データ取得
-      const dbFacilities = await fetch("/api/facilities", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ facilityType: type }),
-      }).then((res) => {
+      const dbFacilities = await fetch(
+        `/api/facilities?facilityType=${facilityType}`
+      ).then((res) => {
         if (!res.ok) throw new Error(`API エラー: ${res.status}`);
         return res.json();
       });
+
+      // const dbFacilities = response.facilities || [];
 
       console.log(`📊 DB から ${dbFacilities.length} 件の ${type} 施設を取得`);
 

@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const facilityType = searchParams.get("facilityType"); // ← "type" から "facilityType" に変更
-
     if (!facilityType) {
       return NextResponse.json(
         { error: "facilityType parameter is required" },
@@ -31,15 +30,7 @@ export async function GET(request: NextRequest) {
     });
 
     // useAllFacilities.ts が期待する形式に合わせる
-    return NextResponse.json({
-      facilities: facilities.map((facility) => ({
-        id: facility.id,
-        name: facility.name,
-        lat: facility.latitude, // latitude → lat に変換
-        lon: facility.longitude, // longitude → lon に変換
-        address: facility.address,
-      })),
-    });
+    return NextResponse.json(facilities);
   } catch (error) {
     console.error("❌ 施設データ取得エラー:", error);
 
