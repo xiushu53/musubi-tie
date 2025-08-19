@@ -2,63 +2,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(request: NextRequest) {
-  try {
-    const { facilityType } = await request.json();
-
-    // バリデーション
-    if (!facilityType) {
-      return NextResponse.json(
-        { error: "facilityType is required" },
-        { status: 400 }
-      );
-    }
-
-    // DBから施設データ取得
-    console.log(`🔍 DB検索: facilityType = ${facilityType}`);
-    const startTime = performance.now();
-
-    const facilities = await prisma.facility.findMany({
-      where: {
-        facilityType: facilityType,
-      },
-      select: {
-        id: true,
-        name: true,
-        address: true,
-        latitude: true,
-        longitude: true,
-      },
-      // 必要に応じてソート
-      orderBy: {
-        id: "asc",
-      },
-    });
-
-    const queryTime = performance.now() - startTime;
-    console.log(
-      `✅ DB検索完了: ${facilities.length}件, ${queryTime.toFixed(2)}ms`
-    );
-
-    return NextResponse.json(facilities);
-  } catch (error) {
-    console.error("❌ 施設データ取得エラー:", error);
-
-    return NextResponse.json(
-      {
-        error: "Internal server error",
-        message: error instanceof Error ? error.message : "不明なエラー",
-      },
-      { status: 500 }
-    );
-  }
-}
-
-// GET メソッドでの取得も対応（オプション）
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const facilityType = searchParams.get("type");
+    const facilityType = searchParams.get("facilityType"); // ← "type" から "facilityType" に変更
 
     if (!facilityType) {
       return NextResponse.json(
@@ -83,7 +30,16 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    return NextResponse.json(facilities);
+    // useAllFacilities.ts が期待する形式に合わせる
+    return NextResponse.json({
+      facilities: facilities.map((facility) => ({
+        id: facility.id,
+        name: facility.name,
+        lat: facility.latitude, // latitude → lat に変換
+        lon: facility.longitude, // longitude → lon に変換
+        address: facility.address,
+      })),
+    });
   } catch (error) {
     console.error("❌ 施設データ取得エラー:", error);
 

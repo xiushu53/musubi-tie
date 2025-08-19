@@ -43,6 +43,7 @@
     "react-dom": "19.1.0",
     "react-leaflet": "^5.0.0",
     "react-map-gl": "^8.0.4",
+    "resend": "^6.0.1",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.7"
   },
