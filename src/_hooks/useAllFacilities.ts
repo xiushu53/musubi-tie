@@ -40,7 +40,7 @@ export function useAllFacilities(facilityType: string) {
           lon: facility.longitude, // longitude → lon に変換
           address: facility.address,
         }));
-        setFacilities(result_ || []);
+        setFacilities(result || []);
 
         console.log(
           `✅ 全施設データ取得完了: ${result.facilities?.length || 0}件`
