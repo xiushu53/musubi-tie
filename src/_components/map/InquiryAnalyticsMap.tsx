@@ -48,7 +48,8 @@ export default function InquiryAnalyticsMap({
   const { data: originData, loading: originLoading } = useInquiryOriginData(
     facilityType,
     timeRange,
-    250
+    500, // 500mメッシュに変更
+    true // KDE有効化
   );
 
   const loading = mapLoading || analyticsLoading || originLoading;
@@ -57,7 +58,9 @@ export default function InquiryAnalyticsMap({
   const {
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
-    createInquiryOriginMeshLayer,
+    // createInquiryOriginMeshLayer,
+    createInquiryOriginKDELayer, // 新規: KDE版 ← これを追加
+    createOriginPeakMarkersLayer,
     createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
@@ -90,11 +93,12 @@ export default function InquiryAnalyticsMap({
         layerVisibility.municipalities
       ),
 
-      // 発信地点メッシュレイヤー（背景として表示）
+      // *** 発信地点メッシュレイヤー（KDE対応版に変更） ***
       originData && layerVisibility.originMesh
-        ? createInquiryOriginMeshLayer(
+        ? createInquiryOriginKDELayer(
+            // ← 新しいKDE版レイヤーを使用
             originData.geoJson,
-            originData.summary.maxInquiriesPerMesh,
+            originData.summary.maxInterpolatedDensity, // ← maxInquiriesPerMesh から変更
             true
           )
         : null,
@@ -120,7 +124,16 @@ export default function InquiryAnalyticsMap({
         layerVisibility.labels
       ),
 
-      // 発信地点マーカー
+      // *** 発信地点山頂マーカー（新機能） ***
+      originData && layerVisibility.originPoints
+        ? createOriginPeakMarkersLayer(
+            // ← 新しい山頂マーカー
+            originData.meshTiles.filter((tile) => tile.isOriginalData),
+            true
+          )
+        : null,
+
+      // 従来の発信地点ポイント（後方互換のため残す）
       originData && layerVisibility.originPoints
         ? createInquiryOriginPointsLayer(
             originData.meshTiles.flatMap((tile) =>
@@ -129,12 +142,12 @@ export default function InquiryAnalyticsMap({
                 searchLatitude: tile.lat,
                 searchLongitude: tile.lon,
                 totalFacilities: Math.round(
-                  tile.totalFacilities / tile.inquiryCount
+                  tile.totalFacilities / Math.max(tile.inquiryCount, 1)
                 ),
                 createdAt: new Date().toISOString(),
               }))
             ),
-            true
+            false // 山頂マーカーと重複するため無効化
           )
         : null,
     ];
@@ -147,7 +160,8 @@ export default function InquiryAnalyticsMap({
     visualizationMode,
     layerVisibility,
     createInquiryMunicipalitiesLayer,
-    createInquiryOriginMeshLayer,
+    createInquiryOriginKDELayer, // ← 新しい依存関数を追加
+    createOriginPeakMarkersLayer, // ← 新しい依存関数を追加
     createInquiryHeatmapLayer,
     createInquiryIconLayer,
     createStatsLabelLayer,

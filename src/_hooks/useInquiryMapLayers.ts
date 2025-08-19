@@ -127,6 +127,169 @@ export function useInquiryMapLayers() {
     },
     []
   );
+  /**
+   * KDE密度に基づく連続的ヒートマップの色計算
+   */
+  const getKDEHeatmapColor = useCallback(
+    (
+      interpolatedDensity: number,
+      maxDensity: number,
+      isOriginalData: boolean
+    ): [number, number, number, number] => {
+      if (interpolatedDensity <= 0) return [0, 0, 0, 0]; // 完全透明
+
+      // 正規化された密度値 (0-1)
+      const normalizedDensity = Math.min(interpolatedDensity / maxDensity, 1);
+
+      // 実データと補間データで異なる表現
+      if (isOriginalData) {
+        // 実際の発信地点: より濃い色、不透明度高め
+        const alpha = Math.max(180, Math.floor(180 + 75 * normalizedDensity));
+
+        if (normalizedDensity < 0.2) {
+          // 低密度: 薄い青
+          return [147, 197, 253, alpha];
+        } else if (normalizedDensity < 0.4) {
+          // 中低密度: 青
+          return [59, 130, 246, alpha];
+        } else if (normalizedDensity < 0.6) {
+          // 中密度: 濃い青
+          return [37, 99, 235, alpha];
+        } else if (normalizedDensity < 0.8) {
+          // 高密度: 青紫
+          return [99, 102, 241, alpha];
+        } else {
+          // 最高密度: 濃い紫（山の頂上）
+          return [124, 58, 237, alpha];
+        }
+      } else {
+        // 補間データ: より薄い色、透明度を活用した滑らかなグラデーション
+        const alpha = Math.max(40, Math.floor(40 + 120 * normalizedDensity));
+
+        if (normalizedDensity < 0.15) {
+          // 非常に薄い: 薄い水色
+          return [191, 219, 254, alpha];
+        } else if (normalizedDensity < 0.3) {
+          // 薄い: 薄い青
+          return [147, 197, 253, alpha];
+        } else if (normalizedDensity < 0.5) {
+          // 中程度: 青
+          return [96, 165, 250, alpha];
+        } else if (normalizedDensity < 0.7) {
+          // やや濃い: 濃い青
+          return [59, 130, 246, alpha];
+        } else {
+          // 濃い: 青紫（山の裾野）
+          return [129, 140, 248, alpha];
+        }
+      }
+    },
+    []
+  );
+
+  /**
+   * KDE対応問い合わせ発信地点メッシュレイヤー
+   */
+  const createInquiryOriginKDELayer = useCallback(
+    (
+      geoJsonData: any,
+      maxInterpolatedDensity: number,
+      visible: boolean = true
+    ): Layer | null => {
+      if (!geoJsonData || !visible) return null;
+
+      return new GeoJsonLayer({
+        id: "inquiry-origin-kde-layer",
+        data: geoJsonData,
+        filled: true,
+        stroked: true,
+        getFillColor: (feature: any) => {
+          const props = feature.properties;
+          const interpolatedDensity = props?.interpolatedDensity || 0;
+          const isOriginalData = props?.isOriginalData || false;
+
+          return getKDEHeatmapColor(
+            interpolatedDensity,
+            maxInterpolatedDensity,
+            isOriginalData
+          );
+        },
+        getLineColor: (feature: any) => {
+          const isOriginalData = feature.properties?.isOriginalData || false;
+          // 実データは明確な境界線、補間データは薄い境界線
+          return isOriginalData
+            ? [255, 255, 255, 150] // 実データ: 白い境界線
+            : [255, 255, 255, 30]; // 補間データ: 非常に薄い境界線
+        },
+        getLineWidth: (feature: any) => {
+          const isOriginalData = feature.properties?.isOriginalData || false;
+          return isOriginalData ? 2 : 0.5; // 実データはやや太い線
+        },
+        pickable: true,
+        updateTriggers: {
+          getFillColor: [maxInterpolatedDensity],
+          getLineColor: [],
+          getLineWidth: [],
+        },
+      });
+    },
+    [getKDEHeatmapColor]
+  );
+
+  /**
+   * 発信地点の山頂マーカー（実データのみ）
+   */
+  const createOriginPeakMarkersLayer = useCallback(
+    (
+      meshTiles: Array<{
+        lat: number;
+        lon: number;
+        inquiryCount: number;
+        interpolatedDensity: number;
+        isOriginalData: boolean;
+      }>,
+      visible: boolean = true
+    ): Layer | null => {
+      if (!meshTiles.length || !visible) return null;
+
+      // 実データのみをフィルター
+      const originalDataPoints = meshTiles.filter(
+        (tile) => tile.isOriginalData
+      );
+
+      if (originalDataPoints.length === 0) return null;
+
+      // 山頂マーカーのSVG
+      const peakIconSvg = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="8" fill="#7C3AED" stroke="#FFFFFF" stroke-width="2"/>
+        <circle cx="12" cy="12" r="3" fill="#FFFFFF"/>
+        <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold">▲</text>
+      </svg>
+    `;
+
+      return new IconLayer({
+        id: "inquiry-origin-peak-markers",
+        data: originalDataPoints,
+        getPosition: (d: any) => [d.lon, d.lat],
+        getIcon: () => ({
+          url: `data:image/svg+xml;base64,${btoa(peakIconSvg)}`,
+          width: 16,
+          height: 16,
+          anchorY: 8,
+          anchorX: 8,
+        }),
+        getSize: (d: any) => {
+          // 発信件数に応じてサイズ調整
+          return Math.max(16, Math.min(32, 12 + d.inquiryCount * 2));
+        },
+        pickable: true,
+        sizeUnits: "pixels",
+      });
+    },
+    []
+  );
+
   const getReplyTimeColor = useCallback(
     (replyTimeHours: number | null): [number, number, number, number] => {
       if (replyTimeHours === null) return [200, 200, 200, 150]; // グレー（返信なし）
@@ -478,11 +641,14 @@ export function useInquiryMapLayers() {
     createInquiryOriginPointsLayer,
     createStatsLabelLayer,
     createInquiryMunicipalitiesLayer,
+    createInquiryOriginKDELayer,
+    createOriginPeakMarkersLayer,
 
     // カラー計算ユーティリティ
     getReplyRateColor,
     getInquiryCountColor,
     getReplyTimeColor,
     getOriginDensityColor,
+    getKDEHeatmapColor,
   };
 }

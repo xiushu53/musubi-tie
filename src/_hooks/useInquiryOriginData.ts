@@ -11,12 +11,16 @@ interface MeshTile {
   averageRadius: number;
   recentInquiries: string[];
   bbox: [number, number, number, number];
+  // KDE拡張
+  interpolatedDensity: number;
+  isOriginalData: boolean;
 }
 
 interface InquiryOriginData {
   facilityType: string;
   timeRange: number;
   meshSize: number;
+  useKDE: boolean;
   period: {
     start: string;
     end: string;
@@ -25,18 +29,31 @@ interface InquiryOriginData {
   geoJson: any;
   summary: {
     totalMeshTiles: number;
+    originalDataMeshes: number;
+    interpolatedMeshes: number;
     totalInquiries: number;
     totalUniqueUsers: number;
     maxInquiriesPerMesh: number;
+    maxInterpolatedDensity: number;
     averageInquiriesPerMesh: number;
     hotspots: MeshTile[];
+    kde?: {
+      bandwidth: number;
+      influenceRadius: number;
+      minThreshold: number;
+      densityRange: {
+        min: number;
+        max: number;
+      };
+    };
   };
 }
 
 export function useInquiryOriginData(
   facilityType: string,
   timeRange: number,
-  meshSize: number = 250
+  meshSize: number = 500,
+  useKDE: boolean = true // デフォルトでKDE有効
 ) {
   const [data, setData] = useState<InquiryOriginData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,11 +66,11 @@ export function useInquiryOriginData(
         setError(null);
 
         console.log(
-          `🔄 問い合わせ発信地点データ取得: ${facilityType}, ${timeRange}日間, ${meshSize}mメッシュ`
+          `📄 問い合わせ発信地点データ取得: ${facilityType}, ${timeRange}日間, ${meshSize}mメッシュ${useKDE ? " (KDE有効)" : ""}`
         );
 
         const response = await fetch(
-          `/api/analytics/inquiry-origins?facilityType=${facilityType}&timeRange=${timeRange}&meshSize=${meshSize}`
+          `/api/analytics/inquiry-origins?facilityType=${facilityType}&timeRange=${timeRange}&meshSize=${meshSize}&kde=${useKDE}`
         );
 
         if (!response.ok) {
@@ -64,12 +81,15 @@ export function useInquiryOriginData(
         setData(result);
 
         console.log(`✅ 発信地点データ取得完了:`, {
-          meshTiles: result.meshTiles?.length || 0,
+          totalMeshTiles: result.summary?.totalMeshTiles || 0,
+          originalData: result.summary?.originalDataMeshes || 0,
+          interpolated: result.summary?.interpolatedMeshes || 0,
+          maxDensity: result.summary?.maxInterpolatedDensity?.toFixed(2) || 0,
           totalInquiries: result.summary?.totalInquiries || 0,
-          hotspots: result.summary?.hotspots?.length || 0,
+          kdeEnabled: result.useKDE,
         });
       } catch (err) {
-        console.error("❌ 発信地点データ取得エラー:", err);
+        console.error("⚠️ 発信地点データ取得エラー:", err);
         setError(
           err instanceof Error ? err.message : "データ取得に失敗しました"
         );
@@ -79,7 +99,7 @@ export function useInquiryOriginData(
     };
 
     fetchData();
-  }, [facilityType, timeRange, meshSize]);
+  }, [facilityType, timeRange, meshSize, useKDE]);
 
   return {
     data,
