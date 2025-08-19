@@ -1,8 +1,8 @@
 // src/stores/inquiryStore.ts
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { Facility } from "@/types";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
+import type { Facility } from "@/types";
 
 // 最新の検索情報
 export interface CurrentSearch {
@@ -203,7 +203,6 @@ export const useInquiryMode = () =>
 
 // ヘルパー関数
 function getFacilityTypeLabel(facilityType: string): string {
-
   return (
     FACILITY_TYPES.find((type) => type.value === facilityType)?.label ||
     facilityType
