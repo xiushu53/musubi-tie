@@ -4,6 +4,7 @@ import type {
   FacilityAnalytics,
   VisualizationMode,
 } from "@/_hooks/useInquiryMapLayers";
+import { COLORBAR_CONFIG } from "@/_settings/analytics";
 
 interface InquiryColorbarProps {
   mode: VisualizationMode;
@@ -15,12 +16,11 @@ export default function InquiryColorbar({ mode, data }: InquiryColorbarProps) {
     switch (mode) {
       case "replyRate":
         return {
-          gradient:
-            "linear-gradient(to right, #EF4444, #F59E0B, #EAB308, #84CC16, #10B981)",
-          labels: ["0%", "25%", "50%", "75%", "100%"],
-          title: "返信率",
-          unit: "%",
-          description: "問い合わせに対する返信の割合",
+          gradient: COLORBAR_CONFIG.REPLY_RATE.GRADIENT,
+          labels: COLORBAR_CONFIG.REPLY_RATE.LABELS,
+          title: COLORBAR_CONFIG.REPLY_RATE.TITLE,
+          unit: COLORBAR_CONFIG.REPLY_RATE.UNIT,
+          description: COLORBAR_CONFIG.REPLY_RATE.DESCRIPTION,
         };
 
       case "inquiryCount": {
@@ -29,28 +29,26 @@ export default function InquiryColorbar({ mode, data }: InquiryColorbarProps) {
             ? Math.max(...data.map((d) => d.analytics.totalInquiries))
             : 10;
         return {
-          gradient:
-            "linear-gradient(to right, #E5E7EB, #60A5FA, #3B82F6, #1D4ED8)",
+          gradient: COLORBAR_CONFIG.INQUIRY_COUNT.GRADIENT,
           labels: [
             "0",
             `${Math.floor(maxCount / 3)}`,
             `${Math.floor((maxCount * 2) / 3)}`,
             `${maxCount}+`,
           ],
-          title: "問い合わせ件数",
-          unit: "件",
-          description: "受信した問い合わせの総数",
+          title: COLORBAR_CONFIG.INQUIRY_COUNT.TITLE,
+          unit: COLORBAR_CONFIG.INQUIRY_COUNT.UNIT,
+          description: COLORBAR_CONFIG.INQUIRY_COUNT.DESCRIPTION,
         };
       }
 
       case "replyTime":
         return {
-          gradient:
-            "linear-gradient(to right, #10B981, #EAB308, #F59E0B, #EF4444)",
-          labels: ["< 24h", "24-48h", "48-72h", "72h+"],
-          title: "平均返信時間",
-          unit: "時間",
-          description: "問い合わせから初回返信までの時間",
+          gradient: COLORBAR_CONFIG.REPLY_TIME.GRADIENT,
+          labels: COLORBAR_CONFIG.REPLY_TIME.LABELS,
+          title: COLORBAR_CONFIG.REPLY_TIME.TITLE,
+          unit: COLORBAR_CONFIG.REPLY_TIME.UNIT,
+          description: COLORBAR_CONFIG.REPLY_TIME.DESCRIPTION,
         };
 
       case "distance": {
@@ -59,17 +57,16 @@ export default function InquiryColorbar({ mode, data }: InquiryColorbarProps) {
             ? Math.max(...data.map((d) => d.analytics.averageDistance))
             : 5000;
         return {
-          gradient:
-            "linear-gradient(to right, #8B5CF6, #A855F7, #C084FC, #E879F9)",
+          gradient: COLORBAR_CONFIG.DISTANCE.GRADIENT,
           labels: [
             "近い",
             `${(maxDistance / 3000).toFixed(1)}km`,
             `${((maxDistance * 2) / 3000).toFixed(1)}km`,
             "遠い",
           ],
-          title: "平均距離",
-          unit: "km",
-          description: "問い合わせ元からの平均距離",
+          title: COLORBAR_CONFIG.DISTANCE.TITLE,
+          unit: COLORBAR_CONFIG.DISTANCE.UNIT,
+          description: COLORBAR_CONFIG.DISTANCE.DESCRIPTION,
         };
       }
 

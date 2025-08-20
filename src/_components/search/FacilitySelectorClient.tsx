@@ -15,7 +15,11 @@ import {
   SelectValue,
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
-import { DEFAULT_TIME_RANGE } from "@/_settings/analytics";
+import {
+  DEFAULT_TIME_RANGE,
+  PERFORMANCE_SETTINGS,
+  TIME_RANGE_OPTIONS,
+} from "@/_settings/analytics";
 import { COLORBAR_SETTINGS, FACILITY_TYPES } from "@/_settings/visualize-map";
 import { convertDistanceUnit } from "@/_utils/convertDistansUnit";
 
@@ -37,22 +41,12 @@ export default function FacilitySelectorClient() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedMaxDistance(maxDistance);
-    }, 300);
+    }, PERFORMANCE_SETTINGS.DEBOUNCE_DELAY);
 
     return () => {
       clearTimeout(handler);
     };
   }, [maxDistance]);
-
-  // 時間範囲オプション
-  const timeRangeOptions = [
-    { value: 7, label: "過去7日間" },
-    { value: 14, label: "過去2週間" },
-    { value: 30, label: "過去1ヶ月" },
-    { value: 60, label: "過去2ヶ月" },
-    { value: 90, label: "過去3ヶ月" },
-    { value: 180, label: "過去6ヶ月" },
-  ];
 
   const mapModes = [
     {
@@ -172,7 +166,7 @@ export default function FacilitySelectorClient() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="z-[400] bg-white">
-                    {timeRangeOptions.map((option) => (
+                    {TIME_RANGE_OPTIONS.map((option) => (
                       <SelectItem
                         value={option.value.toString()}
                         key={option.value}

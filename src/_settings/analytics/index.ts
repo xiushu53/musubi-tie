@@ -48,7 +48,7 @@ export const FACILITY_LAYER_SETTINGS = {
     LINE_WIDTH: 2, // 境界線幅
   },
 
-  // 施設アイコン
+  // 施設アイコン ⚠️
   FACILITY_ICONS: {
     BASE_SIZE: 24, // 基本アイコンサイズ（ピクセル）
     MAX_SIZE: 40, // 最大アイコンサイズ
@@ -56,7 +56,7 @@ export const FACILITY_LAYER_SETTINGS = {
   },
 };
 
-// === 発信地点レイヤーの視覚設定 ===
+// === 発信地点レイヤーの視覚設定 === ⚠️
 export const ORIGIN_LAYER_SETTINGS = {
   // KDEヒートマップ
   KDE_HEATMAP: {
@@ -74,7 +74,7 @@ export const ORIGIN_LAYER_SETTINGS = {
     },
   },
 
-  // 山頂マーカー
+  // 山頂マーカー ⚠️
   PEAK_MARKERS: {
     BASE_SIZE: 16, // 基本サイズ（ピクセル）
     MAX_SIZE: 32, // 最大サイズ
@@ -88,8 +88,6 @@ export const TIME_RANGE_OPTIONS = [
   { value: 7, label: "過去7日間" },
   { value: 14, label: "過去2週間" },
   { value: 30, label: "過去1ヶ月" },
-  { value: 60, label: "過去2ヶ月" },
-  { value: 90, label: "過去3ヶ月" },
   { value: 180, label: "過去6ヶ月" },
 ] as const;
 
