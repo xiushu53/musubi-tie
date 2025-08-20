@@ -1,6 +1,6 @@
 // src/app/api/analytics/inquiry-origins/route.ts
 import { type NextRequest, NextResponse } from "next/server";
-import { TOKYO_AREA_BOUNDS } from "@/_settings/analytics";
+import { KDE_CONFIG, TOKYO_AREA_BOUNDS } from "@/_settings/analytics";
 import { prisma } from "@/lib/prisma";
 
 interface MeshTile {
@@ -17,21 +17,6 @@ interface MeshTile {
   interpolatedDensity: number; // KDEによる補間密度
   isOriginalData: boolean; // 実際の発信地点かどうか
 }
-
-// 東京エリアの境界（大まかな範囲）
-const TOKYO_BOUNDS = {
-  minLat: 35.5,
-  maxLat: 35.9,
-  minLon: 139.2,
-  maxLon: 139.9,
-};
-
-// KDE設定
-const KDE_CONFIG = {
-  BANDWIDTH: 800, // ガウシアンカーネルの帯域幅（メートル）
-  INFLUENCE_RADIUS: 2000, // 影響半径（メートル）
-  MIN_DENSITY_THRESHOLD: 0.1, // 表示する最小密度閾値
-};
 
 // 2点間の距離計算（メートル）
 function calculateDistance(
@@ -59,11 +44,11 @@ function gaussianKernel(distance: number, bandwidth: number): number {
   return Math.exp(-0.5 * normalized * normalized);
 }
 
-// 500mメッシュのグリッド計算
+// グリッド計算
 function calculateMeshId(
   lat: number,
   lon: number,
-  meshSize: number = 500
+  meshSize: number = KDE_CONFIG.MESH_SIZE
 ): string {
   const latStep = meshSize / 111000; // 1度 ≈ 111km
   const lonStep = meshSize / (111000 * Math.cos((lat * Math.PI) / 180));
@@ -78,7 +63,7 @@ function calculateMeshId(
 function getMeshBounds(
   lat: number,
   lon: number,
-  meshSize: number = 500
+  meshSize: number = KDE_CONFIG.MESH_SIZE
 ): [number, number, number, number] {
   const latStep = meshSize / 111000;
   const lonStep = meshSize / (111000 * Math.cos((lat * Math.PI) / 180));
@@ -95,26 +80,27 @@ function getMeshBounds(
 }
 
 // メッシュの中心座標計算
-function getMeshCenter(meshId: string): [number, number] {
+function getMeshCenter(
+  meshId: string,
+  meshSize: number = KDE_CONFIG.MESH_SIZE
+): [number, number] {
   const [latStr, lonStr] = meshId.split("_");
   const lat = parseFloat(latStr);
   const lon = parseFloat(lonStr);
 
-  const meshSize = 500;
   const latStep = meshSize / 111000;
   const lonStep = meshSize / (111000 * Math.cos((lat * Math.PI) / 180));
 
   return [lat + latStep / 2, lon + lonStep / 2];
 }
 
-// 東京エリアの全500mメッシュを生成
-function generateAllMeshTiles(): Array<{
+// 東京エリアの全メッシュを生成
+function generateAllMeshTiles(meshSize: number = KDE_CONFIG.MESH_SIZE): Array<{
   id: string;
   lat: number;
   lon: number;
   bbox: [number, number, number, number];
 }> {
-  const meshSize = 500;
   const meshes: Array<{
     id: string;
     lat: number;
@@ -124,7 +110,7 @@ function generateAllMeshTiles(): Array<{
 
   const latStep = meshSize / 111000;
   const lonStep =
-    meshSize / (111000 * Math.cos((TOKYO_BOUNDS.minLat * Math.PI) / 180));
+    meshSize / (111000 * Math.cos((TOKYO_AREA_BOUNDS.MIN_LAT * Math.PI) / 180));
 
   // 緯度方向のループ
   for (
@@ -139,7 +125,7 @@ function generateAllMeshTiles(): Array<{
       lon += lonStep
     ) {
       const meshId = calculateMeshId(lat, lon, meshSize);
-      const [centerLat, centerLon] = getMeshCenter(meshId);
+      const [centerLat, centerLon] = getMeshCenter(meshId, meshSize);
       const bbox = getMeshBounds(lat, lon, meshSize);
 
       meshes.push({
@@ -190,8 +176,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const facilityType = searchParams.get("facilityType") || "asds";
     const timeRange = searchParams.get("timeRange") || "30";
-    const meshSize = parseInt(searchParams.get("meshSize") || "500"); // 500mに変更
-    const useKDE = searchParams.get("kde") === "true"; // KDE有効化フラグ
+    const meshSize = parseInt(
+      searchParams.get("meshSize") || KDE_CONFIG.MESH_SIZE.toString()
+    );
+    const useKDE =
+      searchParams.get("kde") === "true" || KDE_CONFIG.ENABLE_BY_DEFAULT;
 
     // 時間範囲の計算
     const endDate = new Date();
@@ -283,7 +272,7 @@ export async function GET(request: NextRequest) {
       // 発信地点データを準備
       const originPoints = Array.from(originalMeshMap.entries()).map(
         ([meshId, data]) => {
-          const [centerLat, centerLon] = getMeshCenter(meshId);
+          const [centerLat, centerLon] = getMeshCenter(meshId, meshSize);
           return {
             lat: centerLat,
             lon: centerLon,
@@ -292,8 +281,8 @@ export async function GET(request: NextRequest) {
         }
       );
 
-      // 東京エリア全体の500mメッシュを生成
-      const allMeshes = generateAllMeshTiles();
+      // 東京エリア全体のメッシュを生成
+      const allMeshes = generateAllMeshTiles(meshSize);
       console.log(`📊 KDE計算対象メッシュ: ${allMeshes.length}個`);
 
       // 各メッシュの密度をKDEで計算
@@ -343,7 +332,7 @@ export async function GET(request: NextRequest) {
       // === 従来方式: 実データのみ ===
       finalMeshTiles = Array.from(originalMeshMap.entries()).map(
         ([meshId, data]) => {
-          const [centerLat, centerLon] = getMeshCenter(meshId);
+          const [centerLat, centerLon] = getMeshCenter(meshId, meshSize);
           const bbox = getMeshBounds(centerLat, centerLon, meshSize);
 
           return {
@@ -400,6 +389,7 @@ export async function GET(request: NextRequest) {
             bandwidth: KDE_CONFIG.BANDWIDTH,
             influenceRadius: KDE_CONFIG.INFLUENCE_RADIUS,
             minThreshold: KDE_CONFIG.MIN_DENSITY_THRESHOLD,
+            meshSize,
             densityRange: {
               min: Math.min(
                 ...finalMeshTiles.map((m) => m.interpolatedDensity)

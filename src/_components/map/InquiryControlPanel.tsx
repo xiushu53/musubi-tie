@@ -28,6 +28,7 @@ import type {
   FacilityAnalytics,
   VisualizationMode,
 } from "@/_hooks/useInquiryMapLayers";
+import { KDE_CONFIG } from "@/_settings/analytics";
 
 interface InquiryControlPanelProps {
   visualizationMode: VisualizationMode;
@@ -144,7 +145,7 @@ export default function InquiryControlPanel({
     {
       key: "originMesh" as const,
       label: "発信地点メッシュ",
-      description: "500mメッシュによる問い合わせ発信密度",
+      description: `${KDE_CONFIG.MESH_SIZE}mメッシュによる問い合わせ発信密度`,
     },
     // {
     //   key: "originPoints" as const,

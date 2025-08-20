@@ -23,10 +23,10 @@ export const DEFAULT_TIME_RANGE = 30; // 日数
 
 // === KDE設定 ===
 export const KDE_CONFIG = {
-  MESH_SIZE: 500, // メッシュサイズ（メートル）
-  BANDWIDTH: 800, // ガウシアンカーネルの帯域幅（メートル）
-  INFLUENCE_RADIUS: 2000, // 影響半径（メートル）
-  MIN_DENSITY_THRESHOLD: 0.1, // 表示する最小密度閾値
+  MESH_SIZE: 500, // メッシュサイズ（メートル） 250m: 250 / 500m: 500
+  BANDWIDTH: 800, // ガウシアンカーネルの帯域幅（メートル） 250m: 500 / 500m: 800
+  INFLUENCE_RADIUS: 2500, // 影響半径（メートル） 250m: 2000 / 500m: 2500
+  MIN_DENSITY_THRESHOLD: 0.05, // 表示する最小密度閾値 250m: 0.1 / 500m: 0.05
   ENABLE_BY_DEFAULT: true, // デフォルトでKDE有効
 } as const;
 

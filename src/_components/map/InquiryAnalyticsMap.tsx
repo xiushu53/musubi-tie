@@ -17,6 +17,7 @@ import { useMapData } from "@/_hooks/useMapData";
 import {
   DEFAULT_LAYER_VISIBILITY,
   DEFAULT_VISUALIZATION_MODE,
+  KDE_CONFIG,
 } from "@/_settings/analytics";
 import { MAP_SETTINGS } from "@/_settings/visualize-map";
 import BaseMap, { type ViewState } from "./BaseMap";
@@ -53,8 +54,8 @@ export default function InquiryAnalyticsMap({
   const { data: originData, loading: originLoading } = useInquiryOriginData(
     facilityType,
     timeRange,
-    500, // 500mメッシュに変更
-    true // KDE有効化
+    KDE_CONFIG.MESH_SIZE, // 500mメッシュに変更
+    KDE_CONFIG.ENABLE_BY_DEFAULT // KDE有効化
   );
 
   const { facilities: allFacilities, loading: facilitiesLoading } =
