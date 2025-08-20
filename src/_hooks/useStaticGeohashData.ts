@@ -37,8 +37,8 @@ export function useStaticGeohashData(facilityType: string) {
   const [error, setError] = useState<string | null>(null);
 
   // DBから施設データを読み込み、Geohashインデックスを構築
-  const loadFacilitiesFromDB = useCallback(async (type: string) => {
-    console.log(`🔄 DB から ${type} 施設データを読み込み開始...`);
+  const loadFacilitiesFromDB = useCallback(async () => {
+    console.log(`🔄 DB から ${facilityType} 施設データを読み込み開始...`);
     const startTime = performance.now();
     setLoading(true);
     setError(null);
@@ -54,7 +54,9 @@ export function useStaticGeohashData(facilityType: string) {
 
       // const dbFacilities = response.facilities || [];
 
-      console.log(`📊 DB から ${dbFacilities.length} 件の ${type} 施設を取得`);
+      console.log(
+        `📊 DB から ${dbFacilities.length} 件の ${facilityType} 施設を取得`
+      );
 
       if (dbFacilities.length === 0) {
         setFacilities([]);
@@ -155,12 +157,12 @@ export function useStaticGeohashData(facilityType: string) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [facilityType]);
 
   // 施設タイプ変更時にデータ再読み込み
   useEffect(() => {
     if (facilityType) {
-      loadFacilitiesFromDB(facilityType);
+      loadFacilitiesFromDB();
     }
   }, [facilityType, loadFacilitiesFromDB]);
 
