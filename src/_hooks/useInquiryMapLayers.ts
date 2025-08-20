@@ -529,8 +529,10 @@ export function useInquiryMapLayers() {
       allFacilities: Array<{
         id: number;
         name: string;
-        lat: number;
-        lon: number;
+        lat?: number;
+        lon?: number;
+        latitude?: number;
+        longitude?: number;
       }>,
       inquiryFacilityIds: number[], // 問い合わせのある施設のIDリスト
       visible: boolean = true
@@ -547,7 +549,7 @@ export function useInquiryMapLayers() {
       return new ScatterplotLayer({
         id: "all-facilities-base-layer",
         data: baseFacilities,
-        getPosition: (d: any) => [d.lon, d.lat],
+        getPosition: (d: any) => [d.lon ?? d.longitude, d.lat ?? d.latitude],
         getRadius: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.RADIUS, // 設定から取得
         getFillColor: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.FILL_COLOR, // 設定から取得
         getLineColor: FACILITY_LAYER_SETTINGS.BASE_FACILITIES.LINE_COLOR, // 設定から取得
