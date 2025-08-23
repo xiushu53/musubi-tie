@@ -33,7 +33,9 @@ const HomePage = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <MapPin className="w-5 h-5 text-white" aria-hidden="true" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Reach You</h1>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Unique Family Ties
+              </h1>
             </div>
             <Badge
               variant="outline"
@@ -94,7 +96,7 @@ const HomePage = () => {
                       className="w-4 h-4 mt-1 text-green-600 flex-shrink-0"
                       aria-hidden="true"
                     />
-                    <span>現在地からの範囲検索（1km, 5km等）</span>
+                    <span>指定の場所からの範囲検索（100m~20km）</span>
                   </li>
                   <li className="flex items-start space-x-2">
                     <Mail
@@ -136,8 +138,8 @@ const HomePage = () => {
                       aria-hidden="true"
                     />
                     <span>
-                      <strong>SQLiteデータベース:</strong>{" "}
-                      PrismaによるAPI経由のデータ取得
+                      <strong>データベース:</strong>{" "}
+                      Prismaによるスキーマ管理。API経由のデータ取得
                     </span>
                   </li>
                 </ul>
@@ -189,20 +191,6 @@ const HomePage = () => {
                 </h3>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start space-x-2">
-                    <MapIcon
-                      className="w-4 h-4 mt-1 text-purple-600 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span>最近傍施設までの距離を250mメッシュで表示</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <BarChart3
-                      className="w-4 h-4 mt-1 text-purple-600 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span>ボロノイ図による施設のテリトリー可視化</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
                     <Users
                       className="w-4 h-4 mt-1 text-purple-600 flex-shrink-0"
                       aria-hidden="true"
@@ -217,6 +205,20 @@ const HomePage = () => {
                       aria-hidden="true"
                     />
                     <span>分析メッシュデータのGeoJSONエクスポート機能</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <MapIcon
+                      className="w-4 h-4 mt-1 text-purple-600 flex-shrink-0"
+                      aria-hidden="true"
+                    />
+                    <span>最近傍施設までの距離を250mメッシュで表示</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <BarChart3
+                      className="w-4 h-4 mt-1 text-purple-600 flex-shrink-0"
+                      aria-hidden="true"
+                    />
+                    <span>ボロノイ図による施設のテリトリー可視化</span>
                   </li>
                 </ul>
               </div>
@@ -331,24 +333,60 @@ const HomePage = () => {
             東京都オープンデータ
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Badge variant="secondary" className="justify-center py-2">
-              放課後等デイサービス事業所
-            </Badge>
-            <Badge variant="secondary" className="justify-center py-2">
-              障害児相談支援事業所
-            </Badge>
-            <Badge variant="secondary" className="justify-center py-2">
-              計画相談事業所
-            </Badge>
-            <Badge variant="secondary" className="justify-center py-2">
-              就労継続支援（Ａ型）事業所
-            </Badge>
-            <Badge variant="secondary" className="justify-center py-2">
-              就労継続支援（Ｂ型）事業所
-            </Badge>
-            <Badge variant="secondary" className="justify-center py-2">
-              一覧（全施設）
-            </Badge>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/6416ddcc-5229-47bf-ba4c-0516da17f707"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                放課後等デイサービス事業所
+              </Badge>
+            </a>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/ce0256b3-dbbb-4828-99f9-590f27b26b93"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                障害児相談支援事業所
+              </Badge>
+            </a>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/bc0800fa-b919-4b8b-aa95-d6d9a89e77c5"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                計画相談支援事業所
+              </Badge>
+            </a>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/6560362d-897b-4fbb-b909-bfc411aa1664"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                就労継続支援（Ａ型）事業所
+              </Badge>
+            </a>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/7281cd16-9370-41e0-93a5-be7c9c436d35"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                就労継続支援（Ｂ型）事業所
+              </Badge>
+            </a>
+            <a
+              href="https://catalog.data.metro.tokyo.lg.jp/dataset/t000054d0000000073/resource/3ca6157a-d4ac-4712-a9ad-2632df8f7a1f"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge variant="secondary" className="justify-center py-2">
+                一覧（全施設）
+              </Badge>
+            </a>
           </div>
         </section>
       </main>
@@ -358,8 +396,8 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-600">
             <p>
-              &copy; 2025 Reach You - 都知事杯オープンデータハッカソン2025
-              提出作品
+              &copy; 2025 Unique Family Ties -
+              都知事杯オープンデータハッカソン2025 提出作品
             </p>
           </div>
         </div>
