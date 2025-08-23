@@ -1,8 +1,15 @@
 "use client";
 
-import { CheckCircle, Home, Mail, MessageCircle } from "lucide-react";
+import {
+  AlertTriangle,
+  CheckCircle,
+  Home,
+  Mail,
+  MessageCircle,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Alert, AlertDescription } from "@/_components/ui/alert";
 import { Badge } from "@/_components/ui/badge";
 import { Button } from "@/_components/ui/button";
 import {
@@ -18,6 +25,7 @@ interface InquiryStatus {
   totalFacilities: number;
   successCount: number;
   failureCount: number;
+  isDemoMode: boolean;
   results: Array<{
     facilityName: string;
     success: boolean;
@@ -45,10 +53,10 @@ export default function InquirySentPage() {
     const successCount = searchParams.get("success");
     const failureCount = searchParams.get("failure");
     const totalFacilities = searchParams.get("total");
+    const isDemoMode = searchParams.get("demo") === "true";
     const resultsParam = searchParams.get("results");
 
     if (successCount && failureCount && totalFacilities) {
-      // URLパラメータから実際の結果を構築
       let results: Array<{
         facilityName: string;
         success: boolean;
@@ -77,13 +85,13 @@ export default function InquirySentPage() {
         totalFacilities: parseInt(totalFacilities),
         successCount: parseInt(successCount),
         failureCount: parseInt(failureCount),
+        isDemoMode,
         results,
       };
 
       setInquiryStatus(actualData);
       setLoading(false);
     } else {
-      // パラメータがない場合は状況確認APIを呼び出し（将来実装）
       fetchInquiryStatus(inquiryId);
     }
   }, [inquiryId, router, searchParams]);
@@ -92,24 +100,20 @@ export default function InquirySentPage() {
     try {
       setLoading(true);
 
-      // TODO: 実際の状況確認API実装
-      // const response = await fetch(`/api/inquiry/${id}/status`);
-      // const data = await response.json();
-      // setInquiryStatus(data);
-
-      // 現在は簡易表示
+      // TODO: 実際の状態確認API実装
       const simpleData: InquiryStatus = {
         inquiryId: id,
         status: "sent",
         totalFacilities: 1,
         successCount: 1,
         failureCount: 0,
+        isDemoMode: false,
         results: [{ facilityName: "送信完了", success: true }],
       };
 
       setInquiryStatus(simpleData);
     } catch (error) {
-      console.error("状況確認エラー:", error);
+      console.error("状態確認エラー:", error);
       router.push("/search");
     } finally {
       setLoading(false);
@@ -144,19 +148,53 @@ export default function InquirySentPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-4 max-w-4xl">
         <div className="mb-6">
+          {/* デモモード表示 */}
+          {inquiryStatus.isDemoMode && (
+            <Alert className="mb-4 border-amber-200 bg-amber-50">
+              <AlertTriangle className="h-4 w-4 text-amber-600" />
+              <AlertDescription className="text-amber-800">
+                <strong>デモモード実行結果:</strong>
+                実際のメール送信は行われませんでしたが、データは正常に記録されました。
+              </AlertDescription>
+            </Alert>
+          )}
+
           {/* 成功メッセージ */}
-          <Card className="bg-green-50 border-green-200">
+          <Card
+            className={
+              inquiryStatus.isDemoMode
+                ? "bg-amber-50 border-amber-200"
+                : "bg-green-50 border-green-200"
+            }
+          >
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <CheckCircle className="h-12 w-12 text-green-600" />
+                {inquiryStatus.isDemoMode ? (
+                  <AlertTriangle className="h-12 w-12 text-amber-600" />
+                ) : (
+                  <CheckCircle className="h-12 w-12 text-green-600" />
+                )}
                 <div>
-                  <h1 className="text-2xl font-bold text-green-900 mb-2">
-                    問い合わせを送信しました！
+                  <h1
+                    className={`text-2xl font-bold mb-2 ${inquiryStatus.isDemoMode ? "text-amber-900" : "text-green-900"}`}
+                  >
+                    {inquiryStatus.isDemoMode
+                      ? "デモ実行完了！"
+                      : "問い合わせを送信しました！"}
                   </h1>
-                  <p className="text-green-700">
-                    {inquiryStatus.totalFacilities}
-                    件の施設に問い合わせメールを送信いたしました。
-                    各施設からの返信をお待ちください。
+                  <p
+                    className={
+                      inquiryStatus.isDemoMode
+                        ? "text-amber-700"
+                        : "text-green-700"
+                    }
+                  >
+                    {inquiryStatus.totalFacilities}件の施設に
+                    {inquiryStatus.isDemoMode
+                      ? "デモ問い合わせを実行いたしました。"
+                      : "問い合わせメールを送信いたしました。"}
+                    {!inquiryStatus.isDemoMode &&
+                      "各施設からの返信をお待ちください。"}
                   </p>
                 </div>
               </div>
@@ -172,7 +210,9 @@ export default function InquirySentPage() {
               <div className="text-2xl font-bold text-blue-900">
                 {inquiryStatus.totalFacilities}
               </div>
-              <div className="text-sm text-gray-600">送信対象施設</div>
+              <div className="text-sm text-gray-600">
+                {inquiryStatus.isDemoMode ? "デモ対象施設" : "送信対象施設"}
+              </div>
             </CardContent>
           </Card>
 
@@ -182,7 +222,9 @@ export default function InquirySentPage() {
               <div className="text-2xl font-bold text-green-900">
                 {inquiryStatus.successCount}
               </div>
-              <div className="text-sm text-gray-600">送信成功</div>
+              <div className="text-sm text-gray-600">
+                {inquiryStatus.isDemoMode ? "デモ成功" : "送信成功"}
+              </div>
             </CardContent>
           </Card>
 
@@ -192,7 +234,9 @@ export default function InquirySentPage() {
               <div className="text-2xl font-bold text-amber-900">
                 {inquiryStatus.failureCount}
               </div>
-              <div className="text-sm text-gray-600">送信失敗</div>
+              <div className="text-sm text-gray-600">
+                {inquiryStatus.isDemoMode ? "デモ失敗" : "送信失敗"}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -200,7 +244,9 @@ export default function InquirySentPage() {
         {/* 詳細結果 */}
         <Card>
           <CardHeader>
-            <CardTitle>送信結果詳細</CardTitle>
+            <CardTitle>
+              {inquiryStatus.isDemoMode ? "デモ実行結果詳細" : "送信結果詳細"}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -228,7 +274,13 @@ export default function InquirySentPage() {
                       result.success ? "bg-green-600 hover:bg-green-700" : ""
                     }
                   >
-                    {result.success ? "送信完了" : "送信失敗"}
+                    {inquiryStatus.isDemoMode
+                      ? result.success
+                        ? "デモ成功"
+                        : "デモ失敗"
+                      : result.success
+                        ? "送信完了"
+                        : "送信失敗"}
                   </Badge>
                 </div>
               ))}
@@ -237,27 +289,55 @@ export default function InquirySentPage() {
         </Card>
 
         {/* 次のステップ案内 */}
-        <Card className="mt-6 bg-blue-50 border-blue-200">
-          <CardContent className="pt-6">
-            <h3 className="font-bold text-blue-900 mb-3">📬 今後の流れ</h3>
-            <div className="space-y-2 text-sm text-blue-800">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                <span>各施設から直接メールで返信が届きます</span>
+        {!inquiryStatus.isDemoMode && (
+          <Card className="mt-6 bg-blue-50 border-blue-200">
+            <CardContent className="pt-6">
+              <h3 className="font-bold text-blue-900 mb-3">📬 今後の流れ</h3>
+              <div className="space-y-2 text-sm text-blue-800">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <span>各施設から直接メールで返信が届きます</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <span>
+                    返信メールに直接返答することで、施設とやり取りできます
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <span>通常1-3営業日以内に返信がある場合が多いです</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                <span>
-                  返信メールに直接返答することで、施設とやり取りできます
-                </span>
+            </CardContent>
+          </Card>
+        )}
+
+        {inquiryStatus.isDemoMode && (
+          <Card className="mt-6 bg-gray-50 border-gray-200">
+            <CardContent className="pt-6">
+              <h3 className="font-bold text-gray-900 mb-3">
+                🎯 デモモードについて
+              </h3>
+              <div className="space-y-2 text-sm text-gray-700">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  <span>実際のメール送信は行われませんでした</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  <span>
+                    問い合わせデータは正常にデータベースに記録されています
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+                  <span>本番環境では実際に施設にメールが送信されます</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                <span>通常1-3営業日以内に返信がある場合が多いです</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
 
         {/* 管理情報 */}
         <Card className="mt-6">
@@ -267,8 +347,14 @@ export default function InquirySentPage() {
             </h3>
             <div className="bg-gray-100 p-3 rounded-lg font-mono text-sm space-y-1">
               <div>問い合わせID: {inquiryStatus.inquiryId}</div>
-              <div>送信日時: {new Date().toLocaleString("ja-JP")}</div>
-              <div>ステータス: 送信完了</div>
+              <div>実行日時: {new Date().toLocaleString("ja-JP")}</div>
+              <div>
+                ステータス:{" "}
+                {inquiryStatus.isDemoMode ? "デモ実行完了" : "送信完了"}
+              </div>
+              <div>
+                モード: {inquiryStatus.isDemoMode ? "デモモード" : "本番モード"}
+              </div>
             </div>
             <p className="text-xs text-gray-500 mt-2">
               ※
