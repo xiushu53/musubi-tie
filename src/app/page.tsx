@@ -2,6 +2,7 @@ import {
   BarChart3,
   Database,
   ExternalLink,
+  HeartHandshake,
   Info,
   Mail,
   Map as MapIcon,
@@ -29,12 +30,15 @@ const HomePage = () => {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-white" aria-hidden="true" />
+            <div className="flex items-center space-x-2">
+              <div className="rounded-lg flex items-center justify-center">
+                <HeartHandshake className="text-[#FF7F50]" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Musubi Tie - むすびたい
+              <h1 className="text-2xl font-bold text-[#FF7F50]">
+                Musubi Tie
+                <span className="text-gray-900 text-base ml-4">
+                  むすび・たい
+                </span>
               </h1>
             </div>
             <Badge
@@ -54,8 +58,11 @@ const HomePage = () => {
             福祉施設アクセシビリティ可視化・検索
           </h2>
           <p className="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">
-            特定の福祉施設へのアクセシビリティを地図上で多角的に可視化し、
-            ユーザーの現在地から高速に施設を検索するためのWebアプリケーション
+            施設の地理的高速検索と一括問い合わせから、
+            <br />
+            ニーズを地図上に可視化する Webアプリケーション
+            <br />
+            「Musubi Tie(むすび・たい)」
           </p>
 
           <Alert className="max-w-2xl mx-auto mb-8 bg-amber-50 border-amber-200">
