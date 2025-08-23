@@ -1,4 +1,5 @@
-// src/app/api/analytics/inquiry-origins/route.ts
+// src/app/api/analytics/inquiry-origins/route.ts - 修正版
+
 import { type NextRequest, NextResponse } from "next/server";
 import { KDE_CONFIG, TOKYO_AREA_BOUNDS } from "@/_settings/analytics";
 import { prisma } from "@/lib/prisma";
@@ -199,6 +200,8 @@ export async function GET(request: NextRequest) {
           gte: startDate,
           lte: endDate,
         },
+        searchLatitude: { not: undefined }, // 修正: null チェックを追加
+        searchLongitude: { not: undefined }, // 修正: null チェックを追加
       },
       select: {
         id: true,
@@ -218,7 +221,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    console.log(`📍 取得した問い合わせ: ${inquiries.length}件`);
+    console.log(`🔍 取得した問い合わせ: ${inquiries.length}件`);
 
     // 実際の発信地点をメッシュ別に集計
     const originalMeshMap = new Map<
@@ -234,6 +237,12 @@ export async function GET(request: NextRequest) {
     >();
 
     for (const inquiry of inquiries) {
+      // null チェック（念のため）
+      if (!inquiry.searchLatitude || !inquiry.searchLongitude) {
+        console.warn(`⚠️ 座標が null の inquiry をスキップ: ${inquiry.id}`);
+        continue;
+      }
+
       const meshId = calculateMeshId(
         inquiry.searchLatitude,
         inquiry.searchLongitude,
@@ -263,6 +272,12 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    console.log(`🔧 実データメッシュ数: ${originalMeshMap.size}個`);
+    console.log(
+      `🔍 実データメッシュIDサンプル:`,
+      Array.from(originalMeshMap.keys()).slice(0, 5)
+    );
+
     let finalMeshTiles: MeshTile[];
 
     if (useKDE && originalMeshMap.size > 0) {
@@ -281,6 +296,8 @@ export async function GET(request: NextRequest) {
         }
       );
 
+      console.log(`🎯 KDE計算用発信地点: ${originPoints.length}個`);
+
       // 東京エリア全体のメッシュを生成
       const allMeshes = generateAllMeshTiles(meshSize);
       console.log(`📊 KDE計算対象メッシュ: ${allMeshes.length}個`);
@@ -294,9 +311,10 @@ export async function GET(request: NextRequest) {
             originPoints
           );
 
-          // 実際の発信地点かどうかをチェック
+          // 実際の発信地点かどうかをチェック（修正: より厳密に）
           const originalData = originalMeshMap.get(mesh.id);
-          const isOriginalData = !!originalData;
+          const isOriginalData =
+            !!originalData && originalData.inquiryCount > 0;
 
           return {
             id: mesh.id,
@@ -315,7 +333,7 @@ export async function GET(request: NextRequest) {
 
             // KDE計算結果
             interpolatedDensity,
-            isOriginalData,
+            isOriginalData, // 修正: より正確な判定
           };
         })
         // 最小密度閾値以上のメッシュのみ残す
@@ -325,11 +343,20 @@ export async function GET(request: NextRequest) {
             mesh.isOriginalData // 実データがあるメッシュは必ず含める
         );
 
+      const originalCount = finalMeshTiles.filter(
+        (m) => m.isOriginalData
+      ).length;
+      const interpolatedCount = finalMeshTiles.filter(
+        (m) => !m.isOriginalData
+      ).length;
+
       console.log(
-        `🎨 KDE計算完了: ${finalMeshTiles.length}メッシュ（実データ${originalMeshMap.size}個 + 補間${finalMeshTiles.length - originalMeshMap.size}個）`
+        `🎨 KDE計算完了: ${finalMeshTiles.length}メッシュ（実データ${originalCount}個 + 補間${interpolatedCount}個）`
       );
     } else {
       // === 従来方式: 実データのみ ===
+      console.log(`📍 実データのみモード`);
+
       finalMeshTiles = Array.from(originalMeshMap.entries()).map(
         ([meshId, data]) => {
           const [centerLat, centerLon] = getMeshCenter(meshId, meshSize);
@@ -346,10 +373,12 @@ export async function GET(request: NextRequest) {
             recentInquiries: data.inquiryIds.slice(-5),
             bbox,
             interpolatedDensity: data.inquiryCount, // 実データ = そのまま
-            isOriginalData: true,
+            isOriginalData: true, // すべて実データ
           };
         }
       );
+
+      console.log(`📊 実データメッシュ: ${finalMeshTiles.length}個`);
     }
 
     // 統計サマリー（KDE対応）
@@ -362,11 +391,21 @@ export async function GET(request: NextRequest) {
       0
     );
 
+    const originalDataMeshes = finalMeshTiles.filter(
+      (m) => m.isOriginalData
+    ).length;
+    const interpolatedMeshes = finalMeshTiles.filter(
+      (m) => !m.isOriginalData
+    ).length;
+
+    console.log(
+      `🔢 統計: 実データ${originalDataMeshes}個, 補間${interpolatedMeshes}個, 最大密度${maxDensity.toFixed(2)}`
+    );
+
     const summary = {
       totalMeshTiles: finalMeshTiles.length,
-      originalDataMeshes: finalMeshTiles.filter((m) => m.isOriginalData).length,
-      interpolatedMeshes: finalMeshTiles.filter((m) => !m.isOriginalData)
-        .length,
+      originalDataMeshes, // 修正: 正確な値
+      interpolatedMeshes, // 修正: 正確な値
       totalInquiries: inquiries.length,
       totalUniqueUsers: new Set(inquiries.map((i) => i.userEmail)).size,
       maxInquiriesPerMesh: maxOriginalCount,
