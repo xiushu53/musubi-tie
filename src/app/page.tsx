@@ -34,7 +34,7 @@ const HomePage = () => {
                 <MapPin className="w-5 h-5 text-white" aria-hidden="true" />
               </div>
               <h1 className="text-2xl font-bold text-gray-900">
-                Unique Family Ties
+                Musubi Tie - むすびたい
               </h1>
             </div>
             <Badge

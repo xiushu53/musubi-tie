@@ -1,6 +1,6 @@
-# Reach You - 福祉施設アクセシビリティ可視化・検索
+# Musubi Tie (むすび・たい) - 福祉施設アクセシビリティ可視化・検索
 
-Reach Youは、特定の福祉施設へのアクセシビリティを地図上で多角的に可視化し、ユーザーの現在地から高速に施設を検索するためのWebアプリケーションです。
+Musubi Tieは、特定の福祉施設へのアクセシビリティを地図上で多角的に可視化し、ユーザーの現在地から高速に施設を検索するためのWebアプリケーションです。
 
 ## 都知事杯オープンデータハッカソン2025 提出作品
 ### 使用データ
@@ -95,8 +95,8 @@ Reach Youは、特定の福祉施設へのアクセシビリティを地図上�
 ### 1. リポジトリのクローン
 
 ```bash
-git clone https://github.com/your-username/reach-you.git
-cd reach-you
+git clone git@github.com:xiushu53/musubi-tie.git
+cd musubi-tie
 ```
 
 ### 2. 依存関係のインストール
