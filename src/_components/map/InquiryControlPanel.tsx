@@ -1,9 +1,10 @@
-// src/_components/map/InquiryControlPanel.tsx
+// src/_components/map/InquiryControlPanel.tsx (エクスポート機能追加版)
 import {
   BarChart3,
   ChevronDown,
   ChevronUp,
   Clock,
+  // Download, // 追加
   MapPin,
   MessageCircle,
   TrendingUp,
@@ -29,6 +30,7 @@ import type {
   VisualizationMode,
 } from "@/_hooks/useInquiryMapLayers";
 import { KDE_CONFIG } from "@/_settings/analytics";
+import ExportButton from "./ExportButton"; // エクスポートボタンをインポート
 
 interface InquiryControlPanelProps {
   visualizationMode: VisualizationMode;
@@ -123,7 +125,7 @@ export default function InquiryControlPanel({
       description: "市区町村の境界線と問い合わせ密度",
     },
     {
-      key: "allFacilities" as const, // ← この設定を追加
+      key: "allFacilities" as const,
       label: "全施設位置",
       description: "すべての施設の基本位置（ライトグレー）",
     },
@@ -132,26 +134,11 @@ export default function InquiryControlPanel({
       label: "施設ヒートマップ",
       description: "選択した指標による施設の色分け表示",
     },
-    // {
-    //   key: "icons" as const,
-    //   label: "施設アイコン",
-    //   description: "施設のパフォーマンスアイコン",
-    // },
-    // {
-    //   key: "labels" as const,
-    //   label: "数値ラベル",
-    //   description: "上位施設の数値表示",
-    // },
     {
       key: "originMesh" as const,
       label: "発信地点メッシュ",
       description: `${KDE_CONFIG.MESH_SIZE}mメッシュによる問い合わせ発信密度`,
     },
-    // {
-    //   key: "originPoints" as const,
-    //   label: "発信地点マーカー",
-    //   description: "個別の問い合わせ発信地点",
-    // },
   ];
 
   const activeLayersCount =
@@ -258,6 +245,21 @@ export default function InquiryControlPanel({
                 ))}
               </div>
 
+              {/* データエクスポート */}
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-gray-700">
+                  📤 データエクスポート
+                </div>
+                <ExportButton
+                  facilityType={facilityType}
+                  timeRange={timeRange}
+                  className="w-full"
+                />
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  発信地点メッシュデータをGeoJSON形式で出力
+                </p>
+              </div>
+
               {/* トップパフォーマー */}
               <div className="space-y-2">
                 <Collapsible
@@ -321,6 +323,7 @@ export default function InquiryControlPanel({
                     <li>• 発信地点メッシュで需要エリア把握</li>
                     <li>• 可視化モードで異なる指標を表示</li>
                     <li>• レイヤーのON/OFFで表示を調整</li>
+                    <li>• GeoJSONエクスポートで外部分析</li>
                   </ul>
                 </div>
               </div>
