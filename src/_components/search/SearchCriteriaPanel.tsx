@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, ChevronUp, Filter } from "lucide-react";
+import { ChevronDown, ChevronUp, Filter, Info } from "lucide-react";
 import { LocationInput } from "@/_components/search/LocationInput";
 import { SearchSettings } from "@/_components/search/SearchSettings";
 import {
@@ -15,6 +15,11 @@ import {
   CollapsibleTrigger,
 } from "@/_components/ui/collapsible";
 import { Label } from "@/_components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/_components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -97,12 +102,43 @@ export function SearchCriteriaPanel({
           <CardContent className="space-y-4 pt-0">
             {/* 施設タイプ選択 */}
             <div>
-              <Label className="text-sm font-medium">施設タイプ</Label>
+              <div className="flex items-center justify-between mb-1">
+                <Label className="text-sm font-medium">施設タイプ</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800"
+                    >
+                      <Info className="h-3 w-3" />
+                      <span>説明</span>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="space-y-2">
+                      <h4 className="font-medium leading-none">
+                        {
+                          FACILITY_TYPES.find(
+                            (type) => type.value === selectedFacilityType
+                          )?.label
+                        }
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {
+                          FACILITY_TYPES.find(
+                            (type) => type.value === selectedFacilityType
+                          )?.description
+                        }
+                      </p>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
               <Select
                 value={selectedFacilityType}
                 onValueChange={setSelectedFacilityType}
               >
-                <SelectTrigger className="w-full mt-1">
+                <SelectTrigger className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
