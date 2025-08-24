@@ -7,11 +7,11 @@ import { Card } from "@/_components/ui/card";
 import { Label } from "@/_components/ui/label";
 import { Textarea } from "@/_components/ui/textarea";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
-import type { SelectedFacilityInfo } from "@/_stores/inquiryStore";
+import type { SelectedFacility } from "@/_stores/inquiryStore";
 import { formatDistance } from "@/_utils/formatDistance";
 
 interface InquiryFacilityCardProps {
-  selectedInfo: SelectedFacilityInfo;
+  selectedInfo: SelectedFacility;
   index: number;
   message: string;
   onMessageChange: (facilityId: number, message: string) => void;
