@@ -11,7 +11,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/_components/ui/tabs";
-import type { UserLocation } from "@/app/search/page";
+import type { UserLocation } from "@/types";
 
 interface LocationInputProps {
   userLocation: UserLocation | null;
@@ -19,7 +19,7 @@ interface LocationInputProps {
   locationError: string | null;
   getCurrentLocation: () => void;
   address: string;
-  setAddress: Dispatch<SetStateAction<string>>;
+  setAddress: (address: string) => void;
   isGeocoding: boolean;
   geocodingError: string | null;
   handleAddressSearch: () => void;

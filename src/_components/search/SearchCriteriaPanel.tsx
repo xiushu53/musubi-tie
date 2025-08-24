@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/_components/ui/select";
-import type { SearchMethod } from "@/_hooks/useFacilitySearch";
+import type { SearchMethod } from "@/_hooks/useGeohashSearch";
 import { FACILITY_TYPES } from "@/_settings/visualize-map";
 import type { UserLocation } from "@/types";
 

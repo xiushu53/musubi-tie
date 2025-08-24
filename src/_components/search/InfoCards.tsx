@@ -13,7 +13,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/_components/ui/collapsible";
-import type { UserLocation } from "@/app/search/page";
+import type { UserLocation } from "@/types";
 
 export type IndexInfo = {
   dataSource: string;

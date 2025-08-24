@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import type { UserLocation } from "@/app/search/page";
+import type { UserLocation } from "@/types";
 
 export function useLocation() {
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);

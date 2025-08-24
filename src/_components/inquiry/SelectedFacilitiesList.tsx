@@ -7,11 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/_components/ui/card";
-import type { SelectedFacilityInfo } from "@/_stores/inquiryStore";
+import type { SelectedFacility } from "@/_stores/inquiryStore";
 import { InquiryFacilityCard } from "./InquiryFacilityCard";
 
 interface SelectedFacilitiesListProps {
-  selectedFacilities: SelectedFacilityInfo[];
+  selectedFacilities: SelectedFacility[];
   facilityMessages: Record<number, string>;
   onFacilityMessageChange: (facilityId: number, message: string) => void;
   onRemoveFacility: (facilityId: number) => void;

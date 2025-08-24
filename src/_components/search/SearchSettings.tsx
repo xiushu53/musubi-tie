@@ -13,16 +13,16 @@ import {
   SelectValue,
 } from "@/_components/ui/select";
 import { Slider } from "@/_components/ui/slider";
+import type { SearchMethod } from "@/_hooks/useGeohashSearch";
 import { formatDistance } from "@/_utils/formatDistance";
-import type { SearchMethod } from "@/hooks/useGeohashSearch";
 
 interface SearchSettingsProps {
   searchRadius: number;
-  setSearchRadius: Dispatch<SetStateAction<number>>;
+  setSearchRadius: (radius: number) => void;
   nameFilter: string;
-  setNameFilter: Dispatch<SetStateAction<string>>;
+  setNameFilter: (filter: string) => void;
   searchMethod: string;
-  setSearchMethod: Dispatch<SetStateAction<string>>;
+  setSearchMethod: (method: string) => void;
   searchMethods: SearchMethod[];
   runPerformanceTest: () => void;
 }
