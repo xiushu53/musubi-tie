@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && node scripts/generateGeohashData.mjs && next build",
+    "build": "prisma generate && prisma migrate deploy && tsx scripts/migrate-facilities.ts && tsx scripts/seed-dummy-inquiries.ts && node scripts/generateGeohashData.mjs && next build",
     "generate-geohash": "node scripts/generateGeohashData.mjs",
     "generate-geohash:single": "node scripts/generateGeohashData.mjs",
     "clean-geohash": "rimraf public/data",
@@ -17,7 +17,12 @@
     "check:fix": "biome check --write .",
     "dummy:add": "tsx scripts/add-dummy-data.ts",
     "dummy:clear": "tsx scripts/add-dummy-data.ts clear",
-    "dummy:reset": "pnpm dummy:clear && pnpm dummy:add"
+    "dummy:reset": "pnpm dummy:clear && pnpm dummy:add",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@deck.gl/core": "^9.1.14",
