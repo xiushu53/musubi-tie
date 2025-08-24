@@ -1,232 +1,191 @@
-// scripts/migrate-facilities.ts
-import { PrismaClient } from '@prisma/client'
-import fs from 'fs'
-import path from 'path'
+#!/usr/bin/env tsx
 
-const prisma = new PrismaClient()
+/**
+ * 施設データをJSONファイルからデータベースに移行するスクリプト
+ * Vercel環境対応版
+ */
 
-// 住所から都道府県を抽出
-function extractPrefecture(address: string): string {
-  const prefectures = [
-    '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
-    '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
-    '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
-    '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
-    '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
-    '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
-    '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
-  ]
-  
-  const found = prefectures.find(pref => address.includes(pref))
-  return found || '不明'
-}
+import { PrismaClient } from '@prisma/client';
+import { readFileSync, readdirSync } from 'fs';
+import { join } from 'path';
 
-// 住所から市区町村を抽出
-function extractCity(address: string): string {
-  // 市区町村のパターンマッチング
-  const patterns = [
-    /([\u4e00-\u9faf]+市)/,     // ○○市
-    /([\u4e00-\u9faf]+区)/,     // ○○区
-    /([\u4e00-\u9faf]+町)/,     // ○○町
-    /([\u4e00-\u9faf]+村)/,     // ○○村
-  ]
-  
-  for (const pattern of patterns) {
-    const match = address.match(pattern)
-    if (match) {
-      return match[1]
-    }
+// Prismaクライアントの接続管理を改善
+let prisma: PrismaClient;
+
+async function initializePrisma() {
+  if (!prisma) {
+    prisma = new PrismaClient({
+      log: ['error'],
+    });
+    
+    // 明示的に接続
+    await prisma.$connect();
+    console.log('✅ Database connected');
   }
-  
-  return '不明'
-}
-
-// メールアドレス生成（仮設定）
-function generateFacilityEmail(facility: any, facilityType: string): string {
-  // 実際の運用では各施設の正しいメールアドレスを設定する必要があります
-  // 現在は開発用の仮アドレス
-  return `${facilityType}-${facility.id}@example.com`
-}
-
-// 全施設タイプのJSONファイルを読み込み
-function loadAllFacilityData(): Array<{id: number, name: string, address: string, lat: number, lon: number, facilityType: string}> {
-  const facilityTypes = [
-    { type: 'asds', file: 'public/asds/facilities.json' },
-    { type: 'ccd', file: 'public/ccd/facilities.json' },
-    { type: 'pco', file: 'public/pco/facilities.json' },
-    { type: 'sept-a', file: 'public/sept-a/facilities.json' },
-    { type: 'sept-b', file: 'public/sept-b/facilities.json' },
-  ]
-  
-  const allFacilities: any[] = []
-  let globalId = 0 // 全施設で一意のIDを割り当て
-
-  facilityTypes.forEach(({ type, file }) => {
-    if (!fs.existsSync(file)) {
-      console.warn(`⚠️  ${file} が見つかりません。スキップします。`)
-      return
-    }
-
-    try {
-      const data = JSON.parse(fs.readFileSync(file, 'utf8'))
-      console.log(`📁 ${file}: ${data.length}件読み込み`)
-      
-      // 各施設に施設タイプとグローバルIDを付与
-      const facilitiesWithType = data.map((facility: any) => ({
-        ...facility,
-        id: globalId++, // 新しい一意IDを割り当て
-        originalId: facility.id, // 元のIDを保持
-        facilityType: type,
-      }))
-      
-      allFacilities.push(...facilitiesWithType)
-    } catch (error) {
-      console.error(`❌ ${file} の読み込みエラー:`, error)
-    }
-  })
-
-  console.log(`\n📊 総施設数: ${allFacilities.length}件`)
-  return allFacilities
+  return prisma;
 }
 
 async function migrateFacilities() {
+  console.log('🚀 施設データ移行開始...');
+
   try {
-    console.log('🚀 全施設データ移行を開始...')
-    
-    // 全施設タイプのJSONファイルを読み込み
-    const allFacilitiesData = loadAllFacilityData()
-    
-    if (allFacilitiesData.length === 0) {
-      console.error('❌ 移行対象のデータが見つかりません')
-      return
+    // Prismaクライアントの初期化
+    const client = await initializePrisma();
+
+    // 既存データの確認
+    const existingCount = await client.facility.count();
+    console.log(`📊 既存施設数: ${existingCount}`);
+
+    if (existingCount > 0) {
+      console.log('⚠️ 既存データが存在します。スキップします。');
+      return;
     }
-    
-    // 既存データクリア（開発時のみ）
-    console.log('🧹 既存データをクリア...')
-    await prisma.inquiryItem.deleteMany()
-    await prisma.inquiry.deleteMany() 
-    await prisma.facility.deleteMany()
-    
-    // データ変換と検証
-    console.log('🔄 データ変換中...')
-    const facilities = allFacilitiesData.map((f: any, index: number) => {
-      // 必須フィールドチェック
-      if (f.id === undefined) throw new Error(`施設${index}: IDが不正`)
-      if (!f.name) throw new Error(`施設${index}: 名前が不正`)
-      if (!f.address) throw new Error(`施設${index}: 住所が不正`)
-      if (typeof f.lat !== 'number') throw new Error(`施設${index}: 緯度が不正`)
-      if (typeof f.lon !== 'number') throw new Error(`施設${index}: 経度が不正`)
+
+    // データ移行処理
+    let totalInserted = 0;
+    let totalSkipped = 0;
+
+    const publicDir = join(process.cwd(), 'public');
+    const facilityDirs = readdirSync(publicDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('.'))
+      .map(dirent => dirent.name);
+
+    for (const dirName of facilityDirs) {
+      const facilitiesPath = join(publicDir, dirName, 'facilities.json');
       
-      const prefecture = extractPrefecture(f.address)
-      const city = extractCity(f.address)
-      
-      return {
-        id: f.id,
-        name: f.name,
-        address: f.address,
-        latitude: f.lat,
-        longitude: f.lon,
-        facilityType: f.facilityType,
-        email: generateFacilityEmail(f, f.facilityType),
-        prefecture,
-        city,
-      }
-    })
-    
-    // バッチ挿入
-    console.log('💾 データベースに挿入中...')
-    
-    // 1件ずつ upsert で安全に挿入
-    let insertedCount = 0
-    let skippedCount = 0
-    
-    for (const facility of facilities) {
       try {
-        await prisma.facility.upsert({
-          where: { id: facility.id },
-          update: {}, // 既存データがあっても更新しない
-          create: facility
-        })
-        insertedCount++
+        console.log(`📂 処理中: ${dirName}...`);
+        const facilitiesData = JSON.parse(readFileSync(facilitiesPath, 'utf-8'));
+        
+        if (!Array.isArray(facilitiesData)) {
+          console.warn(`⚠️ 無効なデータ形式: ${dirName}/facilities.json`);
+          continue;
+        }
+
+        // バッチ処理で効率化
+        const batchSize = 100;
+        for (let i = 0; i < facilitiesData.length; i += batchSize) {
+          const batch = facilitiesData.slice(i, i + batchSize);
+          
+          for (const facility of batch) {
+            try {
+              await client.facility.create({
+                data: {
+                  id: facility.id,
+                  name: facility.name || '',
+                  email: facility.email || `contact-${facility.id}@example.com`,
+                  address: facility.address || '',
+                  latitude: facility.latitude || 0,
+                  longitude: facility.longitude || 0,
+                  facilityType: mapFacilityType(dirName),
+                  prefecture: facility.prefecture || extractPrefecture(facility.address || ''),
+                  city: facility.city || extractCity(facility.address || ''),
+                }
+              });
+              
+              totalInserted++;
+              
+            } catch (error: any) {
+              if (error.code === 'P2002') {
+                // 重複エラーはスキップ
+                totalSkipped++;
+              } else {
+                console.error(`❌ 施設登録エラー ${facility.id}:`, error.message);
+                totalSkipped++;
+              }
+            }
+          }
+          
+          // 進捗表示
+          if ((i + batchSize) % 500 === 0 || i + batchSize >= facilitiesData.length) {
+            console.log(`📊 ${dirName}: ${Math.min(i + batchSize, facilitiesData.length)}/${facilitiesData.length}`);
+          }
+        }
+        
+        console.log(`✅ ${dirName} 完了`);
+        
       } catch (error) {
-        console.warn(`⚠️  施設ID${facility.id}のスキップ: ${error}`)
-        skippedCount++
+        console.warn(`⚠️ ${dirName} 処理できませんでした:`, error);
+        continue;
       }
     }
-    
-    console.log(`✅ 挿入完了: ${insertedCount}件, スキップ: ${skippedCount}件`)
-    
-    console.log('✅ 全施設データ移行完了！')
-    
-    // 統計情報表示
-    const stats = await prisma.facility.groupBy({
-      by: ['prefecture', 'facilityType'],
-      _count: { id: true }
-    })
-    
-    const totalCount = await prisma.facility.count()
-    
-    console.log(`\n📊 移行完了統計:`)
-    console.log(`総施設数: ${totalCount}件`)
-    
-    console.log(`\n🏢 施設タイプ別:`)
-    const typeStats = await prisma.facility.groupBy({
-      by: ['facilityType'],
-      _count: { id: true }
-    })
-    typeStats.forEach(stat => {
-      const typeName = {
-        'asds': '放課後等デイサービス',
-        'ccd': '障害児相談支援事業所', 
-        'pco': 'PCO',
-        'sept-a': '就労継続支援A',
-        'sept-b': '就労継続支援B'
-      }[stat.facilityType] || stat.facilityType
-      
-      console.log(`  ${typeName}: ${stat._count.id}件`)
-    })
-    
-    console.log(`\n📍 都道府県別（上位5位）:`)
-    const prefStats = await prisma.facility.groupBy({
-      by: ['prefecture'],
-      _count: { id: true },
-      orderBy: { _count: { id: 'desc' } }
-    })
-    prefStats.slice(0, 5).forEach(stat => {
-      console.log(`  ${stat.prefecture}: ${stat._count.id}件`)
-    })
-    
-    // サンプルデータ表示
-    const sampleFacilities = await prisma.facility.findMany({
-      take: 3,
-      select: {
-        id: true,
-        name: true,
-        prefecture: true,
-        city: true,
-        facilityType: true
-      }
-    })
-    
-    console.log(`\n🏢 サンプル施設:`)
-    sampleFacilities.forEach(f => {
-      console.log(`  ID:${f.id} ${f.name} (${f.prefecture}${f.city}, ${f.facilityType})`)
-    })
-    
+
+    console.log(`✅ 挿入完了: ${totalInserted}件, スキップ: ${totalSkipped}件`);
+    console.log('✅ 全施設データ移行完了！');
+
   } catch (error) {
-    console.error('❌ 移行エラー:', error)
-    process.exit(1)
-  } finally {
-    await prisma.$disconnect()
+    console.error('❌ 移行エラー:', error);
+    throw error; // Vercel buildを失敗させる
   }
 }
 
-// スクリプト実行
-if (require.main === module) {
-  migrateFacilities()
+// 施設タイプマッピング
+function mapFacilityType(dirName: string): string {
+  const mapping: Record<string, string> = {
+    '放課後等デイサービス事業所': 'after-school-day-service',
+    '障害児相談支援事業所': 'disabled-child-consultation',
+    '計画相談事業所': 'consultation-planning',
+    '就労継続支援（Ａ型）事業所': 'continuous-employment-support-a',
+    '就労継続支援（Ｂ型）事業所': 'continuous-employment-support-b'
+  };
+  
+  return mapping[dirName] || dirName;
 }
 
-// スクリプト実行
-if (require.main === module) {
-  migrateFacilities()
+// 都道府県抽出
+function extractPrefecture(address: string): string {
+  const prefectures = ['東京都', '大阪府', '京都府', '北海道'];
+  const prefectureSuffixes = ['県', '府', '都', '道'];
+  
+  for (const prefecture of prefectures) {
+    if (address.includes(prefecture)) {
+      return prefecture;
+    }
+  }
+  
+  for (const suffix of prefectureSuffixes) {
+    const match = address.match(new RegExp(`(.+?${suffix})`));
+    if (match) {
+      return match[1];
+    }
+  }
+  
+  return '東京都';
 }
+
+// 市区町村抽出
+function extractCity(address: string): string {
+  const citySuffixes = ['市', '区', '町', '村'];
+  
+  for (const suffix of citySuffixes) {
+    const match = address.match(new RegExp(`[都道府県](.+?${suffix})`));
+    if (match) {
+      return match[1];
+    }
+  }
+  
+  return '';
+}
+
+// メイン実行
+async function main() {
+  try {
+    await migrateFacilities();
+  } finally {
+    // 確実に接続を切断
+    if (prisma) {
+      await prisma.$disconnect();
+      console.log('✅ Database disconnected');
+    }
+  }
+}
+
+// スクリプトが直接実行された場合のみ実行
+if (require.main === module) {
+  main().catch((error) => {
+    console.error('❌ スクリプト実行エラー:', error);
+    process.exit(1);
+  });
+}
+
+export { migrateFacilities };
