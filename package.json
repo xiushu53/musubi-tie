@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "prisma generate && prisma db push --accept-data-loss && tsx scripts/migrate-facilities.ts && tsx scripts/seed-dummy-inquiries.ts && node scripts/generateGeohashData.mjs && next build",
+    "build": "prisma generate && prisma db push --accept-data-loss && tsx scripts/migrate-facilities.ts && tsx scripts/add-dummy-data.ts && node scripts/generateGeohashData.mjs && next build",
     "generate-geohash": "node scripts/generateGeohashData.mjs",
     "generate-geohash:single": "node scripts/generateGeohashData.mjs",
     "clean-geohash": "rimraf public/data",
